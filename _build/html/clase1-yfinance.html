@@ -1,0 +1,3613 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Yahoo! Finance &#8212; Apunte Finanzas Computacionales</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clase1-yfinance';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Apunte Finanzas Computacionales - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Apunte Finanzas Computacionales - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Yahoo! Finance</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase1-yfinance.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/clase1-yfinance.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Yahoo! Finance</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descargar-datos-historicos-ohlcv">Descargar datos históricos OHLCV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usando-el-metodo-ticker">Usando el método <code class="docutils literal notranslate"><span class="pre">Ticker</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-la-empresa">Información de la empresa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-anual-y-trimestral">Balance anual y trimestral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estado-de-resultados-anual-y-trimestral">Estado de resultados anual y trimestral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noticias">Noticias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fechas-expiracion-opciones">Fechas expiración opciones</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="yahoo-finance">
+<h1>1. Yahoo! Finance<a class="headerlink" href="#yahoo-finance" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install yfinance
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting yfinance
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading yfinance-0.2.66-py2.py3-none-any.whl.metadata (6.0 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pandas&gt;=1.3.0 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+?25l     <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/91.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">10.2/91.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">30.7/91.2 kB</span> <span class=" -Color -Color-Red">661.7 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">30.7/91.2 kB</span> <span class=" -Color -Color-Red">661.7 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">41.0/91.2 kB</span> <span class=" -Color -Color-Red">312.8 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">61.4/91.2 kB</span> <span class=" -Color -Color-Red">376.2 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">61.4/91.2 kB</span> <span class=" -Color -Color-Red">376.2 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">91.2/91.2 kB</span> <span class=" -Color -Color-Red">366.5 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting numpy&gt;=1.16.5 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading numpy-2.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+?25l     <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/62.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">62.1/62.1 kB</span> <span class=" -Color -Color-Red">3.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hRequirement already satisfied: requests&gt;=2.31 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from yfinance) (2.32.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting multitasking&gt;=0.0.7 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading multitasking-0.0.12.tar.gz (19 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Preparing metadata (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25hRequirement already satisfied: platformdirs&gt;=2.0.0 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from yfinance) (4.5.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pytz&gt;=2022.5 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting frozendict&gt;=2.3.4 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading frozendict-2.4.6-py312-none-any.whl.metadata (23 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting peewee&gt;=3.16.2 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading peewee-3.18.2.tar.gz (949 kB)
+?25l     <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/949.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">30.7/949.2 kB</span> <span class=" -Color -Color-Red">1.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">71.7/949.2 kB</span> <span class=" -Color -Color-Red">947.0 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">112.6/949.2 kB</span> <span class=" -Color -Color-Red">1.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">143.4/949.2 kB</span> <span class=" -Color -Color-Red">1.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">194.6/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">225.3/949.2 kB</span> <span class=" -Color -Color-Red">1.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">276.5/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">317.4/949.2 kB</span> <span class=" -Color -Color-Red">1.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">358.4/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">399.4/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">450.6/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">481.3/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">532.5/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">583.7/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">614.4/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━</span> <span class=" -Color -Color-Green">686.1/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━</span> <span class=" -Color -Color-Green">727.0/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━</span> <span class=" -Color -Color-Green">768.0/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━</span> <span class=" -Color -Color-Green">829.4/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━</span> <span class=" -Color -Color-Green">880.6/949.2 kB</span> <span class=" -Color -Color-Red">1.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">942.1/949.2 kB</span> <span class=" -Color -Color-Red">1.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">949.2/949.2 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Installing build dependencies ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> /
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Getting requirements to build wheel ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Preparing metadata (pyproject.toml) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25hRequirement already satisfied: beautifulsoup4&gt;=4.11.1 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from yfinance) (4.14.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting curl_cffi&gt;=0.7 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading curl_cffi-0.13.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting protobuf&gt;=3.19.0 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading protobuf-6.32.1-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting websockets&gt;=13.0 (from yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading websockets-15.0.1-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: soupsieve&gt;1.2 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from beautifulsoup4&gt;=4.11.1-&gt;yfinance) (2.8)
+Requirement already satisfied: typing-extensions&gt;=4.0.0 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from beautifulsoup4&gt;=4.11.1-&gt;yfinance) (4.15.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting cffi&gt;=1.12.0 (from curl_cffi&gt;=0.7-&gt;yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading cffi-2.0.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+Requirement already satisfied: certifi&gt;=2024.2.2 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from curl_cffi&gt;=0.7-&gt;yfinance) (2025.10.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: python-dateutil&gt;=2.8.2 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from pandas&gt;=1.3.0-&gt;yfinance) (2.9.0.post0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tzdata&gt;=2022.7 (from pandas&gt;=1.3.0-&gt;yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from requests&gt;=2.31-&gt;yfinance) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from requests&gt;=2.31-&gt;yfinance) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from requests&gt;=2.31-&gt;yfinance) (2.5.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pycparser (from cffi&gt;=1.12.0-&gt;curl_cffi&gt;=0.7-&gt;yfinance)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pycparser-2.23-py3-none-any.whl.metadata (993 bytes)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /home/caracena/Documents/projects/venv/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.3.0-&gt;yfinance) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading yfinance-0.2.66-py2.py3-none-any.whl (123 kB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/123.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">41.0/123.4 kB</span> <span class=" -Color -Color-Red">1.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━</span> <span class=" -Color -Color-Green">92.2/123.4 kB</span> <span class=" -Color -Color-Red">1.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">123.4/123.4 kB</span> <span class=" -Color -Color-Red">1.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading curl_cffi-0.13.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.3 MB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/8.3 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.1/8.3 MB</span> <span class=" -Color -Color-Red">197.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.1/8.3 MB</span> <span class=" -Color -Color-Red">197.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.1/8.3 MB</span> <span class=" -Color -Color-Red">197.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.2/8.3 MB</span> <span class=" -Color -Color-Red">1.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.3/8.3 MB</span> <span class=" -Color -Color-Red">1.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+   ━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.3/8.3 MB</span> <span class=" -Color -Color-Red">1.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.4/8.3 MB</span> <span class=" -Color -Color-Red">1.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.4/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+   ━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.5/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.6/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.6/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.7/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:06</span>
+   ━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.7/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.8/8.3 MB</span> <span class=" -Color -Color-Red">1.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.9/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+   ━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.9/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.0/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.1/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.1/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+   ━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.2/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.3/8.3 MB</span> <span class=" -Color -Color-Red">1.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.4/8.3 MB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+   ━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.4/8.3 MB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.5/8.3 MB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:05</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.6/8.3 MB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.7/8.3 MB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+   ━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.8/8.3 MB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.8/8.3 MB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.9/8.3 MB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+   ━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.0/8.3 MB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.1/8.3 MB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.2/8.3 MB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.2/8.3 MB</span> <span class=" -Color -Color-Red">1.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+   ━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.3/8.3 MB</span> <span class=" -Color -Color-Red">1.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.4/8.3 MB</span> <span class=" -Color -Color-Red">1.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.5/8.3 MB</span> <span class=" -Color -Color-Red">1.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+   ━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.6/8.3 MB</span> <span class=" -Color -Color-Red">1.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.7/8.3 MB</span> <span class=" -Color -Color-Red">1.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.8/8.3 MB</span> <span class=" -Color -Color-Red">1.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.9/8.3 MB</span> <span class=" -Color -Color-Red">2.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.0/8.3 MB</span> <span class=" -Color -Color-Red">2.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.1/8.3 MB</span> <span class=" -Color -Color-Red">2.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.2/8.3 MB</span> <span class=" -Color -Color-Red">2.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.3/8.3 MB</span> <span class=" -Color -Color-Red">2.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.4/8.3 MB</span> <span class=" -Color -Color-Red">2.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.5/8.3 MB</span> <span class=" -Color -Color-Red">2.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.6/8.3 MB</span> <span class=" -Color -Color-Red">2.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.8/8.3 MB</span> <span class=" -Color -Color-Red">2.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.9/8.3 MB</span> <span class=" -Color -Color-Red">2.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.0/8.3 MB</span> <span class=" -Color -Color-Red">2.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.1/8.3 MB</span> <span class=" -Color -Color-Red">2.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.2/8.3 MB</span> <span class=" -Color -Color-Red">2.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.4/8.3 MB</span> <span class=" -Color -Color-Red">2.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.5/8.3 MB</span> <span class=" -Color -Color-Red">2.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.6/8.3 MB</span> <span class=" -Color -Color-Red">2.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.7/8.3 MB</span> <span class=" -Color -Color-Red">2.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.9/8.3 MB</span> <span class=" -Color -Color-Red">2.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.0/8.3 MB</span> <span class=" -Color -Color-Red">2.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.1/8.3 MB</span> <span class=" -Color -Color-Red">2.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.3/8.3 MB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.4/8.3 MB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.5/8.3 MB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.7/8.3 MB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.8/8.3 MB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.0/8.3 MB</span> <span class=" -Color -Color-Red">2.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.1/8.3 MB</span> <span class=" -Color -Color-Red">2.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━</span> <span class=" -Color -Color-Green">6.3/8.3 MB</span> <span class=" -Color -Color-Red">2.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━</span> <span class=" -Color -Color-Green">6.4/8.3 MB</span> <span class=" -Color -Color-Red">2.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━</span> <span class=" -Color -Color-Green">6.6/8.3 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━</span> <span class=" -Color -Color-Green">6.8/8.3 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━</span> <span class=" -Color -Color-Green">6.9/8.3 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━</span> <span class=" -Color -Color-Green">7.1/8.3 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━</span> <span class=" -Color -Color-Green">7.2/8.3 MB</span> <span class=" -Color -Color-Red">2.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━</span> <span class=" -Color -Color-Green">7.4/8.3 MB</span> <span class=" -Color -Color-Red">2.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━</span> <span class=" -Color -Color-Green">7.6/8.3 MB</span> <span class=" -Color -Color-Red">2.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━</span> <span class=" -Color -Color-Green">7.8/8.3 MB</span> <span class=" -Color -Color-Red">2.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━</span> <span class=" -Color -Color-Green">8.0/8.3 MB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺</span> <span class=" -Color -Color-Green">8.1/8.3 MB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">8.3/8.3 MB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">8.3/8.3 MB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">8.3/8.3 MB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading frozendict-2.4.6-py312-none-any.whl (16 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading numpy-2.3.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.6 MB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/16.6 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.2/16.6 MB</span> <span class=" -Color -Color-Red">7.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.5/16.6 MB</span> <span class=" -Color -Color-Red">6.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.6/16.6 MB</span> <span class=" -Color -Color-Red">5.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.8/16.6 MB</span> <span class=" -Color -Color-Red">5.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.0/16.6 MB</span> <span class=" -Color -Color-Red">5.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.2/16.6 MB</span> <span class=" -Color -Color-Red">5.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.4/16.6 MB</span> <span class=" -Color -Color-Red">5.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.7/16.6 MB</span> <span class=" -Color -Color-Red">5.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.8/16.6 MB</span> <span class=" -Color -Color-Red">5.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.1/16.6 MB</span> <span class=" -Color -Color-Red">5.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.3/16.6 MB</span> <span class=" -Color -Color-Red">5.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.5/16.6 MB</span> <span class=" -Color -Color-Red">5.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.8/16.6 MB</span> <span class=" -Color -Color-Red">5.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.0/16.6 MB</span> <span class=" -Color -Color-Red">5.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.2/16.6 MB</span> <span class=" -Color -Color-Red">5.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.5/16.6 MB</span> <span class=" -Color -Color-Red">5.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.7/16.6 MB</span> <span class=" -Color -Color-Red">5.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.9/16.6 MB</span> <span class=" -Color -Color-Red">5.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.2/16.6 MB</span> <span class=" -Color -Color-Red">5.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+   ━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.5/16.6 MB</span> <span class=" -Color -Color-Red">6.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.7/16.6 MB</span> <span class=" -Color -Color-Red">5.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:03</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.0/16.6 MB</span> <span class=" -Color -Color-Red">6.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.3/16.6 MB</span> <span class=" -Color -Color-Red">6.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.5/16.6 MB</span> <span class=" -Color -Color-Red">6.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.8/16.6 MB</span> <span class=" -Color -Color-Red">6.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.1/16.6 MB</span> <span class=" -Color -Color-Red">6.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.3/16.6 MB</span> <span class=" -Color -Color-Red">6.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.7/16.6 MB</span> <span class=" -Color -Color-Red">6.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">7.0/16.6 MB</span> <span class=" -Color -Color-Red">6.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">7.3/16.6 MB</span> <span class=" -Color -Color-Red">6.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">7.6/16.6 MB</span> <span class=" -Color -Color-Red">6.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">8.0/16.6 MB</span> <span class=" -Color -Color-Red">6.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">8.2/16.6 MB</span> <span class=" -Color -Color-Red">6.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">8.6/16.6 MB</span> <span class=" -Color -Color-Red">6.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">8.9/16.6 MB</span> <span class=" -Color -Color-Red">6.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">9.2/16.6 MB</span> <span class=" -Color -Color-Red">6.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">9.6/16.6 MB</span> <span class=" -Color -Color-Red">6.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">10.0/16.6 MB</span> <span class=" -Color -Color-Red">7.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">10.2/16.6 MB</span> <span class=" -Color -Color-Red">7.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">10.6/16.6 MB</span> <span class=" -Color -Color-Red">7.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">11.0/16.6 MB</span> <span class=" -Color -Color-Red">7.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">11.3/16.6 MB</span> <span class=" -Color -Color-Red">7.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━</span> <span class=" -Color -Color-Green">11.7/16.6 MB</span> <span class=" -Color -Color-Red">7.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━</span> <span class=" -Color -Color-Green">12.2/16.6 MB</span> <span class=" -Color -Color-Red">7.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━</span> <span class=" -Color -Color-Green">12.5/16.6 MB</span> <span class=" -Color -Color-Red">7.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━</span> <span class=" -Color -Color-Green">12.9/16.6 MB</span> <span class=" -Color -Color-Red">8.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━</span> <span class=" -Color -Color-Green">13.3/16.6 MB</span> <span class=" -Color -Color-Red">8.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━</span> <span class=" -Color -Color-Green">13.7/16.6 MB</span> <span class=" -Color -Color-Red">8.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━</span> <span class=" -Color -Color-Green">14.1/16.6 MB</span> <span class=" -Color -Color-Red">8.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━</span> <span class=" -Color -Color-Green">14.6/16.6 MB</span> <span class=" -Color -Color-Red">8.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━</span> <span class=" -Color -Color-Green">14.9/16.6 MB</span> <span class=" -Color -Color-Red">9.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━</span> <span class=" -Color -Color-Green">15.4/16.6 MB</span> <span class=" -Color -Color-Red">9.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━</span> <span class=" -Color -Color-Green">15.9/16.6 MB</span> <span class=" -Color -Color-Red">9.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺</span> <span class=" -Color -Color-Green">16.3/16.6 MB</span> <span class=" -Color -Color-Red">9.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">16.6/16.6 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">16.6/16.6 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">16.6/16.6 MB</span> <span class=" -Color -Color-Red">9.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.4 MB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/12.4 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.7/12.4 MB</span> <span class=" -Color -Color-Red">19.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.2/12.4 MB</span> <span class=" -Color -Color-Red">17.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">1.4/12.4 MB</span> <span class=" -Color -Color-Red">13.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.0/12.4 MB</span> <span class=" -Color -Color-Red">13.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.6/12.4 MB</span> <span class=" -Color -Color-Red">13.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">2.9/12.4 MB</span> <span class=" -Color -Color-Red">13.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">3.5/12.4 MB</span> <span class=" -Color -Color-Red">13.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.1/12.4 MB</span> <span class=" -Color -Color-Red">13.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">4.4/12.4 MB</span> <span class=" -Color -Color-Red">13.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.1/12.4 MB</span> <span class=" -Color -Color-Red">13.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">5.7/12.4 MB</span> <span class=" -Color -Color-Red">13.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.1/12.4 MB</span> <span class=" -Color -Color-Red">13.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">6.7/12.4 MB</span> <span class=" -Color -Color-Red">13.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">7.4/12.4 MB</span> <span class=" -Color -Color-Red">14.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">7.8/12.4 MB</span> <span class=" -Color -Color-Red">14.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">8.5/12.4 MB</span> <span class=" -Color -Color-Red">14.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━━━</span> <span class=" -Color -Color-Green">9.1/12.4 MB</span> <span class=" -Color -Color-Red">14.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━━━</span> <span class=" -Color -Color-Green">9.6/12.4 MB</span> <span class=" -Color -Color-Red">14.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━━━━━</span> <span class=" -Color -Color-Green">10.3/12.4 MB</span> <span class=" -Color -Color-Red">14.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸<span class=" -Color -Color-C237">━━━━</span> <span class=" -Color -Color-Green">11.0/12.4 MB</span> <span class=" -Color -Color-Red">14.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺━━</span> <span class=" -Color -Color-Green">11.5/12.4 MB</span> <span class=" -Color -Color-Red">14.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺</span> <span class=" -Color -Color-Green">12.2/12.4 MB</span> <span class=" -Color -Color-Red">15.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">12.4/12.4 MB</span> <span class=" -Color -Color-Red">15.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">12.4/12.4 MB</span> <span class=" -Color -Color-Red">13.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading protobuf-6.32.1-cp39-abi3-manylinux2014_x86_64.whl (322 kB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/322.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">322.0/322.0 kB</span> <span class=" -Color -Color-Red">16.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/509.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<span class=" -Color -Color-C237">╺</span> <span class=" -Color -Color-Green">501.8/509.2 kB</span> <span class=" -Color -Color-Red">23.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">509.2/509.2 kB</span> <span class=" -Color -Color-Red">13.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading websockets-15.0.1-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/182.5 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">182.5/182.5 kB</span> <span class=" -Color -Color-Red">10.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading cffi-2.0.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (219 kB)
+?25l
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/219.6 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">219.6/219.6 kB</span> <span class=" -Color -Color-Red">12.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+?25l   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/347.8 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">347.8/347.8 kB</span> <span class=" -Color -Color-Red">18.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading pycparser-2.23-py3-none-any.whl (118 kB)
+?25l
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   <span class=" -Color -Color-C237">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">0.0/118.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   <span class=" -Color -Color-Red">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Green">118.1/118.1 kB</span> <span class=" -Color -Color-Red">6.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: multitasking, peewee
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for multitasking (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25h  Created wheel for multitasking: filename=multitasking-0.0.12-py3-none-any.whl size=15636 sha256=bd6d488266da6884ee707795d162783f025de6bc7cd57c1d86357b2787c2d658
+  Stored in directory: /home/caracena/.cache/pip/wheels/cc/bd/6f/664d62c99327abeef7d86489e6631cbf45b56fbf7ef1d6ef00
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for peewee (pyproject.toml) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+?25h canceled
+<span class=" -Color -Color-Red">ERROR: Operation cancelled by user</span>
+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;pip&#39;</span><span class="p">,</span> <span class="s1">&#39;install yfinance&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pandas&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="descargar-datos-historicos-ohlcv">
+<h2>Descargar datos históricos OHLCV<a class="headerlink" href="#descargar-datos-historicos-ohlcv" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IBM</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;IBM&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="c1">#Descarga datos históricos, lo descarga en pd</span>
+<span class="n">IBM</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Price</th>
+      <th>Close</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Open</th>
+      <th>Volume</th>
+    </tr>
+    <tr>
+      <th>Ticker</th>
+      <th>IBM</th>
+      <th>IBM</th>
+      <th>IBM</th>
+      <th>IBM</th>
+      <th>IBM</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-09-03</th>
+      <td>244.100006</td>
+      <td>244.250000</td>
+      <td>239.410004</td>
+      <td>240.020004</td>
+      <td>3163200</td>
+    </tr>
+    <tr>
+      <th>2025-09-04</th>
+      <td>247.179993</td>
+      <td>249.279999</td>
+      <td>242.850006</td>
+      <td>245.419998</td>
+      <td>4765100</td>
+    </tr>
+    <tr>
+      <th>2025-09-05</th>
+      <td>248.529999</td>
+      <td>249.029999</td>
+      <td>245.449997</td>
+      <td>248.229996</td>
+      <td>3147500</td>
+    </tr>
+    <tr>
+      <th>2025-09-08</th>
+      <td>256.089996</td>
+      <td>257.149994</td>
+      <td>247.020004</td>
+      <td>248.630005</td>
+      <td>6940300</td>
+    </tr>
+    <tr>
+      <th>2025-09-09</th>
+      <td>259.109985</td>
+      <td>260.660004</td>
+      <td>254.880005</td>
+      <td>256.119995</td>
+      <td>4931100</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="usando-el-metodo-ticker">
+<h2>Usando el método <code class="docutils literal notranslate"><span class="pre">Ticker</span></code><a class="headerlink" href="#usando-el-metodo-ticker" title="Link to this heading">#</a></h2>
+<p>El método <code class="docutils literal notranslate"><span class="pre">download</span></code> solo permite descargar datos de OHLCV. Sin embargo, <code class="docutils literal notranslate"><span class="pre">yfinance</span></code> tiene el método <code class="docutils literal notranslate"><span class="pre">Ticker</span></code>, que permite descargar gran parte de la información contenida en <code class="docutils literal notranslate"><span class="pre">yfinance</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">)</span>
+<span class="n">AAPL</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>yfinance.Ticker object &lt;AAPL&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL_data</span> <span class="o">=</span> <span class="n">AAPL</span><span class="o">.</span><span class="n">history</span><span class="p">()</span>
+<span class="n">AAPL_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Dividends</th>
+      <th>Stock Splits</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-09-03 00:00:00-04:00</th>
+      <td>237.210007</td>
+      <td>238.850006</td>
+      <td>234.360001</td>
+      <td>238.470001</td>
+      <td>66427800</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2025-09-04 00:00:00-04:00</th>
+      <td>238.449997</td>
+      <td>239.899994</td>
+      <td>236.740005</td>
+      <td>239.779999</td>
+      <td>47549400</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2025-09-05 00:00:00-04:00</th>
+      <td>240.000000</td>
+      <td>241.320007</td>
+      <td>238.490005</td>
+      <td>239.690002</td>
+      <td>54870400</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2025-09-08 00:00:00-04:00</th>
+      <td>239.300003</td>
+      <td>240.149994</td>
+      <td>236.339996</td>
+      <td>237.880005</td>
+      <td>48999500</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2025-09-09 00:00:00-04:00</th>
+      <td>237.000000</td>
+      <td>238.779999</td>
+      <td>233.360001</td>
+      <td>234.350006</td>
+      <td>66313900</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL_data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 23 entries, 2025-09-03 00:00:00-04:00 to 2025-10-03 00:00:00-04:00
+Data columns (total 7 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   Open          23 non-null     float64
+ 1   High          23 non-null     float64
+ 2   Low           23 non-null     float64
+ 3   Close         23 non-null     float64
+ 4   Volume        23 non-null     int64  
+ 5   Dividends     23 non-null     float64
+ 6   Stock Splits  23 non-null     float64
+dtypes: float64(6), int64(1)
+memory usage: 1.4 KB
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Función <code class="docutils literal notranslate"><span class="pre">history</span></code>:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">history</span><span class="p">(</span><span class="n">period</span><span class="o">=</span><span class="s2">&quot;1mo&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1d&quot;</span><span class="p">,</span>
+                <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prepost</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">back_adjust</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">keepna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parámetros (más importantes):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>period : str
+    Valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+    Either Use period parameter or use start and end
+
+interval : str
+    Valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+    Intraday data cannot extend last 60 days
+
+start: str
+    Download start date string (YYYY-MM-DD) or _datetime, inclusive.
+    Default is 99 years ago
+    E.g. for start=&quot;2020-01-01&quot;, the first data point will be on &quot;2020-01-01&quot;
+
+end: str
+    Download end date string (YYYY-MM-DD) or _datetime, exclusive.
+    Default is now
+    E.g. for end=&quot;2023-01-01&quot;, the last data point will be on &quot;2022-12-31&quot;
+
+prepost : bool
+    Include Pre and Post market data in results?
+    Default is False
+    
+auto_adjust: bool
+    Adjust all OHLC automatically? Default is True
+
+keepna: bool
+    Keep NaN rows returned by Yahoo?
+    Default is False
+
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">upgrades_downgrades</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Firm</th>
+      <th>ToGrade</th>
+      <th>FromGrade</th>
+      <th>Action</th>
+      <th>priceTargetAction</th>
+      <th>currentPriceTarget</th>
+      <th>priorPriceTarget</th>
+    </tr>
+    <tr>
+      <th>GradeDate</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-10-03 12:50:53</th>
+      <td>Jefferies</td>
+      <td>Underperform</td>
+      <td>Hold</td>
+      <td>down</td>
+      <td>Lowers</td>
+      <td>205.16</td>
+      <td>205.82</td>
+    </tr>
+    <tr>
+      <th>2025-10-02 12:45:02</th>
+      <td>Morgan Stanley</td>
+      <td>Overweight</td>
+      <td>Overweight</td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>298.00</td>
+      <td>240.00</td>
+    </tr>
+    <tr>
+      <th>2025-10-01 12:20:24</th>
+      <td>Seaport Global</td>
+      <td>Buy</td>
+      <td></td>
+      <td>init</td>
+      <td>Announces</td>
+      <td>310.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>2025-09-26 15:57:54</th>
+      <td>Evercore ISI Group</td>
+      <td>Outperform</td>
+      <td>Outperform</td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>290.00</td>
+      <td>260.00</td>
+    </tr>
+    <tr>
+      <th>2025-09-22 09:23:09</th>
+      <td>Wedbush</td>
+      <td>Outperform</td>
+      <td>Outperform</td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>310.00</td>
+      <td>270.00</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2016-09-22 10:22:56</th>
+      <td>Nomura</td>
+      <td>Buy</td>
+      <td></td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>135.00</td>
+      <td>120.00</td>
+    </tr>
+    <tr>
+      <th>2016-09-16 11:12:49</th>
+      <td>CLSA</td>
+      <td>Buy</td>
+      <td></td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>32.50</td>
+      <td>30.00</td>
+    </tr>
+    <tr>
+      <th>2016-09-15 12:10:08</th>
+      <td>Credit Suisse</td>
+      <td>Outperform</td>
+      <td></td>
+      <td>main</td>
+      <td>Maintains</td>
+      <td>150.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>2016-09-15 12:08:11</th>
+      <td>BTIG</td>
+      <td>Buy</td>
+      <td></td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>133.00</td>
+      <td>124.00</td>
+    </tr>
+    <tr>
+      <th>2012-09-12 11:51:00</th>
+      <td>Hudson Square</td>
+      <td>Buy</td>
+      <td></td>
+      <td>main</td>
+      <td>Raises</td>
+      <td>900.00</td>
+      <td>700.00</td>
+    </tr>
+  </tbody>
+</table>
+<p>958 rows × 7 columns</p>
+</div></div></div>
+</div>
+<section id="informacion-de-la-empresa">
+<h3>Información de la empresa<a class="headerlink" href="#informacion-de-la-empresa" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;address1&#39;: &#39;One Apple Park Way&#39;,
+ &#39;city&#39;: &#39;Cupertino&#39;,
+ &#39;state&#39;: &#39;CA&#39;,
+ &#39;zip&#39;: &#39;95014&#39;,
+ &#39;country&#39;: &#39;United States&#39;,
+ &#39;phone&#39;: &#39;(408) 996-1010&#39;,
+ &#39;website&#39;: &#39;https://www.apple.com&#39;,
+ &#39;industry&#39;: &#39;Consumer Electronics&#39;,
+ &#39;industryKey&#39;: &#39;consumer-electronics&#39;,
+ &#39;industryDisp&#39;: &#39;Consumer Electronics&#39;,
+ &#39;sector&#39;: &#39;Technology&#39;,
+ &#39;sectorKey&#39;: &#39;technology&#39;,
+ &#39;sectorDisp&#39;: &#39;Technology&#39;,
+ &#39;longBusinessSummary&#39;: &#39;Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California.&#39;,
+ &#39;fullTimeEmployees&#39;: 150000,
+ &#39;companyOfficers&#39;: [{&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Timothy D. Cook&#39;,
+   &#39;age&#39;: 63,
+   &#39;title&#39;: &#39;CEO &amp; Director&#39;,
+   &#39;yearBorn&#39;: 1961,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;totalPay&#39;: 16520856,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Jeffrey E. Williams&#39;,
+   &#39;age&#39;: 60,
+   &#39;title&#39;: &#39;Senior Vice President of Design, Watch, &amp; Health&#39;,
+   &#39;yearBorn&#39;: 1964,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;totalPay&#39;: 5020737,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Kevan  Parekh&#39;,
+   &#39;age&#39;: 52,
+   &#39;title&#39;: &#39;Senior VP &amp; CFO&#39;,
+   &#39;yearBorn&#39;: 1972,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Sabih  Khan&#39;,
+   &#39;title&#39;: &#39;Chief Operating Officer&#39;,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Chris  Kondo&#39;,
+   &#39;title&#39;: &#39;Senior Director of Corporate Accounting&#39;,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Suhasini  Chandramouli&#39;,
+   &#39;title&#39;: &#39;Director of Investor Relations&#39;,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Ms. Kristin Huguet Quayle&#39;,
+   &#39;title&#39;: &#39;Vice President of Worldwide Communications&#39;,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Greg  Joswiak&#39;,
+   &#39;title&#39;: &#39;Senior Vice President of Worldwide Marketing&#39;,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Adrian  Perica&#39;,
+   &#39;age&#39;: 50,
+   &#39;title&#39;: &#39;Vice President of Corporate Development&#39;,
+   &#39;yearBorn&#39;: 1974,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0},
+  {&#39;maxAge&#39;: 1,
+   &#39;name&#39;: &#39;Mr. Michael  Fenger&#39;,
+   &#39;title&#39;: &#39;VP of Worldwide Sales&#39;,
+   &#39;fiscalYear&#39;: 2024,
+   &#39;exercisedValue&#39;: 0,
+   &#39;unexercisedValue&#39;: 0}],
+ &#39;auditRisk&#39;: 7,
+ &#39;boardRisk&#39;: 1,
+ &#39;compensationRisk&#39;: 3,
+ &#39;shareHolderRightsRisk&#39;: 1,
+ &#39;overallRisk&#39;: 1,
+ &#39;governanceEpochDate&#39;: 1759276800,
+ &#39;compensationAsOfEpochDate&#39;: 1735603200,
+ &#39;irWebsite&#39;: &#39;http://investor.apple.com/&#39;,
+ &#39;executiveTeam&#39;: [],
+ &#39;maxAge&#39;: 86400,
+ &#39;priceHint&#39;: 2,
+ &#39;previousClose&#39;: 257.13,
+ &#39;open&#39;: 254.665,
+ &#39;dayLow&#39;: 253.96,
+ &#39;dayHigh&#39;: 259.24,
+ &#39;regularMarketPreviousClose&#39;: 257.13,
+ &#39;regularMarketOpen&#39;: 254.665,
+ &#39;regularMarketDayLow&#39;: 253.96,
+ &#39;regularMarketDayHigh&#39;: 259.24,
+ &#39;dividendRate&#39;: 1.04,
+ &#39;dividendYield&#39;: 0.4,
+ &#39;exDividendDate&#39;: 1754870400,
+ &#39;payoutRatio&#39;: 0.1533,
+ &#39;fiveYearAvgDividendYield&#39;: 0.54,
+ &#39;beta&#39;: 1.094,
+ &#39;trailingPE&#39;: 39.22012,
+ &#39;forwardPE&#39;: 31.05516,
+ &#39;volume&#39;: 38941141,
+ &#39;regularMarketVolume&#39;: 38941141,
+ &#39;averageVolume&#39;: 55129773,
+ &#39;averageVolume10days&#39;: 64225910,
+ &#39;averageDailyVolume10Day&#39;: 64225910,
+ &#39;bid&#39;: 257.03,
+ &#39;ask&#39;: 259.98,
+ &#39;bidSize&#39;: 4,
+ &#39;askSize&#39;: 4,
+ &#39;marketCap&#39;: 3829835497472,
+ &#39;fiftyTwoWeekLow&#39;: 169.21,
+ &#39;fiftyTwoWeekHigh&#39;: 260.1,
+ &#39;allTimeHigh&#39;: 260.1,
+ &#39;allTimeLow&#39;: 0.049107,
+ &#39;priceToSalesTrailing12Months&#39;: 9.372495,
+ &#39;fiftyDayAverage&#39;: 231.8392,
+ &#39;twoHundredDayAverage&#39;: 222.13695,
+ &#39;trailingAnnualDividendRate&#39;: 1.01,
+ &#39;trailingAnnualDividendYield&#39;: 0.003927974,
+ &#39;currency&#39;: &#39;USD&#39;,
+ &#39;tradeable&#39;: False,
+ &#39;enterpriseValue&#39;: 3862235447296,
+ &#39;profitMargins&#39;: 0.24295999,
+ &#39;floatShares&#39;: 14814419318,
+ &#39;sharesOutstanding&#39;: 14840390000,
+ &#39;sharesShort&#39;: 118199377,
+ &#39;sharesShortPriorMonth&#39;: 127079143,
+ &#39;sharesShortPreviousMonthDate&#39;: 1755216000,
+ &#39;dateShortInterest&#39;: 1757894400,
+ &#39;sharesPercentSharesOut&#39;: 0.008,
+ &#39;heldPercentInsiders&#39;: 0.0197,
+ &#39;heldPercentInstitutions&#39;: 0.63625,
+ &#39;shortRatio&#39;: 2.47,
+ &#39;shortPercentOfFloat&#39;: 0.008,
+ &#39;impliedSharesOutstanding&#39;: 14840970951,
+ &#39;bookValue&#39;: 4.431,
+ &#39;priceToBook&#39;: 58.241566,
+ &#39;lastFiscalYearEnd&#39;: 1727481600,
+ &#39;nextFiscalYearEnd&#39;: 1759017600,
+ &#39;mostRecentQuarter&#39;: 1751068800,
+ &#39;earningsQuarterlyGrowth&#39;: 0.093,
+ &#39;netIncomeToCommon&#39;: 99280003072,
+ &#39;trailingEps&#39;: 6.58,
+ &#39;forwardEps&#39;: 8.31,
+ &#39;lastSplitFactor&#39;: &#39;4:1&#39;,
+ &#39;lastSplitDate&#39;: 1598832000,
+ &#39;enterpriseToRevenue&#39;: 9.452,
+ &#39;enterpriseToEbitda&#39;: 27.257,
+ &#39;52WeekChange&#39;: 0.13373017,
+ &#39;SandP52WeekChange&#39;: 0.16766965,
+ &#39;lastDividendValue&#39;: 0.26,
+ &#39;lastDividendDate&#39;: 1754870400,
+ &#39;quoteType&#39;: &#39;EQUITY&#39;,
+ &#39;currentPrice&#39;: 258.0684,
+ &#39;targetHighPrice&#39;: 310.0,
+ &#39;targetLowPrice&#39;: 175.0,
+ &#39;targetMeanPrice&#39;: 246.2347,
+ &#39;targetMedianPrice&#39;: 245.0,
+ &#39;recommendationMean&#39;: 2.0,
+ &#39;recommendationKey&#39;: &#39;buy&#39;,
+ &#39;numberOfAnalystOpinions&#39;: 41,
+ &#39;totalCash&#39;: 55372001280,
+ &#39;totalCashPerShare&#39;: 3.731,
+ &#39;ebitda&#39;: 141696008192,
+ &#39;totalDebt&#39;: 101698002944,
+ &#39;quickRatio&#39;: 0.724,
+ &#39;currentRatio&#39;: 0.868,
+ &#39;totalRevenue&#39;: 408624988160,
+ &#39;debtToEquity&#39;: 154.486,
+ &#39;revenuePerShare&#39;: 27.173,
+ &#39;returnOnAssets&#39;: 0.24545999,
+ &#39;returnOnEquity&#39;: 1.49814,
+ &#39;grossProfits&#39;: 190739005440,
+ &#39;freeCashflow&#39;: 94873747456,
+ &#39;operatingCashflow&#39;: 108564996096,
+ &#39;earningsGrowth&#39;: 0.121,
+ &#39;revenueGrowth&#39;: 0.096,
+ &#39;grossMargins&#39;: 0.46678,
+ &#39;ebitdaMargins&#39;: 0.34675997,
+ &#39;operatingMargins&#39;: 0.29990998,
+ &#39;financialCurrency&#39;: &#39;USD&#39;,
+ &#39;symbol&#39;: &#39;AAPL&#39;,
+ &#39;language&#39;: &#39;en-US&#39;,
+ &#39;region&#39;: &#39;US&#39;,
+ &#39;typeDisp&#39;: &#39;Equity&#39;,
+ &#39;quoteSourceName&#39;: &#39;Nasdaq Real Time Price&#39;,
+ &#39;triggerable&#39;: True,
+ &#39;customPriceAlertConfidence&#39;: &#39;HIGH&#39;,
+ &#39;marketState&#39;: &#39;REGULAR&#39;,
+ &#39;corporateActions&#39;: [],
+ &#39;regularMarketTime&#39;: 1759520892,
+ &#39;exchange&#39;: &#39;NMS&#39;,
+ &#39;messageBoardId&#39;: &#39;finmb_24937&#39;,
+ &#39;exchangeTimezoneName&#39;: &#39;America/New_York&#39;,
+ &#39;exchangeTimezoneShortName&#39;: &#39;EDT&#39;,
+ &#39;gmtOffSetMilliseconds&#39;: -14400000,
+ &#39;market&#39;: &#39;us_market&#39;,
+ &#39;esgPopulated&#39;: False,
+ &#39;epsTrailingTwelveMonths&#39;: 6.58,
+ &#39;epsForward&#39;: 8.31,
+ &#39;epsCurrentYear&#39;: 7.39798,
+ &#39;priceEpsCurrentYear&#39;: 34.88363,
+ &#39;fiftyDayAverageChange&#39;: 26.229187,
+ &#39;fiftyDayAverageChangePercent&#39;: 0.113135256,
+ &#39;twoHundredDayAverageChange&#39;: 35.931442,
+ &#39;twoHundredDayAverageChangePercent&#39;: 0.16175357,
+ &#39;sourceInterval&#39;: 15,
+ &#39;exchangeDataDelayedBy&#39;: 0,
+ &#39;averageAnalystRating&#39;: &#39;2.0 - Buy&#39;,
+ &#39;cryptoTradeable&#39;: False,
+ &#39;regularMarketChangePercent&#39;: 0.36494574,
+ &#39;regularMarketPrice&#39;: 258.0684,
+ &#39;hasPrePostMarketData&#39;: True,
+ &#39;firstTradeDateMilliseconds&#39;: 345479400000,
+ &#39;regularMarketChange&#39;: 0.938385,
+ &#39;regularMarketDayRange&#39;: &#39;253.96 - 259.24&#39;,
+ &#39;fullExchangeName&#39;: &#39;NasdaqGS&#39;,
+ &#39;averageDailyVolume3Month&#39;: 55129773,
+ &#39;fiftyTwoWeekLowChange&#39;: 88.85838,
+ &#39;fiftyTwoWeekLowChangePercent&#39;: 0.5251367,
+ &#39;fiftyTwoWeekRange&#39;: &#39;169.21 - 260.1&#39;,
+ &#39;fiftyTwoWeekHighChange&#39;: -2.0316162,
+ &#39;fiftyTwoWeekHighChangePercent&#39;: -0.007810904,
+ &#39;fiftyTwoWeekChangePercent&#39;: 13.373017,
+ &#39;dividendDate&#39;: 1755129600,
+ &#39;earningsTimestamp&#39;: 1761854400,
+ &#39;earningsTimestampStart&#39;: 1761854400,
+ &#39;earningsTimestampEnd&#39;: 1761854400,
+ &#39;earningsCallTimestampStart&#39;: 1761858000,
+ &#39;earningsCallTimestampEnd&#39;: 1761858000,
+ &#39;isEarningsDateEstimate&#39;: False,
+ &#39;shortName&#39;: &#39;Apple Inc.&#39;,
+ &#39;longName&#39;: &#39;Apple Inc.&#39;,
+ &#39;displayName&#39;: &#39;Apple&#39;,
+ &#39;trailingPegRatio&#39;: 2.4662}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Llamando a la descripción de la empresa:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;longBusinessSummary&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="balance-anual-y-trimestral">
+<h3>Balance anual y trimestral<a class="headerlink" href="#balance-anual-y-trimestral" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#anual</span>
+<span class="n">AAPL</span><span class="o">.</span><span class="n">balance_sheet</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2024-09-30</th>
+      <th>2023-09-30</th>
+      <th>2022-09-30</th>
+      <th>2021-09-30</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Treasury Shares Number</th>
+      <td>NaN</td>
+      <td>0.000000e+00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Ordinary Shares Number</th>
+      <td>1.511679e+10</td>
+      <td>1.555006e+10</td>
+      <td>1.594342e+10</td>
+      <td>1.642679e+10</td>
+    </tr>
+    <tr>
+      <th>Share Issued</th>
+      <td>1.511679e+10</td>
+      <td>1.555006e+10</td>
+      <td>1.594342e+10</td>
+      <td>1.642679e+10</td>
+    </tr>
+    <tr>
+      <th>Net Debt</th>
+      <td>7.668600e+10</td>
+      <td>8.112300e+10</td>
+      <td>9.642300e+10</td>
+      <td>8.977900e+10</td>
+    </tr>
+    <tr>
+      <th>Total Debt</th>
+      <td>1.066290e+11</td>
+      <td>1.110880e+11</td>
+      <td>1.324800e+11</td>
+      <td>1.365220e+11</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Cash Cash Equivalents And Short Term Investments</th>
+      <td>6.517100e+10</td>
+      <td>6.155500e+10</td>
+      <td>4.830400e+10</td>
+      <td>6.263900e+10</td>
+    </tr>
+    <tr>
+      <th>Other Short Term Investments</th>
+      <td>3.522800e+10</td>
+      <td>3.159000e+10</td>
+      <td>2.465800e+10</td>
+      <td>2.769900e+10</td>
+    </tr>
+    <tr>
+      <th>Cash And Cash Equivalents</th>
+      <td>2.994300e+10</td>
+      <td>2.996500e+10</td>
+      <td>2.364600e+10</td>
+      <td>3.494000e+10</td>
+    </tr>
+    <tr>
+      <th>Cash Equivalents</th>
+      <td>2.744000e+09</td>
+      <td>1.606000e+09</td>
+      <td>5.100000e+09</td>
+      <td>1.763500e+10</td>
+    </tr>
+    <tr>
+      <th>Cash Financial</th>
+      <td>2.719900e+10</td>
+      <td>2.835900e+10</td>
+      <td>1.854600e+10</td>
+      <td>1.730500e+10</td>
+    </tr>
+  </tbody>
+</table>
+<p>68 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">balance_sheet</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Treasury Shares Number&#39;,
+ &#39;Ordinary Shares Number&#39;,
+ &#39;Share Issued&#39;,
+ &#39;Net Debt&#39;,
+ &#39;Total Debt&#39;,
+ &#39;Tangible Book Value&#39;,
+ &#39;Invested Capital&#39;,
+ &#39;Working Capital&#39;,
+ &#39;Net Tangible Assets&#39;,
+ &#39;Capital Lease Obligations&#39;,
+ &#39;Common Stock Equity&#39;,
+ &#39;Total Capitalization&#39;,
+ &#39;Total Equity Gross Minority Interest&#39;,
+ &#39;Stockholders Equity&#39;,
+ &#39;Gains Losses Not Affecting Retained Earnings&#39;,
+ &#39;Other Equity Adjustments&#39;,
+ &#39;Retained Earnings&#39;,
+ &#39;Capital Stock&#39;,
+ &#39;Common Stock&#39;,
+ &#39;Total Liabilities Net Minority Interest&#39;,
+ &#39;Total Non Current Liabilities Net Minority Interest&#39;,
+ &#39;Other Non Current Liabilities&#39;,
+ &#39;Tradeand Other Payables Non Current&#39;,
+ &#39;Long Term Debt And Capital Lease Obligation&#39;,
+ &#39;Long Term Capital Lease Obligation&#39;,
+ &#39;Long Term Debt&#39;,
+ &#39;Current Liabilities&#39;,
+ &#39;Other Current Liabilities&#39;,
+ &#39;Current Deferred Liabilities&#39;,
+ &#39;Current Deferred Revenue&#39;,
+ &#39;Current Debt And Capital Lease Obligation&#39;,
+ &#39;Current Capital Lease Obligation&#39;,
+ &#39;Current Debt&#39;,
+ &#39;Other Current Borrowings&#39;,
+ &#39;Commercial Paper&#39;,
+ &#39;Payables And Accrued Expenses&#39;,
+ &#39;Payables&#39;,
+ &#39;Total Tax Payable&#39;,
+ &#39;Income Tax Payable&#39;,
+ &#39;Accounts Payable&#39;,
+ &#39;Total Assets&#39;,
+ &#39;Total Non Current Assets&#39;,
+ &#39;Other Non Current Assets&#39;,
+ &#39;Non Current Deferred Assets&#39;,
+ &#39;Non Current Deferred Taxes Assets&#39;,
+ &#39;Investments And Advances&#39;,
+ &#39;Other Investments&#39;,
+ &#39;Investmentin Financial Assets&#39;,
+ &#39;Available For Sale Securities&#39;,
+ &#39;Net PPE&#39;,
+ &#39;Accumulated Depreciation&#39;,
+ &#39;Gross PPE&#39;,
+ &#39;Leases&#39;,
+ &#39;Other Properties&#39;,
+ &#39;Machinery Furniture Equipment&#39;,
+ &#39;Land And Improvements&#39;,
+ &#39;Properties&#39;,
+ &#39;Current Assets&#39;,
+ &#39;Other Current Assets&#39;,
+ &#39;Inventory&#39;,
+ &#39;Receivables&#39;,
+ &#39;Other Receivables&#39;,
+ &#39;Accounts Receivable&#39;,
+ &#39;Cash Cash Equivalents And Short Term Investments&#39;,
+ &#39;Other Short Term Investments&#39;,
+ &#39;Cash And Cash Equivalents&#39;,
+ &#39;Cash Equivalents&#39;,
+ &#39;Cash Financial&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">balance_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Total Assets&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-09-30&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">AAPL</span><span class="o">.</span><span class="n">balance_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Total Liabilities Net Minority Interest&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-09-30&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">AAPL</span><span class="o">.</span><span class="n">balance_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Total Equity Gross Minority Interest&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-09-30&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.True_
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trimestral</span>
+<span class="n">AAPL</span><span class="o">.</span><span class="n">quarterly_balance_sheet</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-655fa3c9-6903-4d77-a99d-2baf273e9953" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2025-03-31</th>
+      <th>2024-12-31</th>
+      <th>2024-09-30</th>
+      <th>2024-06-30</th>
+      <th>2024-03-31</th>
+      <th>2023-12-31</th>
+      <th>2023-09-30</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Treasury Shares Number</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Ordinary Shares Number</th>
+      <td>14939315000.0</td>
+      <td>15037874000.0</td>
+      <td>15116786000.0</td>
+      <td>15222259000.0</td>
+      <td>15337686000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Share Issued</th>
+      <td>14939315000.0</td>
+      <td>15037874000.0</td>
+      <td>15116786000.0</td>
+      <td>15222259000.0</td>
+      <td>15337686000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Net Debt</th>
+      <td>70024000000.0</td>
+      <td>66500000000.0</td>
+      <td>76686000000.0</td>
+      <td>75739000000.0</td>
+      <td>71895000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Total Debt</th>
+      <td>98186000000.0</td>
+      <td>96799000000.0</td>
+      <td>106629000000.0</td>
+      <td>101304000000.0</td>
+      <td>104590000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Cash Cash Equivalents And Short Term Investments</th>
+      <td>48498000000.0</td>
+      <td>53775000000.0</td>
+      <td>65171000000.0</td>
+      <td>61801000000.0</td>
+      <td>67150000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Other Short Term Investments</th>
+      <td>20336000000.0</td>
+      <td>23476000000.0</td>
+      <td>35228000000.0</td>
+      <td>36236000000.0</td>
+      <td>34455000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Cash And Cash Equivalents</th>
+      <td>28162000000.0</td>
+      <td>30299000000.0</td>
+      <td>29943000000.0</td>
+      <td>25565000000.0</td>
+      <td>32695000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Cash Equivalents</th>
+      <td>3101000000.0</td>
+      <td>3226000000.0</td>
+      <td>2744000000.0</td>
+      <td>2699000000.0</td>
+      <td>4468000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Cash Financial</th>
+      <td>25061000000.0</td>
+      <td>27073000000.0</td>
+      <td>27199000000.0</td>
+      <td>22866000000.0</td>
+      <td>28227000000.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>69 rows × 7 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-655fa3c9-6903-4d77-a99d-2baf273e9953')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-655fa3c9-6903-4d77-a99d-2baf273e9953 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-655fa3c9-6903-4d77-a99d-2baf273e9953');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-98b9cab1-eece-4aa7-873e-14135e5d48cc">
+      <button class="colab-df-quickchart" onclick="quickchart('df-98b9cab1-eece-4aa7-873e-14135e5d48cc')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-98b9cab1-eece-4aa7-873e-14135e5d48cc button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="estado-de-resultados-anual-y-trimestral">
+<h3>Estado de resultados anual y trimestral<a class="headerlink" href="#estado-de-resultados-anual-y-trimestral" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Anual</span>
+<span class="n">AAPL</span><span class="o">.</span><span class="n">income_stmt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2024-09-30</th>
+      <th>2023-09-30</th>
+      <th>2022-09-30</th>
+      <th>2021-09-30</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Tax Effect Of Unusual Items</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>Tax Rate For Calcs</th>
+      <td>2.410000e-01</td>
+      <td>1.470000e-01</td>
+      <td>1.620000e-01</td>
+      <td>1.330000e-01</td>
+    </tr>
+    <tr>
+      <th>Normalized EBITDA</th>
+      <td>1.346610e+11</td>
+      <td>1.258200e+11</td>
+      <td>1.305410e+11</td>
+      <td>1.231360e+11</td>
+    </tr>
+    <tr>
+      <th>Net Income From Continuing Operation Net Minority Interest</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Reconciled Depreciation</th>
+      <td>1.144500e+10</td>
+      <td>1.151900e+10</td>
+      <td>1.110400e+10</td>
+      <td>1.128400e+10</td>
+    </tr>
+    <tr>
+      <th>Reconciled Cost Of Revenue</th>
+      <td>2.103520e+11</td>
+      <td>2.141370e+11</td>
+      <td>2.235460e+11</td>
+      <td>2.129810e+11</td>
+    </tr>
+    <tr>
+      <th>EBITDA</th>
+      <td>1.346610e+11</td>
+      <td>1.258200e+11</td>
+      <td>1.305410e+11</td>
+      <td>1.231360e+11</td>
+    </tr>
+    <tr>
+      <th>EBIT</th>
+      <td>1.232160e+11</td>
+      <td>1.143010e+11</td>
+      <td>1.194370e+11</td>
+      <td>1.118520e+11</td>
+    </tr>
+    <tr>
+      <th>Net Interest Income</th>
+      <td>NaN</td>
+      <td>-1.830000e+08</td>
+      <td>-1.060000e+08</td>
+      <td>1.980000e+08</td>
+    </tr>
+    <tr>
+      <th>Interest Expense</th>
+      <td>NaN</td>
+      <td>3.933000e+09</td>
+      <td>2.931000e+09</td>
+      <td>2.645000e+09</td>
+    </tr>
+    <tr>
+      <th>Interest Income</th>
+      <td>NaN</td>
+      <td>3.750000e+09</td>
+      <td>2.825000e+09</td>
+      <td>2.843000e+09</td>
+    </tr>
+    <tr>
+      <th>Normalized Income</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income From Continuing And Discontinued Operation</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Total Expenses</th>
+      <td>2.678190e+11</td>
+      <td>2.689840e+11</td>
+      <td>2.748910e+11</td>
+      <td>2.568680e+11</td>
+    </tr>
+    <tr>
+      <th>Total Operating Income As Reported</th>
+      <td>1.232160e+11</td>
+      <td>1.143010e+11</td>
+      <td>1.194370e+11</td>
+      <td>1.089490e+11</td>
+    </tr>
+    <tr>
+      <th>Diluted Average Shares</th>
+      <td>1.540810e+10</td>
+      <td>1.581255e+10</td>
+      <td>1.632582e+10</td>
+      <td>1.686492e+10</td>
+    </tr>
+    <tr>
+      <th>Basic Average Shares</th>
+      <td>1.534378e+10</td>
+      <td>1.574423e+10</td>
+      <td>1.621596e+10</td>
+      <td>1.670127e+10</td>
+    </tr>
+    <tr>
+      <th>Diluted EPS</th>
+      <td>6.080000e+00</td>
+      <td>6.130000e+00</td>
+      <td>6.110000e+00</td>
+      <td>5.610000e+00</td>
+    </tr>
+    <tr>
+      <th>Basic EPS</th>
+      <td>6.110000e+00</td>
+      <td>6.160000e+00</td>
+      <td>6.150000e+00</td>
+      <td>5.670000e+00</td>
+    </tr>
+    <tr>
+      <th>Diluted NI Availto Com Stockholders</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income Common Stockholders</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income Including Noncontrolling Interests</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income Continuous Operations</th>
+      <td>9.373600e+10</td>
+      <td>9.699500e+10</td>
+      <td>9.980300e+10</td>
+      <td>9.468000e+10</td>
+    </tr>
+    <tr>
+      <th>Tax Provision</th>
+      <td>2.974900e+10</td>
+      <td>1.674100e+10</td>
+      <td>1.930000e+10</td>
+      <td>1.452700e+10</td>
+    </tr>
+    <tr>
+      <th>Pretax Income</th>
+      <td>1.234850e+11</td>
+      <td>1.137360e+11</td>
+      <td>1.191030e+11</td>
+      <td>1.092070e+11</td>
+    </tr>
+    <tr>
+      <th>Other Income Expense</th>
+      <td>2.690000e+08</td>
+      <td>-5.650000e+08</td>
+      <td>-3.340000e+08</td>
+      <td>6.000000e+07</td>
+    </tr>
+    <tr>
+      <th>Other Non Operating Income Expenses</th>
+      <td>2.690000e+08</td>
+      <td>-5.650000e+08</td>
+      <td>-3.340000e+08</td>
+      <td>6.000000e+07</td>
+    </tr>
+    <tr>
+      <th>Net Non Operating Interest Income Expense</th>
+      <td>NaN</td>
+      <td>-1.830000e+08</td>
+      <td>-1.060000e+08</td>
+      <td>1.980000e+08</td>
+    </tr>
+    <tr>
+      <th>Interest Expense Non Operating</th>
+      <td>NaN</td>
+      <td>3.933000e+09</td>
+      <td>2.931000e+09</td>
+      <td>2.645000e+09</td>
+    </tr>
+    <tr>
+      <th>Interest Income Non Operating</th>
+      <td>NaN</td>
+      <td>3.750000e+09</td>
+      <td>2.825000e+09</td>
+      <td>2.843000e+09</td>
+    </tr>
+    <tr>
+      <th>Operating Income</th>
+      <td>1.232160e+11</td>
+      <td>1.143010e+11</td>
+      <td>1.194370e+11</td>
+      <td>1.089490e+11</td>
+    </tr>
+    <tr>
+      <th>Operating Expense</th>
+      <td>5.746700e+10</td>
+      <td>5.484700e+10</td>
+      <td>5.134500e+10</td>
+      <td>4.388700e+10</td>
+    </tr>
+    <tr>
+      <th>Research And Development</th>
+      <td>3.137000e+10</td>
+      <td>2.991500e+10</td>
+      <td>2.625100e+10</td>
+      <td>2.191400e+10</td>
+    </tr>
+    <tr>
+      <th>Selling General And Administration</th>
+      <td>2.609700e+10</td>
+      <td>2.493200e+10</td>
+      <td>2.509400e+10</td>
+      <td>2.197300e+10</td>
+    </tr>
+    <tr>
+      <th>Gross Profit</th>
+      <td>1.806830e+11</td>
+      <td>1.691480e+11</td>
+      <td>1.707820e+11</td>
+      <td>1.528360e+11</td>
+    </tr>
+    <tr>
+      <th>Cost Of Revenue</th>
+      <td>2.103520e+11</td>
+      <td>2.141370e+11</td>
+      <td>2.235460e+11</td>
+      <td>2.129810e+11</td>
+    </tr>
+    <tr>
+      <th>Total Revenue</th>
+      <td>3.910350e+11</td>
+      <td>3.832850e+11</td>
+      <td>3.943280e+11</td>
+      <td>3.658170e+11</td>
+    </tr>
+    <tr>
+      <th>Operating Revenue</th>
+      <td>3.910350e+11</td>
+      <td>3.832850e+11</td>
+      <td>3.943280e+11</td>
+      <td>3.658170e+11</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trimestral</span>
+<span class="n">AAPL</span><span class="o">.</span><span class="n">quarterly_income_stmt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2025-06-30</th>
+      <th>2025-03-31</th>
+      <th>2024-12-31</th>
+      <th>2024-09-30</th>
+      <th>2024-06-30</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Tax Effect Of Unusual Items</th>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>Tax Rate For Calcs</th>
+      <td>1.640000e-01</td>
+      <td>1.550000e-01</td>
+      <td>1.470000e-01</td>
+      <td>2.100000e-01</td>
+      <td>1.590000e-01</td>
+    </tr>
+    <tr>
+      <th>Normalized EBITDA</th>
+      <td>3.103200e+10</td>
+      <td>3.225000e+10</td>
+      <td>4.591200e+10</td>
+      <td>3.250200e+10</td>
+      <td>2.820200e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income From Continuing Operation Net Minority Interest</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Reconciled Depreciation</th>
+      <td>2.830000e+09</td>
+      <td>2.661000e+09</td>
+      <td>3.080000e+09</td>
+      <td>2.911000e+09</td>
+      <td>2.850000e+09</td>
+    </tr>
+    <tr>
+      <th>Reconciled Cost Of Revenue</th>
+      <td>5.031800e+10</td>
+      <td>5.049200e+10</td>
+      <td>6.602500e+10</td>
+      <td>5.105100e+10</td>
+      <td>4.609900e+10</td>
+    </tr>
+    <tr>
+      <th>EBITDA</th>
+      <td>3.103200e+10</td>
+      <td>3.225000e+10</td>
+      <td>4.591200e+10</td>
+      <td>3.250200e+10</td>
+      <td>2.820200e+10</td>
+    </tr>
+    <tr>
+      <th>EBIT</th>
+      <td>2.820200e+10</td>
+      <td>2.958900e+10</td>
+      <td>4.283200e+10</td>
+      <td>2.959100e+10</td>
+      <td>2.535200e+10</td>
+    </tr>
+    <tr>
+      <th>Normalized Income</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income From Continuing And Discontinued Operation</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Total Expenses</th>
+      <td>6.583400e+10</td>
+      <td>6.577000e+10</td>
+      <td>8.146800e+10</td>
+      <td>6.533900e+10</td>
+      <td>6.042500e+10</td>
+    </tr>
+    <tr>
+      <th>Total Operating Income As Reported</th>
+      <td>2.820200e+10</td>
+      <td>2.958900e+10</td>
+      <td>4.283200e+10</td>
+      <td>2.959100e+10</td>
+      <td>2.535200e+10</td>
+    </tr>
+    <tr>
+      <th>Diluted Average Shares</th>
+      <td>1.494818e+10</td>
+      <td>1.505613e+10</td>
+      <td>1.515086e+10</td>
+      <td>1.524285e+10</td>
+      <td>1.534818e+10</td>
+    </tr>
+    <tr>
+      <th>Basic Average Shares</th>
+      <td>1.490289e+10</td>
+      <td>1.499408e+10</td>
+      <td>1.508172e+10</td>
+      <td>1.517199e+10</td>
+      <td>1.528752e+10</td>
+    </tr>
+    <tr>
+      <th>Diluted EPS</th>
+      <td>1.570000e+00</td>
+      <td>1.650000e+00</td>
+      <td>2.400000e+00</td>
+      <td>9.700000e-01</td>
+      <td>1.400000e+00</td>
+    </tr>
+    <tr>
+      <th>Basic EPS</th>
+      <td>1.570000e+00</td>
+      <td>1.650000e+00</td>
+      <td>2.410000e+00</td>
+      <td>9.700000e-01</td>
+      <td>1.400000e+00</td>
+    </tr>
+    <tr>
+      <th>Diluted NI Availto Com Stockholders</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income Common Stockholders</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income Including Noncontrolling Interests</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Net Income Continuous Operations</th>
+      <td>2.343400e+10</td>
+      <td>2.478000e+10</td>
+      <td>3.633000e+10</td>
+      <td>1.473600e+10</td>
+      <td>2.144800e+10</td>
+    </tr>
+    <tr>
+      <th>Tax Provision</th>
+      <td>4.597000e+09</td>
+      <td>4.530000e+09</td>
+      <td>6.254000e+09</td>
+      <td>1.487400e+10</td>
+      <td>4.046000e+09</td>
+    </tr>
+    <tr>
+      <th>Pretax Income</th>
+      <td>2.803100e+10</td>
+      <td>2.931000e+10</td>
+      <td>4.258400e+10</td>
+      <td>2.961000e+10</td>
+      <td>2.549400e+10</td>
+    </tr>
+    <tr>
+      <th>Other Income Expense</th>
+      <td>-1.710000e+08</td>
+      <td>-2.790000e+08</td>
+      <td>-2.480000e+08</td>
+      <td>1.900000e+07</td>
+      <td>1.420000e+08</td>
+    </tr>
+    <tr>
+      <th>Other Non Operating Income Expenses</th>
+      <td>-1.710000e+08</td>
+      <td>-2.790000e+08</td>
+      <td>-2.480000e+08</td>
+      <td>1.900000e+07</td>
+      <td>1.420000e+08</td>
+    </tr>
+    <tr>
+      <th>Operating Income</th>
+      <td>2.820200e+10</td>
+      <td>2.958900e+10</td>
+      <td>4.283200e+10</td>
+      <td>2.959100e+10</td>
+      <td>2.535200e+10</td>
+    </tr>
+    <tr>
+      <th>Operating Expense</th>
+      <td>1.551600e+10</td>
+      <td>1.527800e+10</td>
+      <td>1.544300e+10</td>
+      <td>1.428800e+10</td>
+      <td>1.432600e+10</td>
+    </tr>
+    <tr>
+      <th>Research And Development</th>
+      <td>8.866000e+09</td>
+      <td>8.550000e+09</td>
+      <td>8.268000e+09</td>
+      <td>7.765000e+09</td>
+      <td>8.006000e+09</td>
+    </tr>
+    <tr>
+      <th>Selling General And Administration</th>
+      <td>6.650000e+09</td>
+      <td>6.728000e+09</td>
+      <td>7.175000e+09</td>
+      <td>6.523000e+09</td>
+      <td>6.320000e+09</td>
+    </tr>
+    <tr>
+      <th>Gross Profit</th>
+      <td>4.371800e+10</td>
+      <td>4.486700e+10</td>
+      <td>5.827500e+10</td>
+      <td>4.387900e+10</td>
+      <td>3.967800e+10</td>
+    </tr>
+    <tr>
+      <th>Cost Of Revenue</th>
+      <td>5.031800e+10</td>
+      <td>5.049200e+10</td>
+      <td>6.602500e+10</td>
+      <td>5.105100e+10</td>
+      <td>4.609900e+10</td>
+    </tr>
+    <tr>
+      <th>Total Revenue</th>
+      <td>9.403600e+10</td>
+      <td>9.535900e+10</td>
+      <td>1.243000e+11</td>
+      <td>9.493000e+10</td>
+      <td>8.577700e+10</td>
+    </tr>
+    <tr>
+      <th>Operating Revenue</th>
+      <td>9.403600e+10</td>
+      <td>9.535900e+10</td>
+      <td>1.243000e+11</td>
+      <td>9.493000e+10</td>
+      <td>8.577700e+10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="noticias">
+<h3>Noticias<a class="headerlink" href="#noticias" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">news</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;id&#39;: &#39;3802e40b-bbaa-3e34-9ef3-1217a7b4f7f2&#39;,
+ &#39;content&#39;: {&#39;id&#39;: &#39;3802e40b-bbaa-3e34-9ef3-1217a7b4f7f2&#39;,
+  &#39;contentType&#39;: &#39;VIDEO&#39;,
+  &#39;title&#39;: &#39;Apple, Rumble-Perplexity gains, Roblox: Trending Tickers&#39;,
+  &#39;description&#39;: &#39;&lt;p&gt;Market Catalysts host &lt;a data-i13n=&quot;cpos:1;pos:1&quot; href=&quot;https://www.yahoo.com/author/julie-hyman/?.tsrc=fin-srch&quot;&gt;Julie Hyman&lt;/a&gt; tracks several of the day\&#39;s top trending stock tickers, including iPhone maker Apple (&lt;a data-i13n=&quot;cpos:2;pos:1&quot; href=&quot;https://finance.yahoo.com/quote/AAPL&quot;&gt;AAPL&lt;/a&gt;) receiving a downgrade, Rumble\&#39;s (&lt;a data-i13n=&quot;cpos:3;pos:1&quot; href=&quot;https://finance.yahoo.com/quote/RUM&quot;&gt;RUM&lt;/a&gt;) stock gains tied to its partnership with Perplexity (&lt;a data-i13n=&quot;cpos:4;pos:1&quot; href=&quot;https://finance.yahoo.com/quote/PEAI.PVT&quot;&gt;PEAI.PVT&lt;/a&gt;), and Roblox (&lt;a data-i13n=&quot;cpos:5;pos:1&quot; href=&quot;https://finance.yahoo.com/quote/RBLX&quot;&gt;RBLX&lt;/a&gt;) seeing a slowdown in US bookings growth.&lt;/p&gt;\n&lt;p&gt;To watch more expert insights and analysis on the latest market action, check out more\xa0&lt;a data-i13n=&quot;cpos:6;pos:1&quot; href=&quot;https://finance.yahoo.com/videos/series/market-catalysts/&quot;&gt;Market Catalysts&lt;/a&gt;.&lt;/p&gt;&#39;,
+  &#39;summary&#39;: &quot;Market Catalysts host Julie Hyman tracks several of the day&#39;s top trending stock tickers, including iPhone maker Apple (AAPL) receiving a downgrade, Rumble&#39;s (RUM) stock gains tied to its partnership with Perplexity (PEAI.PVT), and Roblox (RBLX) seeing a slowdown in US bookings growth. To watch more expert insights and analysis on the latest market action, check out more&amp;nbsp;Market Catalysts.&quot;,
+  &#39;pubDate&#39;: &#39;2025-10-03T14:56:00Z&#39;,
+  &#39;displayTime&#39;: &#39;&#39;,
+  &#39;isHosted&#39;: True,
+  &#39;bypassModal&#39;: False,
+  &#39;previewUrl&#39;: None,
+  &#39;thumbnail&#39;: {&#39;originalUrl&#39;: &#39;https://s.yimg.com/os/creatr-uploaded-images/2025-10/ba2d6c20-a067-11f0-bdcf-359b78f3a285&#39;,
+   &#39;originalWidth&#39;: 1435,
+   &#39;originalHeight&#39;: 806,
+   &#39;caption&#39;: &#39;&#39;,
+   &#39;resolutions&#39;: [{&#39;url&#39;: &#39;https://s.yimg.com/uu/api/res/1.2/Gg4eVBW4DILCxUe.yepxsQ--~B/aD04MDY7dz0xNDM1O2FwcGlkPXl0YWNoeW9u/https://s.yimg.com/os/creatr-uploaded-images/2025-10/ba2d6c20-a067-11f0-bdcf-359b78f3a285&#39;,
+     &#39;width&#39;: 1435,
+     &#39;height&#39;: 806,
+     &#39;tag&#39;: &#39;original&#39;},
+    {&#39;url&#39;: &#39;https://s.yimg.com/uu/api/res/1.2/1FGjZLB8LJMl6ZuHo9JazA--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-10/ba2d6c20-a067-11f0-bdcf-359b78f3a285&#39;,
+     &#39;width&#39;: 170,
+     &#39;height&#39;: 128,
+     &#39;tag&#39;: &#39;170x128&#39;}]},
+  &#39;provider&#39;: {&#39;displayName&#39;: &#39;Yahoo Finance Video&#39;,
+   &#39;url&#39;: &#39;https://finance.yahoo.com/&#39;},
+  &#39;canonicalUrl&#39;: {&#39;url&#39;: &#39;https://finance.yahoo.com/video/apple-rumble-perplexity-gains-roblox-145600834.html&#39;,
+   &#39;site&#39;: &#39;finance&#39;,
+   &#39;region&#39;: &#39;US&#39;,
+   &#39;lang&#39;: &#39;en-US&#39;},
+  &#39;clickThroughUrl&#39;: {&#39;url&#39;: &#39;https://finance.yahoo.com/video/apple-rumble-perplexity-gains-roblox-145600834.html&#39;,
+   &#39;site&#39;: &#39;finance&#39;,
+   &#39;region&#39;: &#39;US&#39;,
+   &#39;lang&#39;: &#39;en-US&#39;},
+  &#39;metadata&#39;: {&#39;editorsPick&#39;: True},
+  &#39;finance&#39;: {&#39;premiumFinance&#39;: {&#39;isPremiumNews&#39;: False,
+    &#39;isPremiumFreeNews&#39;: False}},
+  &#39;storyline&#39;: None}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">news</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;Market Catalysts host Julie Hyman tracks several of the day&#39;s top trending stock tickers, including iPhone maker Apple (AAPL) receiving a downgrade, Rumble&#39;s (RUM) stock gains tied to its partnership with Perplexity (PEAI.PVT), and Roblox (RBLX) seeing a slowdown in US bookings growth. To watch more expert insights and analysis on the latest market action, check out more&amp;nbsp;Market Catalysts.&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fechas-expiracion-opciones">
+<h3>Fechas expiración opciones<a class="headerlink" href="#fechas-expiracion-opciones" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AAPL</span><span class="o">.</span><span class="n">options</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;2025-10-03&#39;,
+ &#39;2025-10-10&#39;,
+ &#39;2025-10-17&#39;,
+ &#39;2025-10-24&#39;,
+ &#39;2025-10-31&#39;,
+ &#39;2025-11-07&#39;,
+ &#39;2025-11-21&#39;,
+ &#39;2025-12-19&#39;,
+ &#39;2026-01-16&#39;,
+ &#39;2026-02-20&#39;,
+ &#39;2026-03-20&#39;,
+ &#39;2026-04-17&#39;,
+ &#39;2026-05-15&#39;,
+ &#39;2026-06-18&#39;,
+ &#39;2026-08-21&#39;,
+ &#39;2026-09-18&#39;,
+ &#39;2026-12-18&#39;,
+ &#39;2027-01-15&#39;,
+ &#39;2027-06-17&#39;,
+ &#39;2027-12-17&#39;,
+ &#39;2028-01-21&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Contratos de opciones en una fecha de expiración específica:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">opt</span> <span class="o">=</span> <span class="n">AAPL</span><span class="o">.</span><span class="n">option_chain</span><span class="p">(</span><span class="s1">&#39;2025-10-17&#39;</span><span class="p">)</span>
+<span class="n">opt</span><span class="o">.</span><span class="n">calls</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>contractSymbol</th>
+      <th>lastTradeDate</th>
+      <th>strike</th>
+      <th>lastPrice</th>
+      <th>bid</th>
+      <th>ask</th>
+      <th>change</th>
+      <th>percentChange</th>
+      <th>volume</th>
+      <th>openInterest</th>
+      <th>impliedVolatility</th>
+      <th>inTheMoney</th>
+      <th>contractSize</th>
+      <th>currency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AAPL251017C00090000</td>
+      <td>2025-10-01 15:14:45+00:00</td>
+      <td>90.0</td>
+      <td>165.75</td>
+      <td>167.35</td>
+      <td>168.50</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>23</td>
+      <td>2.472660</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AAPL251017C00095000</td>
+      <td>2025-09-22 18:27:13+00:00</td>
+      <td>95.0</td>
+      <td>160.40</td>
+      <td>162.25</td>
+      <td>164.10</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>2.023442</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AAPL251017C00100000</td>
+      <td>2025-09-19 19:06:45+00:00</td>
+      <td>100.0</td>
+      <td>146.12</td>
+      <td>157.70</td>
+      <td>159.05</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>20</td>
+      <td>2.144536</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AAPL251017C00105000</td>
+      <td>2025-07-21 14:02:53+00:00</td>
+      <td>105.0</td>
+      <td>110.26</td>
+      <td>122.40</td>
+      <td>124.25</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>14</td>
+      <td>0.000010</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AAPL251017C00110000</td>
+      <td>2025-09-12 13:59:04+00:00</td>
+      <td>110.0</td>
+      <td>121.00</td>
+      <td>147.70</td>
+      <td>149.10</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>345.0</td>
+      <td>462</td>
+      <td>1.962891</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">opt</span><span class="o">.</span><span class="n">puts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>contractSymbol</th>
+      <th>lastTradeDate</th>
+      <th>strike</th>
+      <th>lastPrice</th>
+      <th>bid</th>
+      <th>ask</th>
+      <th>change</th>
+      <th>percentChange</th>
+      <th>volume</th>
+      <th>openInterest</th>
+      <th>impliedVolatility</th>
+      <th>inTheMoney</th>
+      <th>contractSize</th>
+      <th>currency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AAPL251017P00090000</td>
+      <td>2025-09-29 13:30:03+00:00</td>
+      <td>90.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>955</td>
+      <td>1.562502</td>
+      <td>False</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AAPL251017P00095000</td>
+      <td>2025-10-01 16:28:23+00:00</td>
+      <td>95.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1135</td>
+      <td>1.468753</td>
+      <td>False</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AAPL251017P00100000</td>
+      <td>2025-09-22 13:46:16+00:00</td>
+      <td>100.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>860</td>
+      <td>1.406253</td>
+      <td>False</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AAPL251017P00105000</td>
+      <td>2025-09-12 15:56:38+00:00</td>
+      <td>105.0</td>
+      <td>0.02</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>292</td>
+      <td>1.312503</td>
+      <td>False</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AAPL251017P00110000</td>
+      <td>2025-09-22 13:55:57+00:00</td>
+      <td>110.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>615</td>
+      <td>1.250004</td>
+      <td>False</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>AAPL251017P00330000</td>
+      <td>2025-08-15 19:50:00+00:00</td>
+      <td>330.0</td>
+      <td>98.75</td>
+      <td>95.7</td>
+      <td>96.25</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>2.229130</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>AAPL251017P00335000</td>
+      <td>2025-09-19 18:25:35+00:00</td>
+      <td>335.0</td>
+      <td>89.55</td>
+      <td>76.6</td>
+      <td>77.25</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0</td>
+      <td>0.625980</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>AAPL251017P00355000</td>
+      <td>2025-04-11 19:46:36+00:00</td>
+      <td>355.0</td>
+      <td>157.02</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.000010</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>AAPL251017P00360000</td>
+      <td>2025-04-11 19:46:36+00:00</td>
+      <td>360.0</td>
+      <td>162.01</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.000010</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>AAPL251017P00370000</td>
+      <td>2025-07-18 13:52:01+00:00</td>
+      <td>370.0</td>
+      <td>159.95</td>
+      <td>141.9</td>
+      <td>142.50</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>2.946536</td>
+      <td>True</td>
+      <td>REGULAR</td>
+      <td>USD</td>
+    </tr>
+  </tbody>
+</table>
+<p>62 rows × 14 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descargar-datos-historicos-ohlcv">Descargar datos históricos OHLCV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usando-el-metodo-ticker">Usando el método <code class="docutils literal notranslate"><span class="pre">Ticker</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-la-empresa">Información de la empresa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-anual-y-trimestral">Balance anual y trimestral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estado-de-resultados-anual-y-trimestral">Estado de resultados anual y trimestral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noticias">Noticias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fechas-expiracion-opciones">Fechas expiración opciones</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Claudio Aracena
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
