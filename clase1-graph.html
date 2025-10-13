@@ -1,0 +1,2058 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Convirtiendo precios a retornos &#8212; Apunte Finanzas Computacionales</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clase1-graph';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="1. Carga de datos finacieros" href="clase1-get_data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="Apunte Finanzas Computacionales - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="Apunte Finanzas Computacionales - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Apunte de Finanzas Computacionales
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Convirtiendo precios a retornos</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase1-graph.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase1-graph.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/clase1-graph.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Convirtiendo precios a retornos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Convirtiendo precios a retornos</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ajustar-frecuencia-de-la-serie-de-tiempo">Ajustar frecuencia de la serie de tiempo</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-de-datos">Visualización de datos</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-pandas">Visualizando con Pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-matplotlib">Visualización con matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-seaborn">Visualización con Seaborn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-plotly">Visualización con Plotly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-mplfinance">Visualización con mplfinance</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="convirtiendo-precios-a-retornos">
+<h1>Convirtiendo precios a retornos<a class="headerlink" href="#convirtiendo-precios-a-retornos" title="Link to this heading">#</a></h1>
+<p>Existen dos tipos de retornos:</p>
+<ul class="simple">
+<li><p><strong>Retornos simples:</strong> $<span class="math notranslate nohighlight">\(r_t = \frac{(P_t - P_{t-1})}{P_{t-1}} = \frac{P_t}{P_{t-1}}-1\)</span>$ En Pandas, se puede calcular usando el método <code class="docutils literal notranslate"><span class="pre">pct_change()</span></code>. Ejemplo:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#%pip install yfinance</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;NVDA&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2024-10-31&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">multi_level_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-03</th>
+      <td>30.064436</td>
+    </tr>
+    <tr>
+      <th>2022-01-04</th>
+      <td>29.234999</td>
+    </tr>
+    <tr>
+      <th>2022-01-05</th>
+      <td>27.552170</td>
+    </tr>
+    <tr>
+      <th>2022-01-06</th>
+      <td>28.125084</td>
+    </tr>
+    <tr>
+      <th>2022-01-07</th>
+      <td>27.195833</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;simple_rtn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+      <th>simple_rtn</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-03</th>
+      <td>30.064436</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-01-04</th>
+      <td>29.234999</td>
+      <td>-0.027589</td>
+    </tr>
+    <tr>
+      <th>2022-01-05</th>
+      <td>27.552170</td>
+      <td>-0.057562</td>
+    </tr>
+    <tr>
+      <th>2022-01-06</th>
+      <td>28.125084</td>
+      <td>0.020794</td>
+    </tr>
+    <tr>
+      <th>2022-01-07</th>
+      <td>27.195833</td>
+      <td>-0.033040</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p><strong>Retornos en logaritmos:</strong> $<span class="math notranslate nohighlight">\(r_i = \ln \left(\frac{P_t}{P_{t-1}}\right) = \ln(P_t) - \ln(P_{t-1})\)</span>$ Para calcular estos retornos deberemos usar Numpy</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;log_rtn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+      <th>simple_rtn</th>
+      <th>log_rtn</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-03</th>
+      <td>30.064436</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-01-04</th>
+      <td>29.234999</td>
+      <td>-0.027589</td>
+      <td>-0.027976</td>
+    </tr>
+    <tr>
+      <th>2022-01-05</th>
+      <td>27.552170</td>
+      <td>-0.057562</td>
+      <td>-0.059285</td>
+    </tr>
+    <tr>
+      <th>2022-01-06</th>
+      <td>28.125084</td>
+      <td>0.020794</td>
+      <td>0.020581</td>
+    </tr>
+    <tr>
+      <th>2022-01-07</th>
+      <td>27.195833</td>
+      <td>-0.033040</td>
+      <td>-0.033598</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ajustar-frecuencia-de-la-serie-de-tiempo">
+<h1>Ajustar frecuencia de la serie de tiempo<a class="headerlink" href="#ajustar-frecuencia-de-la-serie-de-tiempo" title="Link to this heading">#</a></h1>
+<p>A través de Pandas, se puede cambiar la frecuencia de los datos. Para ello se usa el método <code class="docutils literal notranslate"><span class="pre">resample()</span></code>. Importante: Se puede usar este método solo si el <em>index</em> está en formato fecha. El parámetro a pasar en <code class="docutils literal notranslate"><span class="pre">resample()</span></code> puede ser:</p>
+<ul class="simple">
+<li><p>D: calendar day frequency</p></li>
+<li><p>W: weekly frequency</p></li>
+<li><p>ME: month end frequency</p></li>
+<li><p>SME: semi-month end frequency (15th and end of month)</p></li>
+<li><p>MS: month start frequency</p></li>
+<li><p>SMS: semi-month start frequency (1st and 15th)</p></li>
+<li><p>QE: quarter end frequency</p></li>
+<li><p>QS: quarter start frequency</p></li>
+<li><p>YE: year end frequency</p></li>
+<li><p>YS: year start frequency</p></li>
+<li><p>h: hourly frequency</p></li>
+<li><p>min: minutely frequency</p></li>
+<li><p>s: secondly frequency</p></li>
+<li><p>ms: milliseconds</p></li>
+</ul>
+<p><strong>Datos diarios a mensuales:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_monthly</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;ME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+<span class="n">df_monthly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+      <th>simple_rtn</th>
+      <th>log_rtn</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-31</th>
+      <td>24.440025</td>
+      <td>0.072067</td>
+      <td>0.069588</td>
+    </tr>
+    <tr>
+      <th>2022-02-28</th>
+      <td>24.339209</td>
+      <td>0.009438</td>
+      <td>0.009394</td>
+    </tr>
+    <tr>
+      <th>2022-03-31</th>
+      <td>27.239403</td>
+      <td>-0.014590</td>
+      <td>-0.014698</td>
+    </tr>
+    <tr>
+      <th>2022-04-30</th>
+      <td>18.515329</td>
+      <td>-0.062430</td>
+      <td>-0.064464</td>
+    </tr>
+    <tr>
+      <th>2022-05-31</th>
+      <td>18.640120</td>
+      <td>-0.007389</td>
+      <td>-0.007416</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Datos diarios a semanales:</strong></p>
+<p>Se puede especificar el día de la semana:</p>
+<ul class="simple">
+<li><p>W-SUN: weekly frequency (Sundays). Same as ‘W’</p></li>
+<li><p>W-MON: weekly frequency (Mondays)</p></li>
+<li><p>W-TUE: weekly frequency (Tuesdays)</p></li>
+<li><p>W-WED: weekly frequency (Wednesdays)</p></li>
+<li><p>W-THU: weekly frequency (Thursdays)</p></li>
+<li><p>W-FRI: weekly frequency (Fridays)</p></li>
+<li><p>W-SAT: weekly frequency (Saturdays)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_weekly</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;W-WED&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+<span class="n">df_weekly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+      <th>simple_rtn</th>
+      <th>log_rtn</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-05</th>
+      <td>27.552170</td>
+      <td>-0.057562</td>
+      <td>-0.059285</td>
+    </tr>
+    <tr>
+      <th>2022-01-12</th>
+      <td>27.946424</td>
+      <td>0.006543</td>
+      <td>0.006522</td>
+    </tr>
+    <tr>
+      <th>2022-01-19</th>
+      <td>25.019930</td>
+      <td>-0.032274</td>
+      <td>-0.032806</td>
+    </tr>
+    <tr>
+      <th>2022-01-26</th>
+      <td>22.729235</td>
+      <td>0.020068</td>
+      <td>0.019869</td>
+    </tr>
+    <tr>
+      <th>2022-02-02</th>
+      <td>25.194603</td>
+      <td>0.024515</td>
+      <td>0.024219</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="visualizacion-de-datos">
+<h1>Visualización de datos<a class="headerlink" href="#visualizacion-de-datos" title="Link to this heading">#</a></h1>
+<p>Para efectos de este ejercicio, usaremos el precio de Tesla.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">&quot;3mo&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">multi_level_index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Open</th>
+      <th>Volume</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-07-07</th>
+      <td>293.940002</td>
+      <td>296.149994</td>
+      <td>288.769989</td>
+      <td>291.369995</td>
+      <td>131177900</td>
+    </tr>
+    <tr>
+      <th>2025-07-08</th>
+      <td>297.809998</td>
+      <td>304.049988</td>
+      <td>294.350006</td>
+      <td>297.000000</td>
+      <td>103246700</td>
+    </tr>
+    <tr>
+      <th>2025-07-09</th>
+      <td>295.880005</td>
+      <td>300.149994</td>
+      <td>293.549988</td>
+      <td>297.549988</td>
+      <td>75586800</td>
+    </tr>
+    <tr>
+      <th>2025-07-10</th>
+      <td>309.869995</td>
+      <td>310.480011</td>
+      <td>300.000000</td>
+      <td>300.049988</td>
+      <td>104365300</td>
+    </tr>
+    <tr>
+      <th>2025-07-11</th>
+      <td>313.510010</td>
+      <td>314.089996</td>
+      <td>305.649994</td>
+      <td>307.890015</td>
+      <td>79236400</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2025-09-30</th>
+      <td>444.720001</td>
+      <td>445.000000</td>
+      <td>433.119995</td>
+      <td>441.519989</td>
+      <td>74358000</td>
+    </tr>
+    <tr>
+      <th>2025-10-01</th>
+      <td>459.459991</td>
+      <td>462.290009</td>
+      <td>440.750000</td>
+      <td>443.799988</td>
+      <td>98122300</td>
+    </tr>
+    <tr>
+      <th>2025-10-02</th>
+      <td>436.000000</td>
+      <td>470.750000</td>
+      <td>435.570007</td>
+      <td>470.540009</td>
+      <td>137009000</td>
+    </tr>
+    <tr>
+      <th>2025-10-03</th>
+      <td>429.829987</td>
+      <td>446.769989</td>
+      <td>416.579987</td>
+      <td>443.290009</td>
+      <td>132772600</td>
+    </tr>
+    <tr>
+      <th>2025-10-06</th>
+      <td>453.250000</td>
+      <td>453.549988</td>
+      <td>436.690002</td>
+      <td>440.910004</td>
+      <td>83863624</td>
+    </tr>
+  </tbody>
+</table>
+<p>65 rows × 5 columns</p>
+</div></div></div>
+</div>
+<section id="visualizando-con-pandas">
+<h2>Visualizando con Pandas<a class="headerlink" href="#visualizando-con-pandas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -U matplotlib
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Precio de Tesla&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  WARNING: The scripts fonttools.exe, pyftmerge.exe, pyftsubset.exe and ttx.exe are installed in &#39;C:\Users\airow\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts&#39; which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+Collecting matplotlib
+  Downloading matplotlib-3.10.6-cp313-cp313-win_amd64.whl.metadata (11 kB)
+Collecting contourpy&gt;=1.0.1 (from matplotlib)
+  Downloading contourpy-1.3.3-cp313-cp313-win_amd64.whl.metadata (5.5 kB)
+Collecting cycler&gt;=0.10 (from matplotlib)
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools&gt;=4.22.0 (from matplotlib)
+  Downloading fonttools-4.60.1-cp313-cp313-win_amd64.whl.metadata (114 kB)
+Collecting kiwisolver&gt;=1.3.1 (from matplotlib)
+  Downloading kiwisolver-1.4.9-cp313-cp313-win_amd64.whl.metadata (6.4 kB)
+Requirement already satisfied: numpy&gt;=1.23 in c:\users\airow\appdata\local\packages\pythonsoftwarefoundation.python.3.13_qbz5n2kfra8p0\localcache\local-packages\python313\site-packages (from matplotlib) (2.3.3)
+Requirement already satisfied: packaging&gt;=20.0 in c:\users\airow\appdata\local\packages\pythonsoftwarefoundation.python.3.13_qbz5n2kfra8p0\localcache\local-packages\python313\site-packages (from matplotlib) (25.0)
+Collecting pillow&gt;=8 (from matplotlib)
+  Downloading pillow-11.3.0-cp313-cp313-win_amd64.whl.metadata (9.2 kB)
+Collecting pyparsing&gt;=2.3.1 (from matplotlib)
+  Downloading pyparsing-3.2.5-py3-none-any.whl.metadata (5.0 kB)
+Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\airow\appdata\local\packages\pythonsoftwarefoundation.python.3.13_qbz5n2kfra8p0\localcache\local-packages\python313\site-packages (from matplotlib) (2.9.0.post0)
+Requirement already satisfied: six&gt;=1.5 in c:\users\airow\appdata\local\packages\pythonsoftwarefoundation.python.3.13_qbz5n2kfra8p0\localcache\local-packages\python313\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.17.0)
+Downloading matplotlib-3.10.6-cp313-cp313-win_amd64.whl (8.1 MB)
+   ---------------------------------------- 0.0/8.1 MB ? eta -:--:--
+   - -------------------------------------- 0.3/8.1 MB ? eta -:--:--
+   --------- ------------------------------ 1.8/8.1 MB 6.4 MB/s eta 0:00:01
+   -------------------------------------- - 7.9/8.1 MB 16.4 MB/s eta 0:00:01
+   ---------------------------------------- 8.1/8.1 MB 15.4 MB/s  0:00:00
+Downloading contourpy-1.3.3-cp313-cp313-win_amd64.whl (226 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.60.1-cp313-cp313-win_amd64.whl (2.3 MB)
+   ---------------------------------------- 0.0/2.3 MB ? eta -:--:--
+   ---------------------------------------- 2.3/2.3 MB 43.6 MB/s  0:00:00
+Downloading kiwisolver-1.4.9-cp313-cp313-win_amd64.whl (73 kB)
+Downloading pillow-11.3.0-cp313-cp313-win_amd64.whl (7.0 MB)
+   ---------------------------------------- 0.0/7.0 MB ? eta -:--:--
+   ---------------------------------------- 7.0/7.0 MB 77.0 MB/s  0:00:00
+Downloading pyparsing-3.2.5-py3-none-any.whl (113 kB)
+Installing collected packages: pyparsing, pillow, kiwisolver, fonttools, cycler, contourpy, matplotlib
+
+   ---------------------------------------- 0/7 [pyparsing]
+   ---------------------------------------- 0/7 [pyparsing]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----- ---------------------------------- 1/7 [pillow]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ----------------- ---------------------- 3/7 [fonttools]
+   ---------------------- ----------------- 4/7 [cycler]
+   ---------------------------- ----------- 5/7 [contourpy]
+   ---------------------------- ----------- 5/7 [contourpy]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------- ----- 6/7 [matplotlib]
+   ---------------------------------------- 7/7 [matplotlib]
+
+Successfully installed contourpy-1.3.3 cycler-0.12.1 fonttools-4.60.1 kiwisolver-1.4.9 matplotlib-3.10.6 pillow-11.3.0 pyparsing-3.2.5
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Precio de Tesla&#39;}, xlabel=&#39;Date&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/06260233d46fa0a7fcdff59cda830817e18014d41a30c0a48f0297646f142b6d.png" src="_images/06260233d46fa0a7fcdff59cda830817e18014d41a30c0a48f0297646f142b6d.png" />
+</div>
+</div>
+<section id="subplots">
+<h3>Subplots<a class="headerlink" href="#subplots" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="s2">&quot;Volume&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Precio de Tesla&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&lt;Axes: xlabel=&#39;Date&#39;&gt;, &lt;Axes: xlabel=&#39;Date&#39;&gt;], dtype=object)
+</pre></div>
+</div>
+<img alt="_images/61c20e55da19b28e41fed8188bf7924c06c0bbbe1e13f0359e4d7b8432d6c145.png" src="_images/61c20e55da19b28e41fed8188bf7924c06c0bbbe1e13f0359e4d7b8432d6c145.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="visualizacion-con-matplotlib">
+<h2>Visualización con matplotlib<a class="headerlink" href="#visualizacion-con-matplotlib" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Precio de Tesla&quot;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s2">&quot;Precio ($)&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s2">&quot;Volumen&quot;</span><span class="p">)</span>
+<span class="c1"># plt.savefig(&quot;grafico.png&quot;) # Para guardar imagen</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0a201b0d846769bc3738fdb31d7207eda30d22b6214f4194a1a4c4139113e7f7.png" src="_images/0a201b0d846769bc3738fdb31d7207eda30d22b6214f4194a1a4c4139113e7f7.png" />
+</div>
+</div>
+<p>Graficaremos high, low y close en un mismo gráfico:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span> <span class="c1">#inicializa 2 series en el mismo gráfico</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Precio de Tesla&quot;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s2">&quot;Precio ($)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s2">&quot;Volumen&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c79878db698c4bbf6a90238c4b532516355c273a5118e542734e2e8f6609678c.png" src="_images/c79878db698c4bbf6a90238c4b532516355c273a5118e542734e2e8f6609678c.png" />
+</div>
+</div>
+</section>
+<section id="visualizacion-con-seaborn">
+<h2>Visualización con Seaborn<a class="headerlink" href="#visualizacion-con-seaborn" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="c1"># Extrae fechas desde index hacia columna</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-8b8d9d31-5fb8-4035-811c-5ed1aac2fa10" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Close</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Open</th>
+      <th>Volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2025-03-11</td>
+      <td>230.580002</td>
+      <td>237.059998</td>
+      <td>217.020004</td>
+      <td>225.309998</td>
+      <td>174896400</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2025-03-12</td>
+      <td>248.089996</td>
+      <td>251.839996</td>
+      <td>241.100006</td>
+      <td>247.220001</td>
+      <td>142215700</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-03-13</td>
+      <td>240.679993</td>
+      <td>248.289993</td>
+      <td>232.600006</td>
+      <td>248.130005</td>
+      <td>114813500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2025-03-14</td>
+      <td>249.979996</td>
+      <td>251.580002</td>
+      <td>240.729996</td>
+      <td>247.309998</td>
+      <td>100242300</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2025-03-17</td>
+      <td>238.009995</td>
+      <td>245.399994</td>
+      <td>232.800003</td>
+      <td>245.059998</td>
+      <td>111900600</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>2025-06-04</td>
+      <td>332.049988</td>
+      <td>345.600006</td>
+      <td>327.329987</td>
+      <td>345.100006</td>
+      <td>98912100</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>2025-06-05</td>
+      <td>284.700012</td>
+      <td>324.549988</td>
+      <td>273.209991</td>
+      <td>322.489990</td>
+      <td>287499800</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>2025-06-06</td>
+      <td>295.140015</td>
+      <td>305.500000</td>
+      <td>291.140015</td>
+      <td>298.829987</td>
+      <td>164747700</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>2025-06-09</td>
+      <td>308.579987</td>
+      <td>309.829987</td>
+      <td>281.850006</td>
+      <td>285.959991</td>
+      <td>140908900</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>2025-06-10</td>
+      <td>326.089996</td>
+      <td>327.829987</td>
+      <td>310.670013</td>
+      <td>314.940002</td>
+      <td>150429600</td>
+    </tr>
+  </tbody>
+</table>
+<p>64 rows × 6 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-8b8d9d31-5fb8-4035-811c-5ed1aac2fa10')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-8b8d9d31-5fb8-4035-811c-5ed1aac2fa10 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-8b8d9d31-5fb8-4035-811c-5ed1aac2fa10');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-8d669ddc-00a4-4282-9f53-5a24f7ce79ee">
+      <button class="colab-df-quickchart" onclick="quickchart('df-8d669ddc-00a4-4282-9f53-5a24f7ce79ee')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-8d669ddc-00a4-4282-9f53-5a24f7ce79ee button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+  <div id="id_5cd8d719-0289-43b8-9821-b5c4513c71cb">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('df2')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_5cd8d719-0289-43b8-9821-b5c4513c71cb button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('df2');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Date&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">df2</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Precio de Tesla&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([20162., 20179., 20193., 20209., 20223., 20240.]),
+ [Text(20162.0, 0, &#39;2025-03-15&#39;),
+  Text(20179.0, 0, &#39;2025-04-01&#39;),
+  Text(20193.0, 0, &#39;2025-04-15&#39;),
+  Text(20209.0, 0, &#39;2025-05-01&#39;),
+  Text(20223.0, 0, &#39;2025-05-15&#39;),
+  Text(20240.0, 0, &#39;2025-06-01&#39;)])
+</pre></div>
+</div>
+<img alt="_images/368b7e3885d5992900a697c0f8bf22cd4bb29c2abeaad56847e2a266608067e7.png" src="_images/368b7e3885d5992900a697c0f8bf22cd4bb29c2abeaad56847e2a266608067e7.png" />
+</div>
+</div>
+</section>
+<section id="visualizacion-con-plotly">
+<h2>Visualización con Plotly<a class="headerlink" href="#visualizacion-con-plotly" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">plotly.offline</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">data_frame</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Precio TSLA&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="5eda5bf2-1768-4d47-a8e4-39ecdb159e48" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("5eda5bf2-1768-4d47-a8e4-39ecdb159e48")) {                    Plotly.newPlot(                        "5eda5bf2-1768-4d47-a8e4-39ecdb159e48",                        [{"hovertemplate":"Date=%{x}\u003cbr\u003eClose=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"","orientation":"v","showlegend":false,"x":["2025-03-11T00:00:00","2025-03-12T00:00:00","2025-03-13T00:00:00","2025-03-14T00:00:00","2025-03-17T00:00:00","2025-03-18T00:00:00","2025-03-19T00:00:00","2025-03-20T00:00:00","2025-03-21T00:00:00","2025-03-24T00:00:00","2025-03-25T00:00:00","2025-03-26T00:00:00","2025-03-27T00:00:00","2025-03-28T00:00:00","2025-03-31T00:00:00","2025-04-01T00:00:00","2025-04-02T00:00:00","2025-04-03T00:00:00","2025-04-04T00:00:00","2025-04-07T00:00:00","2025-04-08T00:00:00","2025-04-09T00:00:00","2025-04-10T00:00:00","2025-04-11T00:00:00","2025-04-14T00:00:00","2025-04-15T00:00:00","2025-04-16T00:00:00","2025-04-17T00:00:00","2025-04-21T00:00:00","2025-04-22T00:00:00","2025-04-23T00:00:00","2025-04-24T00:00:00","2025-04-25T00:00:00","2025-04-28T00:00:00","2025-04-29T00:00:00","2025-04-30T00:00:00","2025-05-01T00:00:00","2025-05-02T00:00:00","2025-05-05T00:00:00","2025-05-06T00:00:00","2025-05-07T00:00:00","2025-05-08T00:00:00","2025-05-09T00:00:00","2025-05-12T00:00:00","2025-05-13T00:00:00","2025-05-14T00:00:00","2025-05-15T00:00:00","2025-05-16T00:00:00","2025-05-19T00:00:00","2025-05-20T00:00:00","2025-05-21T00:00:00","2025-05-22T00:00:00","2025-05-23T00:00:00","2025-05-27T00:00:00","2025-05-28T00:00:00","2025-05-29T00:00:00","2025-05-30T00:00:00","2025-06-02T00:00:00","2025-06-03T00:00:00","2025-06-04T00:00:00","2025-06-05T00:00:00","2025-06-06T00:00:00","2025-06-09T00:00:00","2025-06-10T00:00:00"],"xaxis":"x","y":[230.5800018310547,248.08999633789062,240.67999267578125,249.97999572753906,238.00999450683594,225.30999755859375,235.86000061035156,236.25999450683594,248.7100067138672,278.3900146484375,288.1400146484375,272.05999755859375,273.1300048828125,263.54998779296875,259.1600036621094,268.4599914550781,282.760009765625,267.2799987792969,239.42999267578125,233.2899932861328,221.86000061035156,272.20001220703125,252.39999389648438,252.30999755859375,252.35000610351562,254.11000061035156,241.5500030517578,241.3699951171875,227.5,237.97000122070312,250.74000549316406,259.510009765625,284.95001220703125,285.8800048828125,292.0299987792969,282.1600036621094,280.5199890136719,287.2099914550781,280.260009765625,275.3500061035156,276.2200012207031,284.82000732421875,298.260009765625,318.3800048828125,334.07000732421875,347.67999267578125,342.82000732421875,349.9800109863281,342.0899963378906,343.82000732421875,334.6199951171875,341.0400085449219,339.3399963378906,362.8900146484375,356.8999938964844,358.42999267578125,346.4599914550781,342.69000244140625,344.2699890136719,332.04998779296875,284.70001220703125,295.1400146484375,308.5799865722656,326.0899963378906],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Date"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Close"}},"legend":{"tracegroupgap":0},"title":{"text":"Precio TSLA"}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('5eda5bf2-1768-4d47-a8e4-39ecdb159e48');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+</body>
+</html></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Velas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Candlestick</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span>
+                <span class="nb">open</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">],</span>
+                <span class="n">high</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">],</span>
+                <span class="n">low</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">],</span>
+                <span class="n">close</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="13295a55-05bb-40f5-9fc1-d93f0e44db10" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("13295a55-05bb-40f5-9fc1-d93f0e44db10")) {                    Plotly.newPlot(                        "13295a55-05bb-40f5-9fc1-d93f0e44db10",                        [{"close":[230.5800018310547,248.08999633789062,240.67999267578125,249.97999572753906,238.00999450683594,225.30999755859375,235.86000061035156,236.25999450683594,248.7100067138672,278.3900146484375,288.1400146484375,272.05999755859375,273.1300048828125,263.54998779296875,259.1600036621094,268.4599914550781,282.760009765625,267.2799987792969,239.42999267578125,233.2899932861328,221.86000061035156,272.20001220703125,252.39999389648438,252.30999755859375,252.35000610351562,254.11000061035156,241.5500030517578,241.3699951171875,227.5,237.97000122070312,250.74000549316406,259.510009765625,284.95001220703125,285.8800048828125,292.0299987792969,282.1600036621094,280.5199890136719,287.2099914550781,280.260009765625,275.3500061035156,276.2200012207031,284.82000732421875,298.260009765625,318.3800048828125,334.07000732421875,347.67999267578125,342.82000732421875,349.9800109863281,342.0899963378906,343.82000732421875,334.6199951171875,341.0400085449219,339.3399963378906,362.8900146484375,356.8999938964844,358.42999267578125,346.4599914550781,342.69000244140625,344.2699890136719,332.04998779296875,284.70001220703125,295.1400146484375,308.5799865722656,326.0899963378906],"high":[237.05999755859375,251.83999633789062,248.2899932861328,251.5800018310547,245.39999389648438,230.10000610351562,241.41000366210938,238.0,249.52000427246094,278.6400146484375,288.20001220703125,284.8999938964844,291.8500061035156,276.1000061035156,260.55999755859375,277.45001220703125,284.989990234375,276.29998779296875,261.0,252.0,250.44000244140625,274.69000244140625,262.489990234375,257.739990234375,261.79998779296875,258.75,251.97000122070312,244.33999633789062,232.2100067138672,242.7899932861328,259.45001220703125,259.5400085449219,286.8500061035156,294.8599853515625,293.32000732421875,284.45001220703125,290.8699951171875,294.7799987792969,284.8500061035156,277.7300109863281,277.9200134277344,289.79998779296875,307.0400085449219,322.2099914550781,337.5899963378906,350.0,346.1400146484375,351.6199951171875,343.0,354.989990234375,347.3500061035156,347.2699890136719,343.17999267578125,363.7900085449219,365.0,367.7099914550781,363.67999267578125,348.0199890136719,355.3999938964844,345.6000061035156,324.54998779296875,305.5,309.8299865722656,327.8299865722656],"low":[217.02000427246094,241.10000610351562,232.60000610351562,240.72999572753906,232.8000030517578,222.27999877929688,229.1999969482422,230.0500030517578,234.5500030517578,256.3299865722656,271.2799987792969,266.510009765625,271.82000732421875,260.57000732421875,243.36000061035156,259.25,251.27000427246094,261.510009765625,236.0,214.25,217.8000030517578,223.8800048828125,239.3300018310547,241.36000061035156,245.92999267578125,247.5399932861328,233.88999938964844,237.67999267578125,222.7899932861328,229.85000610351562,244.42999267578125,249.1999969482422,259.6300048828125,272.4200134277344,279.4700012207031,270.7799987792969,279.80999755859375,279.80999755859375,274.3999938964844,271.3500061035156,271.0,279.4100036621094,290.0,311.5,316.79998779296875,337.0,334.7200012207031,342.3299865722656,333.3699951171875,341.6300048828125,332.20001220703125,331.3900146484375,333.2099914550781,347.32000732421875,355.9100036621094,356.0,345.2900085449219,333.3299865722656,343.0400085449219,327.3299865722656,273.2099914550781,291.1400146484375,281.8500061035156,310.6700134277344],"open":[225.30999755859375,247.22000122070312,248.1300048828125,247.30999755859375,245.05999755859375,228.16000366210938,231.61000061035156,233.35000610351562,234.99000549316406,258.0799865722656,283.6000061035156,282.6600036621094,272.4800109863281,275.5799865722656,249.30999755859375,263.79998779296875,254.60000610351562,265.2900085449219,255.3800048828125,223.77999877929688,245.0,224.69000244140625,260.0,251.83999633789062,258.3599853515625,249.91000366210938,247.61000061035156,243.47000122070312,230.25999450683594,230.9600067138672,254.86000061035156,250.5,261.69000244140625,288.9800109863281,285.5,279.8999938964844,280.010009765625,284.8999938964844,284.57000732421875,273.1099853515625,276.8800048828125,279.6300048828125,290.2099914550781,321.989990234375,320.0,342.5,340.3399963378906,346.239990234375,336.29998779296875,347.8699951171875,344.42999267578125,331.8999938964844,337.9200134277344,347.3500061035156,364.8399963378906,365.2900085449219,355.5199890136719,343.5,346.6000061035156,345.1000061035156,322.489990234375,298.8299865722656,285.9599914550781,314.94000244140625],"x":["2025-03-11T00:00:00","2025-03-12T00:00:00","2025-03-13T00:00:00","2025-03-14T00:00:00","2025-03-17T00:00:00","2025-03-18T00:00:00","2025-03-19T00:00:00","2025-03-20T00:00:00","2025-03-21T00:00:00","2025-03-24T00:00:00","2025-03-25T00:00:00","2025-03-26T00:00:00","2025-03-27T00:00:00","2025-03-28T00:00:00","2025-03-31T00:00:00","2025-04-01T00:00:00","2025-04-02T00:00:00","2025-04-03T00:00:00","2025-04-04T00:00:00","2025-04-07T00:00:00","2025-04-08T00:00:00","2025-04-09T00:00:00","2025-04-10T00:00:00","2025-04-11T00:00:00","2025-04-14T00:00:00","2025-04-15T00:00:00","2025-04-16T00:00:00","2025-04-17T00:00:00","2025-04-21T00:00:00","2025-04-22T00:00:00","2025-04-23T00:00:00","2025-04-24T00:00:00","2025-04-25T00:00:00","2025-04-28T00:00:00","2025-04-29T00:00:00","2025-04-30T00:00:00","2025-05-01T00:00:00","2025-05-02T00:00:00","2025-05-05T00:00:00","2025-05-06T00:00:00","2025-05-07T00:00:00","2025-05-08T00:00:00","2025-05-09T00:00:00","2025-05-12T00:00:00","2025-05-13T00:00:00","2025-05-14T00:00:00","2025-05-15T00:00:00","2025-05-16T00:00:00","2025-05-19T00:00:00","2025-05-20T00:00:00","2025-05-21T00:00:00","2025-05-22T00:00:00","2025-05-23T00:00:00","2025-05-27T00:00:00","2025-05-28T00:00:00","2025-05-29T00:00:00","2025-05-30T00:00:00","2025-06-02T00:00:00","2025-06-03T00:00:00","2025-06-04T00:00:00","2025-06-05T00:00:00","2025-06-06T00:00:00","2025-06-09T00:00:00","2025-06-10T00:00:00"],"type":"candlestick"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('13295a55-05bb-40f5-9fc1-d93f0e44db10');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+</body>
+</html></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OHLC</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Ohlc</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span>
+                <span class="nb">open</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">],</span>
+                <span class="n">high</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">],</span>
+                <span class="n">low</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">],</span>
+                <span class="n">close</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="6dbacc4c-8d93-4b2c-b3c3-dcd7b2fd5ea0" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6dbacc4c-8d93-4b2c-b3c3-dcd7b2fd5ea0")) {                    Plotly.newPlot(                        "6dbacc4c-8d93-4b2c-b3c3-dcd7b2fd5ea0",                        [{"close":[230.5800018310547,248.08999633789062,240.67999267578125,249.97999572753906,238.00999450683594,225.30999755859375,235.86000061035156,236.25999450683594,248.7100067138672,278.3900146484375,288.1400146484375,272.05999755859375,273.1300048828125,263.54998779296875,259.1600036621094,268.4599914550781,282.760009765625,267.2799987792969,239.42999267578125,233.2899932861328,221.86000061035156,272.20001220703125,252.39999389648438,252.30999755859375,252.35000610351562,254.11000061035156,241.5500030517578,241.3699951171875,227.5,237.97000122070312,250.74000549316406,259.510009765625,284.95001220703125,285.8800048828125,292.0299987792969,282.1600036621094,280.5199890136719,287.2099914550781,280.260009765625,275.3500061035156,276.2200012207031,284.82000732421875,298.260009765625,318.3800048828125,334.07000732421875,347.67999267578125,342.82000732421875,349.9800109863281,342.0899963378906,343.82000732421875,334.6199951171875,341.0400085449219,339.3399963378906,362.8900146484375,356.8999938964844,358.42999267578125,346.4599914550781,342.69000244140625,344.2699890136719,332.04998779296875,284.70001220703125,295.1400146484375,308.5799865722656,326.0899963378906],"high":[237.05999755859375,251.83999633789062,248.2899932861328,251.5800018310547,245.39999389648438,230.10000610351562,241.41000366210938,238.0,249.52000427246094,278.6400146484375,288.20001220703125,284.8999938964844,291.8500061035156,276.1000061035156,260.55999755859375,277.45001220703125,284.989990234375,276.29998779296875,261.0,252.0,250.44000244140625,274.69000244140625,262.489990234375,257.739990234375,261.79998779296875,258.75,251.97000122070312,244.33999633789062,232.2100067138672,242.7899932861328,259.45001220703125,259.5400085449219,286.8500061035156,294.8599853515625,293.32000732421875,284.45001220703125,290.8699951171875,294.7799987792969,284.8500061035156,277.7300109863281,277.9200134277344,289.79998779296875,307.0400085449219,322.2099914550781,337.5899963378906,350.0,346.1400146484375,351.6199951171875,343.0,354.989990234375,347.3500061035156,347.2699890136719,343.17999267578125,363.7900085449219,365.0,367.7099914550781,363.67999267578125,348.0199890136719,355.3999938964844,345.6000061035156,324.54998779296875,305.5,309.8299865722656,327.8299865722656],"low":[217.02000427246094,241.10000610351562,232.60000610351562,240.72999572753906,232.8000030517578,222.27999877929688,229.1999969482422,230.0500030517578,234.5500030517578,256.3299865722656,271.2799987792969,266.510009765625,271.82000732421875,260.57000732421875,243.36000061035156,259.25,251.27000427246094,261.510009765625,236.0,214.25,217.8000030517578,223.8800048828125,239.3300018310547,241.36000061035156,245.92999267578125,247.5399932861328,233.88999938964844,237.67999267578125,222.7899932861328,229.85000610351562,244.42999267578125,249.1999969482422,259.6300048828125,272.4200134277344,279.4700012207031,270.7799987792969,279.80999755859375,279.80999755859375,274.3999938964844,271.3500061035156,271.0,279.4100036621094,290.0,311.5,316.79998779296875,337.0,334.7200012207031,342.3299865722656,333.3699951171875,341.6300048828125,332.20001220703125,331.3900146484375,333.2099914550781,347.32000732421875,355.9100036621094,356.0,345.2900085449219,333.3299865722656,343.0400085449219,327.3299865722656,273.2099914550781,291.1400146484375,281.8500061035156,310.6700134277344],"open":[225.30999755859375,247.22000122070312,248.1300048828125,247.30999755859375,245.05999755859375,228.16000366210938,231.61000061035156,233.35000610351562,234.99000549316406,258.0799865722656,283.6000061035156,282.6600036621094,272.4800109863281,275.5799865722656,249.30999755859375,263.79998779296875,254.60000610351562,265.2900085449219,255.3800048828125,223.77999877929688,245.0,224.69000244140625,260.0,251.83999633789062,258.3599853515625,249.91000366210938,247.61000061035156,243.47000122070312,230.25999450683594,230.9600067138672,254.86000061035156,250.5,261.69000244140625,288.9800109863281,285.5,279.8999938964844,280.010009765625,284.8999938964844,284.57000732421875,273.1099853515625,276.8800048828125,279.6300048828125,290.2099914550781,321.989990234375,320.0,342.5,340.3399963378906,346.239990234375,336.29998779296875,347.8699951171875,344.42999267578125,331.8999938964844,337.9200134277344,347.3500061035156,364.8399963378906,365.2900085449219,355.5199890136719,343.5,346.6000061035156,345.1000061035156,322.489990234375,298.8299865722656,285.9599914550781,314.94000244140625],"x":["2025-03-11T00:00:00","2025-03-12T00:00:00","2025-03-13T00:00:00","2025-03-14T00:00:00","2025-03-17T00:00:00","2025-03-18T00:00:00","2025-03-19T00:00:00","2025-03-20T00:00:00","2025-03-21T00:00:00","2025-03-24T00:00:00","2025-03-25T00:00:00","2025-03-26T00:00:00","2025-03-27T00:00:00","2025-03-28T00:00:00","2025-03-31T00:00:00","2025-04-01T00:00:00","2025-04-02T00:00:00","2025-04-03T00:00:00","2025-04-04T00:00:00","2025-04-07T00:00:00","2025-04-08T00:00:00","2025-04-09T00:00:00","2025-04-10T00:00:00","2025-04-11T00:00:00","2025-04-14T00:00:00","2025-04-15T00:00:00","2025-04-16T00:00:00","2025-04-17T00:00:00","2025-04-21T00:00:00","2025-04-22T00:00:00","2025-04-23T00:00:00","2025-04-24T00:00:00","2025-04-25T00:00:00","2025-04-28T00:00:00","2025-04-29T00:00:00","2025-04-30T00:00:00","2025-05-01T00:00:00","2025-05-02T00:00:00","2025-05-05T00:00:00","2025-05-06T00:00:00","2025-05-07T00:00:00","2025-05-08T00:00:00","2025-05-09T00:00:00","2025-05-12T00:00:00","2025-05-13T00:00:00","2025-05-14T00:00:00","2025-05-15T00:00:00","2025-05-16T00:00:00","2025-05-19T00:00:00","2025-05-20T00:00:00","2025-05-21T00:00:00","2025-05-22T00:00:00","2025-05-23T00:00:00","2025-05-27T00:00:00","2025-05-28T00:00:00","2025-05-29T00:00:00","2025-05-30T00:00:00","2025-06-02T00:00:00","2025-06-03T00:00:00","2025-06-04T00:00:00","2025-06-05T00:00:00","2025-06-06T00:00:00","2025-06-09T00:00:00","2025-06-10T00:00:00"],"type":"ohlc"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('6dbacc4c-8d93-4b2c-b3c3-dcd7b2fd5ea0');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+</body>
+</html></div></div>
+</div>
+</section>
+<section id="visualizacion-con-mplfinance">
+<h2>Visualización con mplfinance<a class="headerlink" href="#visualizacion-con-mplfinance" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install mplfinance --quiet
+<span class="kn">import</span><span class="w"> </span><span class="nn">mplfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpf</span>
+
+<span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e2764ac63abaa4775294a8781377ee95978682ecec3e877c786b09d9a0e7e5d7.png" src="_images/e2764ac63abaa4775294a8781377ee95978682ecec3e877c786b09d9a0e7e5d7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;candle&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6f983f087eb03a957bd50a4a5472ed5b443d24069738ecd27fac093ba6222398.png" src="_images/6f983f087eb03a957bd50a4a5472ed5b443d24069738ecd27fac093ba6222398.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;candle&#39;</span><span class="p">,</span><span class="n">mav</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">),</span><span class="n">volume</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/360dfd90b5df95b4142145253cf49c364c29ebacd9477ef1d90f6fc62d182b5d.png" src="_images/360dfd90b5df95b4142145253cf49c364c29ebacd9477ef1d90f6fc62d182b5d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;candle&#39;</span><span class="p">,</span><span class="n">mav</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">),</span><span class="n">volume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;tradingview&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/771e6a42d6cb7cf4898a8de8e8da99cf31a877881a470091fbc9216aa64390f3.png" src="_images/771e6a42d6cb7cf4898a8de8e8da99cf31a877881a470091fbc9216aa64390f3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpf</span><span class="o">.</span><span class="n">available_styles</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;binance&#39;,
+ &#39;binancedark&#39;,
+ &#39;blueskies&#39;,
+ &#39;brasil&#39;,
+ &#39;charles&#39;,
+ &#39;checkers&#39;,
+ &#39;classic&#39;,
+ &#39;default&#39;,
+ &#39;ibd&#39;,
+ &#39;kenan&#39;,
+ &#39;mike&#39;,
+ &#39;nightclouds&#39;,
+ &#39;sas&#39;,
+ &#39;starsandstripes&#39;,
+ &#39;tradingview&#39;,
+ &#39;yahoo&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;pnf&#39;</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;tradingview&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/mplfinance/_utils.py:129: FutureWarning:
+
+Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+
+/usr/local/lib/python3.11/dist-packages/mplfinance/_utils.py:130: FutureWarning:
+
+Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+
+/usr/local/lib/python3.11/dist-packages/mplfinance/_utils.py:131: FutureWarning:
+
+Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+</pre></div>
+</div>
+<img alt="_images/e85b27a20597fc8648babb8b9049b6e7c70d5f9c548d88baa05daab9cd0a4ee8.png" src="_images/e85b27a20597fc8648babb8b9049b6e7c70d5f9c548d88baa05daab9cd0a4ee8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;tradingview&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7c7d2ad6de0cd34e4b9d2bcebcfd5f22d68b682bacec81349054820336020f98.png" src="_images/7c7d2ad6de0cd34e4b9d2bcebcfd5f22d68b682bacec81349054820336020f98.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="clase1-get_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1. Carga de datos finacieros</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Convirtiendo precios a retornos</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ajustar-frecuencia-de-la-serie-de-tiempo">Ajustar frecuencia de la serie de tiempo</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-de-datos">Visualización de datos</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-pandas">Visualizando con Pandas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-matplotlib">Visualización con matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-seaborn">Visualización con Seaborn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-plotly">Visualización con Plotly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-con-mplfinance">Visualización con mplfinance</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Claudio Aracena
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

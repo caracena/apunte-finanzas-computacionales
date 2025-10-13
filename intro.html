@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to your Jupyter Book &#8212; Apunte Finanzas Computacionales</title>
+    <title>Apunte de Finanzas Computacionales &#8212; Apunte Finanzas Computacionales</title>
   
   
   
@@ -57,10 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Yahoo! Finance" href="clase1-yfinance.html" />
+    <link rel="next" title="1. Carga de datos finacieros" href="clase1-get_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,12 +178,15 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Welcome to your Jupyter Book
+                    Apunte de Finanzas Computacionales
                 </a>
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="clase1-yfinance.html">1. Yahoo! Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">Convirtiendo precios a retornos</a></li>
+
+
 </ul>
 
     </div>
@@ -354,7 +359,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -365,11 +372,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Welcome to your Jupyter Book</h1>
+    <h1>Apunte de Finanzas Computacionales</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-encontraras">¿Qué encontrarás?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos-sugeridos">Requisitos sugeridos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entorno-y-librerias">Entorno y librerías</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-usarlo">Cómo usarlo</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -379,18 +397,59 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="welcome-to-your-jupyter-book">
-<h1>Welcome to your Jupyter Book<a class="headerlink" href="#welcome-to-your-jupyter-book" title="Link to this heading">#</a></h1>
-<p>This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out <a class="reference external" href="https://jupyterbook.org">the Jupyter Book documentation</a> for more information.</p>
-<p>Check out the content pages bundled with this sample book to see more.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="apunte-de-finanzas-computacionales">
+<h1>Apunte de <strong>Finanzas Computacionales</strong><a class="headerlink" href="#apunte-de-finanzas-computacionales" title="Link to this heading">#</a></h1>
+<p><strong>Escuela de Negocios, Universidad Adolfo Ibáñez</strong></p>
+<p>¡Bienvenid&#64;! Este apunte es tu compañero de ruta para <strong>estudiar y practicar finanzas computacionales con Python</strong>. Aquí revisaremos los <strong>conceptos clave</strong> y, sobre todo, los <strong>códigos</strong> que los llevan a la práctica: desde datos y visualización hasta portafolios, riesgo, factores y modelos predictivos.</p>
+<hr class="docutils" />
+<section id="que-encontraras">
+<h2>¿Qué encontrarás?<a class="headerlink" href="#que-encontraras" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Conceptos resumidos</strong>: idea central, fórmulas mínimas y criterios de uso.</p></li>
+<li><p><strong>Celdas de código en Python</strong> listas para ejecutar/adaptar.</p></li>
+<li><p><strong>Ejemplos reproducibles</strong> con datos de mercado y resultados interpretados.</p></li>
+<li><p><strong>Buenas prácticas</strong></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="requisitos-sugeridos">
+<h2>Requisitos sugeridos<a class="headerlink" href="#requisitos-sugeridos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Conocimientos de Python (variables, funciones, librerías).</p></li>
+<li><p>Nociones introductorias de finanzas (rendimientos, riesgo, diversificación).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="entorno-y-librerias">
+<h2>Entorno y librerías<a class="headerlink" href="#entorno-y-librerias" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Entorno</strong>: Google Colab</p></li>
+<li><p><strong>Librerías base</strong>: <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">yfinance</span></code>, etc.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="como-usarlo">
+<h2>Cómo usarlo<a class="headerlink" href="#como-usarlo" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Lee el concepto</strong> para entender el “por qué”.</p></li>
+<li><p><strong>Ejecuta el notebook</strong> y verifica que obtienes los mismos resultados.</p></li>
+<li><p><strong>Modifica parámetros</strong> (tickers, ventanas, restricciones) y observa cambios.</p></li>
+<li><p><strong>Anota hallazgos</strong> y dudas para discusión en clase o foro.</p></li>
+</ol>
+<blockquote>
+<div><p><strong>Recordatorio:</strong> estos materiales son educativos. No constituyen <strong>recomendación de inversión</strong>.</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>Estos son los contenidos que veremos (se modificarán cada semana):</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="clase1-yfinance.html">1. Yahoo! Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">Convirtiendo precios a retornos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-graph.html#ajustar-frecuencia-de-la-serie-de-tiempo">Ajustar frecuencia de la serie de tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-graph.html#visualizacion-de-datos">Visualización de datos</a></li>
 </ul>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -424,11 +483,11 @@ It does not go in-depth into any particular topic - check out <a class="referenc
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="clase1-yfinance.html"
+       href="clase1-get_data.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1. Yahoo! Finance</p>
+        <p class="prev-next-title">1. Carga de datos finacieros</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -438,6 +497,24 @@ It does not go in-depth into any particular topic - check out <a class="referenc
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-encontraras">¿Qué encontrarás?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requisitos-sugeridos">Requisitos sugeridos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entorno-y-librerias">Entorno y librerías</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-usarlo">Cómo usarlo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
