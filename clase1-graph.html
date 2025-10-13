@@ -57,8 +57,6 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'clase1-graph';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -431,7 +429,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="graficando-series-financieras">
+  <section id="graficando-series-financieras">
 <h1>2. Graficando series financieras<a class="headerlink" href="#graficando-series-financieras" title="Link to this heading">#</a></h1>
 <section id="convirtiendo-precios-a-retornos">
 <h2>Convirtiendo precios a retornos<a class="headerlink" href="#convirtiendo-precios-a-retornos" title="Link to this heading">#</a></h2>
@@ -439,8 +437,9 @@ document.write(`
 <ul class="simple">
 <li><p><strong>Retornos simples:</strong></p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[r_t = \frac{(P_t - P_{t-1})}{P_{t-1}} = \frac{P_t}{P_{t-1}}-1\]</div>
+<p>$$
+r_t = \frac{(P_t - P_{t-1})}{P_{t-1}} = \frac{P_t}{P_{t-1}}-1
+$$</p>
 <p>En Pandas, se puede calcular usando el método <code class="docutils literal notranslate"><span class="pre">pct_change()</span></code>. Ejemplo:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1006,8 +1005,9 @@ document.write(`
 <ul class="simple">
 <li><p><strong>Retornos en logaritmos:</strong></p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[r_i = \ln \left(\frac{P_t}{P_{t-1}}\right) = \ln(P_t) - \ln(P_{t-1})\]</div>
+<p>$$
+r_i = \ln \left(\frac{P_t}{P_{t-1}}\right) = \ln(P_t) - \ln(P_{t-1})
+$$</p>
 <p>Para calcular estos retornos deberemos usar Numpy</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
