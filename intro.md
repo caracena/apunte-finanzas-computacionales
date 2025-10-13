@@ -1,11 +1,41 @@
-# Welcome to your Jupyter Book
+# Apunte de **Finanzas Computacionales**  
+**Escuela de Negocios, Universidad Adolfo Ibáñez**
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+¡Bienvenid@! Este apunte es tu compañero de ruta para **estudiar y practicar finanzas computacionales con Python**. Aquí revisaremos los **conceptos clave** y, sobre todo, los **códigos** que los llevan a la práctica: desde datos y visualización hasta portafolios, riesgo, factores y modelos predictivos.
 
-Check out the content pages bundled with this sample book to see more.
+---
+
+## ¿Qué encontrarás?
+- **Conceptos resumidos**: idea central, fórmulas mínimas y criterios de uso.  
+- **Celdas de código en Python** listas para ejecutar/adaptar.  
+- **Ejemplos reproducibles** con datos de mercado y resultados interpretados.  
+- **Buenas prácticas** 
+
+---
+
+## Requisitos sugeridos
+- Conocimientos de Python (variables, funciones, librerías).  
+- Nociones introductorias de finanzas (rendimientos, riesgo, diversificación).
+
+---
+
+## Entorno y librerías
+- **Entorno**: Google Colab  
+- **Librerías base**: `numpy`, `pandas`, `matplotlib`, `scipy`, `yfinance`, etc.
+
+---
+
+## Cómo usarlo
+1. **Lee el concepto** para entender el “por qué”.  
+2. **Ejecuta el notebook** y verifica que obtienes los mismos resultados.  
+3. **Modifica parámetros** (tickers, ventanas, restricciones) y observa cambios.  
+4. **Anota hallazgos** y dudas para discusión en clase o foro.
+
+> **Recordatorio:** estos materiales son educativos. No constituyen **recomendación de inversión**.
+
+---
+
+Estos son los contenidos que veremos (se modificarán cada semana):
 
 ```{tableofcontents}
 ```
