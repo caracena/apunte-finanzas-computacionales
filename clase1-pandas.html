@@ -1,0 +1,1941 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cargar un archivo csv como df &#8212; Apunte Finanzas Computacionales</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clase1-pandas';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Carga de datos finacieros" href="clase1-get_data.html" />
+    <link rel="prev" title="Apunte de Finanzas Computacionales" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="Apunte Finanzas Computacionales - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="Apunte Finanzas Computacionales - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Apunte de Finanzas Computacionales
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cargar un archivo csv como df</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">2. Graficando series financieras</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase1-pandas.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase1-pandas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/clase1-pandas.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cargar un archivo csv como df</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Cargar un archivo csv como df</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#head">Head</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail">Tail</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conocer-el-tipo-de-cada-columna">Conocer el tipo de cada columna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convertir-la-columna-date-en-datetime">Convertir la columna Date en datetime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe">Describe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccionar-solo-columnas-currency-date-close-y-volume">Seleccionar solo columnas <code class="docutils literal notranslate"><span class="pre">Currency</span></code>, <code class="docutils literal notranslate"><span class="pre">Date</span></code>, <code class="docutils literal notranslate"><span class="pre">Close</span></code> y <code class="docutils literal notranslate"><span class="pre">Volume</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuenta-la-cantidad-de-criptomonedas-del-dataframe">Cuenta la cantidad de criptomonedas del dataframe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum">Crea un dataframe con precios de cierre y fecha de bitcoin, otro con xrp, y otro con ethereum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre">En cada dataframe creado, cambie el nombre de la columna de <code class="docutils literal notranslate"><span class="pre">Close</span></code> al nombre de la criptomoneda asociada al df. Luego, solo deje Fecha y precio de cierre.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-los-tres-df-en-uno-solo">Una los tres df en uno solo.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos">Haga un <code class="docutils literal notranslate"><span class="pre">describe()</span></code> al df y explique las principales características de los datos.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#usando-loc-e-iloc-para-seleccionar-filas-y-columnas">Usando loc e iloc para seleccionar filas y columnas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-exporte-df-merge-a-un-archivo-excel">Finalmente, exporte <code class="docutils literal notranslate"><span class="pre">df_merge</span></code> a un archivo Excel</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="cargar-un-archivo-csv-como-df">
+<h1>Cargar un archivo csv como df<a class="headerlink" href="#cargar-un-archivo-csv-como-df" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#df = pd.read_csv(&quot;consolidated_coin_data.csv&quot;)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;consolidated_coin_data.csv&quot;</span><span class="p">,</span> <span class="n">thousands</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">decimal</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="head">
+<h2>Head<a class="headerlink" href="#head" title="Link to this heading">#</a></h2>
+<p>El método <code class="docutils literal notranslate"><span class="pre">head()</span></code> permite llamar las primeras 10 filas del dataframe. El método <code class="docutils literal notranslate"><span class="pre">head(n)</span></code>, por su parte, permite llamar las primeras <em>n</em> filas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tezos</td>
+      <td>Dec 04, 2019</td>
+      <td>1.29</td>
+      <td>1.32</td>
+      <td>1.25</td>
+      <td>1.25</td>
+      <td>46048752.0</td>
+      <td>824588509</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>tezos</td>
+      <td>Dec 03, 2019</td>
+      <td>1.24</td>
+      <td>1.32</td>
+      <td>1.21</td>
+      <td>1.29</td>
+      <td>41462224.0</td>
+      <td>853213342</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tezos</td>
+      <td>Dec 02, 2019</td>
+      <td>1.25</td>
+      <td>1.26</td>
+      <td>1.20</td>
+      <td>1.24</td>
+      <td>27574097.0</td>
+      <td>817872179</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>tezos</td>
+      <td>Dec 01, 2019</td>
+      <td>1.33</td>
+      <td>1.34</td>
+      <td>1.25</td>
+      <td>1.25</td>
+      <td>24127567.0</td>
+      <td>828296390</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>tezos</td>
+      <td>Nov 30, 2019</td>
+      <td>1.31</td>
+      <td>1.37</td>
+      <td>1.31</td>
+      <td>1.33</td>
+      <td>28706667.0</td>
+      <td>879181680</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="tail">
+<h2>Tail<a class="headerlink" href="#tail" title="Link to this heading">#</a></h2>
+<p>El método <code class="docutils literal notranslate"><span class="pre">tail()</span></code> permite llamar las últimas 10 filas del dataframe. El método <code class="docutils literal notranslate"><span class="pre">tail(n)</span></code>, por su parte, permite llamar las últimas <em>n</em> filas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>28939</th>
+      <td>bitcoin-sv</td>
+      <td>May 02, 2013</td>
+      <td>3.78</td>
+      <td>4.04</td>
+      <td>3.01</td>
+      <td>3.37</td>
+      <td>0.0</td>
+      <td>58287979</td>
+    </tr>
+    <tr>
+      <th>28940</th>
+      <td>bitcoin-sv</td>
+      <td>May 01, 2013</td>
+      <td>4.29</td>
+      <td>4.36</td>
+      <td>3.52</td>
+      <td>3.80</td>
+      <td>0.0</td>
+      <td>65604596</td>
+    </tr>
+    <tr>
+      <th>28941</th>
+      <td>bitcoin-sv</td>
+      <td>Apr 30, 2013</td>
+      <td>4.40</td>
+      <td>4.57</td>
+      <td>4.17</td>
+      <td>4.30</td>
+      <td>0.0</td>
+      <td>74020918</td>
+    </tr>
+    <tr>
+      <th>28942</th>
+      <td>bitcoin-sv</td>
+      <td>Apr 29, 2013</td>
+      <td>4.37</td>
+      <td>4.57</td>
+      <td>4.23</td>
+      <td>4.38</td>
+      <td>0.0</td>
+      <td>75388964</td>
+    </tr>
+    <tr>
+      <th>28943</th>
+      <td>bitcoin-sv</td>
+      <td>Apr 28, 2013</td>
+      <td>4.30</td>
+      <td>4.40</td>
+      <td>4.18</td>
+      <td>4.35</td>
+      <td>0.0</td>
+      <td>74636938</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="conocer-el-tipo-de-cada-columna">
+<h2>Conocer el tipo de cada columna<a class="headerlink" href="#conocer-el-tipo-de-cada-columna" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Currency       object
+Date           object
+Open          float64
+High          float64
+Low           float64
+Close         float64
+Volume        float64
+Market Cap      int64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 28944 entries, 0 to 28943
+Data columns (total 8 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   Currency    28944 non-null  object 
+ 1   Date        28944 non-null  object 
+ 2   Open        28944 non-null  float64
+ 3   High        28944 non-null  float64
+ 4   Low         28944 non-null  float64
+ 5   Close       28944 non-null  float64
+ 6   Volume      28944 non-null  float64
+ 7   Market Cap  28944 non-null  int64  
+dtypes: float64(5), int64(1), object(2)
+memory usage: 1.8+ MB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="convertir-la-columna-date-en-datetime">
+<h2>Convertir la columna Date en datetime<a class="headerlink" href="#convertir-la-columna-date-en-datetime" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tezos</td>
+      <td>2019-12-04</td>
+      <td>1.29</td>
+      <td>1.32</td>
+      <td>1.25</td>
+      <td>1.25</td>
+      <td>46048752.0</td>
+      <td>824588509</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>tezos</td>
+      <td>2019-12-03</td>
+      <td>1.24</td>
+      <td>1.32</td>
+      <td>1.21</td>
+      <td>1.29</td>
+      <td>41462224.0</td>
+      <td>853213342</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tezos</td>
+      <td>2019-12-02</td>
+      <td>1.25</td>
+      <td>1.26</td>
+      <td>1.20</td>
+      <td>1.24</td>
+      <td>27574097.0</td>
+      <td>817872179</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>tezos</td>
+      <td>2019-12-01</td>
+      <td>1.33</td>
+      <td>1.34</td>
+      <td>1.25</td>
+      <td>1.25</td>
+      <td>24127567.0</td>
+      <td>828296390</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>tezos</td>
+      <td>2019-11-30</td>
+      <td>1.31</td>
+      <td>1.37</td>
+      <td>1.31</td>
+      <td>1.33</td>
+      <td>28706667.0</td>
+      <td>879181680</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Currency              object
+Date          datetime64[ns]
+Open                 float64
+High                 float64
+Low                  float64
+Close                float64
+Volume               float64
+Market Cap             int64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="describe">
+<h2>Describe<a class="headerlink" href="#describe" title="Link to this heading">#</a></h2>
+<p>El método <code class="docutils literal notranslate"><span class="pre">describe()</span></code> entrega estadística descriptiva de cada columna. Si, además, se incluye el parámetro <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">=</span> <span class="pre">&quot;all&quot;</span></code>, entrega estadística descriptiva detallada.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>28944</td>
+      <td>28944.000000</td>
+      <td>28944.000000</td>
+      <td>28944.000000</td>
+      <td>28944.000000</td>
+      <td>2.894400e+04</td>
+      <td>2.894400e+04</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>2016-08-15 11:58:36.417910528</td>
+      <td>300.719915</td>
+      <td>309.832983</td>
+      <td>290.858557</td>
+      <td>300.947534</td>
+      <td>8.133058e+08</td>
+      <td>7.194826e+09</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2013-04-28 00:00:00</td>
+      <td>0.001352</td>
+      <td>0.001509</td>
+      <td>0.001227</td>
+      <td>0.001357</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2014-12-21 18:00:00</td>
+      <td>0.205108</td>
+      <td>0.212444</td>
+      <td>0.196527</td>
+      <td>0.205347</td>
+      <td>2.418700e+05</td>
+      <td>6.345143e+07</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2016-08-15 12:00:00</td>
+      <td>2.995000</td>
+      <td>3.090000</td>
+      <td>2.880000</td>
+      <td>2.980000</td>
+      <td>5.212684e+06</td>
+      <td>3.453673e+08</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2018-04-10 06:00:00</td>
+      <td>24.430000</td>
+      <td>25.530000</td>
+      <td>23.270000</td>
+      <td>24.430000</td>
+      <td>1.554764e+08</td>
+      <td>3.422403e+09</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2019-12-04 00:00:00</td>
+      <td>19475.800000</td>
+      <td>20089.000000</td>
+      <td>18974.100000</td>
+      <td>19497.400000</td>
+      <td>5.350913e+10</td>
+      <td>3.265025e+11</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>1373.884681</td>
+      <td>1416.598573</td>
+      <td>1325.072633</td>
+      <td>1374.461221</td>
+      <td>3.059516e+09</td>
+      <td>2.469322e+10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>28944</td>
+      <td>28944</td>
+      <td>28944.000000</td>
+      <td>28944.000000</td>
+      <td>28944.000000</td>
+      <td>28944.000000</td>
+      <td>2.894400e+04</td>
+      <td>2.894400e+04</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>12</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>tezos</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>2412</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>NaN</td>
+      <td>2016-08-15 11:58:36.417910528</td>
+      <td>300.719915</td>
+      <td>309.832983</td>
+      <td>290.858557</td>
+      <td>300.947534</td>
+      <td>8.133058e+08</td>
+      <td>7.194826e+09</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>NaN</td>
+      <td>2013-04-28 00:00:00</td>
+      <td>0.001352</td>
+      <td>0.001509</td>
+      <td>0.001227</td>
+      <td>0.001357</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>NaN</td>
+      <td>2014-12-21 18:00:00</td>
+      <td>0.205108</td>
+      <td>0.212444</td>
+      <td>0.196527</td>
+      <td>0.205347</td>
+      <td>2.418700e+05</td>
+      <td>6.345143e+07</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>NaN</td>
+      <td>2016-08-15 12:00:00</td>
+      <td>2.995000</td>
+      <td>3.090000</td>
+      <td>2.880000</td>
+      <td>2.980000</td>
+      <td>5.212684e+06</td>
+      <td>3.453673e+08</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>NaN</td>
+      <td>2018-04-10 06:00:00</td>
+      <td>24.430000</td>
+      <td>25.530000</td>
+      <td>23.270000</td>
+      <td>24.430000</td>
+      <td>1.554764e+08</td>
+      <td>3.422403e+09</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>NaN</td>
+      <td>2019-12-04 00:00:00</td>
+      <td>19475.800000</td>
+      <td>20089.000000</td>
+      <td>18974.100000</td>
+      <td>19497.400000</td>
+      <td>5.350913e+10</td>
+      <td>3.265025e+11</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1373.884681</td>
+      <td>1416.598573</td>
+      <td>1325.072633</td>
+      <td>1374.461221</td>
+      <td>3.059516e+09</td>
+      <td>2.469322e+10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="seleccionar-solo-columnas-currency-date-close-y-volume">
+<h2>Seleccionar solo columnas <code class="docutils literal notranslate"><span class="pre">Currency</span></code>, <code class="docutils literal notranslate"><span class="pre">Date</span></code>, <code class="docutils literal notranslate"><span class="pre">Close</span></code> y <code class="docutils literal notranslate"><span class="pre">Volume</span></code><a class="headerlink" href="#seleccionar-solo-columnas-currency-date-close-y-volume" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Currency&quot;</span><span class="p">,</span> <span class="s2">&quot;Date&quot;</span><span class="p">,</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="s2">&quot;Volume&quot;</span><span class="p">]]</span>
+<span class="n">df_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Close</th>
+      <th>Volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tezos</td>
+      <td>2019-12-04</td>
+      <td>1.25</td>
+      <td>46048752.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>tezos</td>
+      <td>2019-12-03</td>
+      <td>1.29</td>
+      <td>41462224.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tezos</td>
+      <td>2019-12-02</td>
+      <td>1.24</td>
+      <td>27574097.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>tezos</td>
+      <td>2019-12-01</td>
+      <td>1.25</td>
+      <td>24127567.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>tezos</td>
+      <td>2019-11-30</td>
+      <td>1.33</td>
+      <td>28706667.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>28939</th>
+      <td>bitcoin-sv</td>
+      <td>2013-05-02</td>
+      <td>3.37</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>28940</th>
+      <td>bitcoin-sv</td>
+      <td>2013-05-01</td>
+      <td>3.80</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>28941</th>
+      <td>bitcoin-sv</td>
+      <td>2013-04-30</td>
+      <td>4.30</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>28942</th>
+      <td>bitcoin-sv</td>
+      <td>2013-04-29</td>
+      <td>4.38</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>28943</th>
+      <td>bitcoin-sv</td>
+      <td>2013-04-28</td>
+      <td>4.35</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>28944 rows × 4 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="cuenta-la-cantidad-de-criptomonedas-del-dataframe">
+<h2>Cuenta la cantidad de criptomonedas del dataframe<a class="headerlink" href="#cuenta-la-cantidad-de-criptomonedas-del-dataframe" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2</span><span class="p">[</span><span class="s2">&quot;Currency&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Currency
+tezos           2412
+binance-coin    2412
+eos             2412
+bitcoin         2412
+tether          2412
+xrp             2412
+bitcoin-cash    2412
+stellar         2412
+litecoin        2412
+ethereum        2412
+cardano         2412
+bitcoin-sv      2412
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum">
+<h2>Crea un dataframe con precios de cierre y fecha de bitcoin, otro con xrp, y otro con ethereum<a class="headerlink" href="#crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_temp</span> <span class="o">=</span> <span class="n">df_2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">])</span>
+
+<span class="n">df_bitcoin</span> <span class="o">=</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Currency == &quot;bitcoin&quot;&#39;</span><span class="p">)</span>
+<span class="n">df_xrp</span> <span class="o">=</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Currency == &quot;xrp&quot;&#39;</span><span class="p">)</span>
+<span class="n">df_ethereum</span> <span class="o">=</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Currency == &quot;ethereum&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ethereum</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Close</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>21708</th>
+      <td>ethereum</td>
+      <td>2019-12-04</td>
+      <td>146.75</td>
+    </tr>
+    <tr>
+      <th>21709</th>
+      <td>ethereum</td>
+      <td>2019-12-03</td>
+      <td>147.96</td>
+    </tr>
+    <tr>
+      <th>21710</th>
+      <td>ethereum</td>
+      <td>2019-12-02</td>
+      <td>149.06</td>
+    </tr>
+    <tr>
+      <th>21711</th>
+      <td>ethereum</td>
+      <td>2019-12-01</td>
+      <td>151.19</td>
+    </tr>
+    <tr>
+      <th>21712</th>
+      <td>ethereum</td>
+      <td>2019-11-30</td>
+      <td>152.54</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>También se puede filtrar directamente dentro del df:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_bitcoin_2</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[</span><span class="n">df_temp</span><span class="p">[</span><span class="s2">&quot;Currency&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;bitcoin&quot;</span><span class="p">]</span>
+<span class="n">df_bitcoin_2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Currency</th>
+      <th>Date</th>
+      <th>Close</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7236</th>
+      <td>bitcoin</td>
+      <td>2019-12-04</td>
+      <td>7252.03</td>
+    </tr>
+    <tr>
+      <th>7237</th>
+      <td>bitcoin</td>
+      <td>2019-12-03</td>
+      <td>7320.15</td>
+    </tr>
+    <tr>
+      <th>7238</th>
+      <td>bitcoin</td>
+      <td>2019-12-02</td>
+      <td>7321.99</td>
+    </tr>
+    <tr>
+      <th>7239</th>
+      <td>bitcoin</td>
+      <td>2019-12-01</td>
+      <td>7424.29</td>
+    </tr>
+    <tr>
+      <th>7240</th>
+      <td>bitcoin</td>
+      <td>2019-11-30</td>
+      <td>7569.63</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre">
+<h2>En cada dataframe creado, cambie el nombre de la columna de <code class="docutils literal notranslate"><span class="pre">Close</span></code> al nombre de la criptomoneda asociada al df. Luego, solo deje Fecha y precio de cierre.<a class="headerlink" href="#en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_bitcoin</span> <span class="o">=</span> <span class="n">df_bitcoin</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Close&quot;</span><span class="p">:</span><span class="s2">&quot;bitcoin&quot;</span><span class="p">})</span>
+<span class="n">df_bitcoin</span> <span class="o">=</span> <span class="n">df_bitcoin</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Currency&quot;</span><span class="p">])</span>
+
+<span class="n">df_xrp</span> <span class="o">=</span> <span class="n">df_xrp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Close&quot;</span><span class="p">:</span><span class="s2">&quot;xrp&quot;</span><span class="p">})</span>
+<span class="n">df_xrp</span> <span class="o">=</span> <span class="n">df_xrp</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Currency&quot;</span><span class="p">])</span>
+
+<span class="n">df_ethereum</span> <span class="o">=</span> <span class="n">df_ethereum</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Close&quot;</span><span class="p">:</span><span class="s2">&quot;ethereum&quot;</span><span class="p">})</span>
+<span class="n">df_ethereum</span> <span class="o">=</span> <span class="n">df_ethereum</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Currency&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_xrp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>xrp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12060</th>
+      <td>2019-12-04</td>
+      <td>0.216348</td>
+    </tr>
+    <tr>
+      <th>12061</th>
+      <td>2019-12-03</td>
+      <td>0.219870</td>
+    </tr>
+    <tr>
+      <th>12062</th>
+      <td>2019-12-02</td>
+      <td>0.219581</td>
+    </tr>
+    <tr>
+      <th>12063</th>
+      <td>2019-12-01</td>
+      <td>0.225333</td>
+    </tr>
+    <tr>
+      <th>12064</th>
+      <td>2019-11-30</td>
+      <td>0.226474</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="una-los-tres-df-en-uno-solo">
+<h2>Una los tres df en uno solo.<a class="headerlink" href="#una-los-tres-df-en-uno-solo" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_bitcoin</span><span class="p">,</span> <span class="n">df_xrp</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+<span class="n">df_merge</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>bitcoin</th>
+      <th>xrp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019-12-04</td>
+      <td>7252.03</td>
+      <td>0.216348</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019-12-03</td>
+      <td>7320.15</td>
+      <td>0.219870</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019-12-02</td>
+      <td>7321.99</td>
+      <td>0.219581</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-12-01</td>
+      <td>7424.29</td>
+      <td>0.225333</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-11-30</td>
+      <td>7569.63</td>
+      <td>0.226474</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2407</th>
+      <td>2013-05-02</td>
+      <td>105.21</td>
+      <td>105.210000</td>
+    </tr>
+    <tr>
+      <th>2408</th>
+      <td>2013-05-01</td>
+      <td>116.99</td>
+      <td>116.990000</td>
+    </tr>
+    <tr>
+      <th>2409</th>
+      <td>2013-04-30</td>
+      <td>139.00</td>
+      <td>139.000000</td>
+    </tr>
+    <tr>
+      <th>2410</th>
+      <td>2013-04-29</td>
+      <td>144.54</td>
+      <td>144.540000</td>
+    </tr>
+    <tr>
+      <th>2411</th>
+      <td>2013-04-28</td>
+      <td>134.21</td>
+      <td>134.210000</td>
+    </tr>
+  </tbody>
+</table>
+<p>2412 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_merge</span><span class="p">,</span> <span class="n">df_ethereum</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+<span class="n">df_merge</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>bitcoin</th>
+      <th>xrp</th>
+      <th>ethereum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019-12-04</td>
+      <td>7252.03</td>
+      <td>0.216348</td>
+      <td>146.75</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019-12-03</td>
+      <td>7320.15</td>
+      <td>0.219870</td>
+      <td>147.96</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019-12-02</td>
+      <td>7321.99</td>
+      <td>0.219581</td>
+      <td>149.06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-12-01</td>
+      <td>7424.29</td>
+      <td>0.225333</td>
+      <td>151.19</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-11-30</td>
+      <td>7569.63</td>
+      <td>0.226474</td>
+      <td>152.54</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos">
+<h2>Haga un <code class="docutils literal notranslate"><span class="pre">describe()</span></code> al df y explique las principales características de los datos.<a class="headerlink" href="#haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>bitcoin</th>
+      <th>xrp</th>
+      <th>ethereum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2412</td>
+      <td>2412.000000</td>
+      <td>2412.000000</td>
+      <td>2412.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>2016-08-15 12:00:00</td>
+      <td>3023.498777</td>
+      <td>4.529477</td>
+      <td>263.434610</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2013-04-28 00:00:00</td>
+      <td>68.430000</td>
+      <td>0.002810</td>
+      <td>0.434829</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2014-12-21 18:00:00</td>
+      <td>375.312500</td>
+      <td>0.006636</td>
+      <td>46.335000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2016-08-15 12:00:00</td>
+      <td>701.945000</td>
+      <td>0.015880</td>
+      <td>211.345000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2018-04-10 06:00:00</td>
+      <td>5756.890000</td>
+      <td>0.316083</td>
+      <td>378.157500</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2019-12-04 00:00:00</td>
+      <td>19497.400000</td>
+      <td>144.540000</td>
+      <td>1396.420000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>3770.438284</td>
+      <td>21.338320</td>
+      <td>251.481798</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="usando-loc-e-iloc-para-seleccionar-filas-y-columnas">
+<h1>Usando loc e iloc para seleccionar filas y columnas<a class="headerlink" href="#usando-loc-e-iloc-para-seleccionar-filas-y-columnas" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usando loc para seleccionar filas por etiquetas y columnas específicas</span>
+<span class="c1"># Seleccionamos las filas donde la fecha es &quot;2019-12-04&quot; y las columnas &quot;Date&quot; y &quot;bitcoin&quot;</span>
+<span class="n">example_loc</span> <span class="o">=</span> <span class="n">df_merge</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_merge</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;2019-12-04&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">,</span> <span class="s2">&quot;bitcoin&quot;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ejemplo con loc:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">example_loc</span><span class="p">)</span>
+
+<span class="c1"># Usando iloc para seleccionar filas y columnas por índices</span>
+<span class="c1"># Seleccionamos las primeras 5 filas y las primeras 2 columnas</span>
+<span class="n">example_iloc</span> <span class="o">=</span> <span class="n">df_merge</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ejemplo con iloc:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">example_iloc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ejemplo con loc:
+        Date  bitcoin
+0 2019-12-04  7252.03
+
+Ejemplo con iloc:
+        Date  bitcoin
+0 2019-12-04  7252.03
+1 2019-12-03  7320.15
+2 2019-12-02  7321.99
+3 2019-12-01  7424.29
+4 2019-11-30  7569.63
+</pre></div>
+</div>
+</div>
+</div>
+<section id="finalmente-exporte-df-merge-a-un-archivo-excel">
+<h2>Finalmente, exporte <code class="docutils literal notranslate"><span class="pre">df_merge</span></code> a un archivo Excel<a class="headerlink" href="#finalmente-exporte-df-merge-a-un-archivo-excel" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&quot;df_merge.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Apunte de <strong>Finanzas Computacionales</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="clase1-get_data.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. Carga de datos finacieros</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Cargar un archivo csv como df</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#head">Head</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail">Tail</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conocer-el-tipo-de-cada-columna">Conocer el tipo de cada columna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convertir-la-columna-date-en-datetime">Convertir la columna Date en datetime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe">Describe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccionar-solo-columnas-currency-date-close-y-volume">Seleccionar solo columnas <code class="docutils literal notranslate"><span class="pre">Currency</span></code>, <code class="docutils literal notranslate"><span class="pre">Date</span></code>, <code class="docutils literal notranslate"><span class="pre">Close</span></code> y <code class="docutils literal notranslate"><span class="pre">Volume</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuenta-la-cantidad-de-criptomonedas-del-dataframe">Cuenta la cantidad de criptomonedas del dataframe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum">Crea un dataframe con precios de cierre y fecha de bitcoin, otro con xrp, y otro con ethereum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre">En cada dataframe creado, cambie el nombre de la columna de <code class="docutils literal notranslate"><span class="pre">Close</span></code> al nombre de la criptomoneda asociada al df. Luego, solo deje Fecha y precio de cierre.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-los-tres-df-en-uno-solo">Una los tres df en uno solo.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos">Haga un <code class="docutils literal notranslate"><span class="pre">describe()</span></code> al df y explique las principales características de los datos.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#usando-loc-e-iloc-para-seleccionar-filas-y-columnas">Usando loc e iloc para seleccionar filas y columnas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-exporte-df-merge-a-un-archivo-excel">Finalmente, exporte <code class="docutils literal notranslate"><span class="pre">df_merge</span></code> a un archivo Excel</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Claudio Aracena
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
