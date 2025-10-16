@@ -26,12 +26,14 @@
 ---
 
 ## Cómo usarlo
-1. **Lee el concepto** para entender el “por qué”.  
+1. **Lee los conceptos**.  
 2. **Ejecuta el notebook** y verifica que obtienes los mismos resultados.  
 3. **Modifica parámetros** (tickers, ventanas, restricciones) y observa cambios.  
 4. **Anota hallazgos** y dudas para discusión en clase o foro.
 
 > **Recordatorio:** estos materiales son educativos. No constituyen **recomendación de inversión**.
+
+> Este material docente (o partes de él) ha sido elaborado con el apoyo de herramientas de inteligencia artificial generativa bajo la supervisión y edición del profesor. La responsabilidad sobre la veracidad, calidad y pertinencia del contenido final recae completamente en el docente.
 
 ---
 
