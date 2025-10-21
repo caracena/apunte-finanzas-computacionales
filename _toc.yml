@@ -7,3 +7,4 @@ chapters:
 - file: "clase1-pandas.ipynb"
 - file: "clase1-get_data.ipynb"
 - file: "clase1-graph.ipynb"
+- file: "clase2-returns.ipynb"
