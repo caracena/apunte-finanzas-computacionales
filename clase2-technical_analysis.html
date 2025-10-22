@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Análisis técnico &#8212; Apunte Finanzas Computacionales</title>
+    <title>4. Análisis técnico &#8212; Apunte Finanzas Computacionales</title>
   
   
   
@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'clase2-technical_analysis';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="3. Series de retornos" href="clase2-returns.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +123,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -179,11 +178,12 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="clase1-pandas.html">0. Pandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">2. Graficando series financieras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase2-returns.html">3. Series de retornos</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Análisis técnico</a></li>
 </ul>
 
     </div>
@@ -400,7 +400,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Análisis técnico</h1>
+    <h1>4. Análisis técnico</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -410,8 +410,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-usando-la-libreria-ta-lib">AT usando la librería TA-Lib</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libreria-ta">Librería TA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sma-simple-moving-average">SMA (Simple Moving Average)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsi-relative-strength-index">RSI (Relative Strength Index)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macd-moving-average-convergence-divergence">MACD (Moving Average Convergence Divergence)</a></li>
 </ul>
             </nav>
         </div>
@@ -424,16 +425,16 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="analisis-tecnico">
-<h1>Análisis técnico<a class="headerlink" href="#analisis-tecnico" title="Link to this heading">#</a></h1>
-<section id="at-usando-la-libreria-ta-lib">
-<h2>AT usando la librería TA-Lib<a class="headerlink" href="#at-usando-la-libreria-ta-lib" title="Link to this heading">#</a></h2>
-<p>Esta librería está montada sobre C++, por lo que su instalación requiere pasos adicionales. En Anaconda:</p>
-<ol class="arabic simple">
-<li><p>Actualizar Anaconda a la última versión: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span> <span class="pre">--force</span> <span class="pre">conda</span></code></p></li>
-<li><p>Instalar librería complementaria (en C++): <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">libta-lib</span></code></p></li>
-<li><p>Instalar TA-Lib: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">ta-lib</span></code></p></li>
-</ol>
-<p>Más info: <a class="reference external" href="https://pypi.org/project/TA-Lib/">https://pypi.org/project/TA-Lib/</a></p>
+<h1>4. Análisis técnico<a class="headerlink" href="#analisis-tecnico" title="Link to this heading">#</a></h1>
+<p>El análisis técnico en finanzas es un enfoque que busca predecir el comportamiento futuro de los precios de activos financieros (como acciones, bonos, divisas o criptomonedas) a partir del estudio de datos históricos de precios y volúmenes de transacción. Se basa en la idea de que toda la información relevante del mercado ya está reflejada en el precio, y que los movimientos de los precios tienden a seguir patrones repetitivos debido al comportamiento colectivo de los inversionistas.</p>
+<p>Su objetivo principal es detectar oportunidades de trading aprovechando patrones estadísticos o visuales en los datos, bajo la premisa de que la historia tiende a repetirse y que los precios se mueven en tendencias observables más que al azar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>TA-Lib<span class="w"> </span>--quiet
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -445,20 +446,27 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2022-12-31&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2024-12-31&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">multi_level_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%%**********************]  1 of 1 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
 </pre></div>
 </div>
 </div>
 </div>
+<section id="sma-simple-moving-average">
+<h2>SMA (Simple Moving Average)<a class="headerlink" href="#sma-simple-moving-average" title="Link to this heading">#</a></h2>
+<p>Es uno de los indicadores más básicos y utilizados en el análisis técnico. Representa el promedio aritmético de los precios de un activo durante un número determinado de periodos, y se usa para suavizar las fluctuaciones de corto plazo y destacar la tendencia general del mercado.</p>
+<ul class="simple">
+<li><p>Si el precio está por encima del SMA, se interpreta como una tendencia alcista.</p></li>
+<li><p>Si el precio está por debajo, indica una tendencia bajista.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sma_20&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Adj Close&quot;</span><span class="p">],</span> <span class="n">timeperiod</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Adj Close&quot;</span><span class="p">,</span> <span class="s2">&quot;sma_20&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sma_20&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">timeperiod</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="s2">&quot;sma_20&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -466,287 +474,81 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date&#39;&gt;
 </pre></div>
 </div>
-<img alt="_images/39cea42ef93c3f377efa078420d759d81d91abaad2121d7a18b87f3d9730f465.png" src="_images/39cea42ef93c3f377efa078420d759d81d91abaad2121d7a18b87f3d9730f465.png" />
+<img alt="_images/e224a33a67cf2542fcd9097afc5511397ccce05a8178bbe4f645dbe6eb79f71e.png" src="_images/e224a33a67cf2542fcd9097afc5511397ccce05a8178bbe4f645dbe6eb79f71e.png" />
 </div>
 </div>
+</section>
+<section id="rsi-relative-strength-index">
+<h2>RSI (Relative Strength Index)<a class="headerlink" href="#rsi-relative-strength-index" title="Link to this heading">#</a></h2>
+<p>Es un indicador técnico oscilador que mide la velocidad y el cambio de los movimientos de precios de un activo. Se utiliza para identificar situaciones de sobrecompra o sobreventa, es decir, momentos en que el precio podría estar cerca de una reversión de tendencia. Se calcula de la siguiente forma:</p>
+<p>$$
+RSI_t = 100 - \frac{100}{1 + RS_t}
+$$</p>
+<p>$$
+RS_t = \frac{\text{Promedio de ganancias}_t}{\text{Promedio de pérdidas}_t}
+$$</p>
+<p>donde $\Delta P_t = P_t - P_{t-1}$, si $\Delta P_t \gt 0$ se considera ganancia y si $\Delta P_t \leq 0$ se considera perdida.</p>
+<p>Finalmente, el RSI toma valores entre 0 y 100, donde niveles sobre 70 indican sobrecompra y bajo 30 indican sobreventa.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;RSI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Adj Close&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;RSI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">])</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;RSI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;RSI&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Plot Close price in the first subplot</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Close Price&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot RSI in the second subplot</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;RSI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;RSI&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ea046f86e92f9b6fc3a7b6bfce9ab84edb322e66b93e35c00de518ca70ae2be1.png" src="_images/ea046f86e92f9b6fc3a7b6bfce9ab84edb322e66b93e35c00de518ca70ae2be1.png" />
+<img alt="_images/1067e809e103a8f92fbf7818f9ff0af5f2e8fea54042d86aa086c0924de8f2f0.png" src="_images/1067e809e103a8f92fbf7818f9ff0af5f2e8fea54042d86aa086c0924de8f2f0.png" />
 </div>
 </div>
+</section>
+<section id="macd-moving-average-convergence-divergence">
+<h2>MACD (Moving Average Convergence Divergence)<a class="headerlink" href="#macd-moving-average-convergence-divergence" title="Link to this heading">#</a></h2>
+<p>Es un indicador técnico de tendencia y momentum. Su objetivo es identificar cambios en la dirección, fuerza y duración de una tendencia en el precio de un activo, combinando información de medias móviles exponenciales (EMA).</p>
+<p>El MACD se construye a partir de la diferencia entre dos medias móviles exponenciales (EMA) de distinta longitud, generalmente de 12 y 26 periodos:</p>
+<p>$$
+MACD_t = EMA_{12}(P_t) - EMA_{26}(P_t)
+$$</p>
+<p>Luego se calcula una línea de señal, que es una EMA (típicamente de 9 periodos) aplicada al propio MACD:</p>
+<p>$$
+\text{Señal}<em>t = EMA</em>{9}(MACD_t)
+$$</p>
+<p>Finalmente, la diferencia entre el MACD y su línea de señal genera el histograma, que muestra visualmente la fuerza del impulso:</p>
+<p>$$
+\text{Histograma}_t = MACD_t - \text{Señal}_t
+$$</p>
+<p>donde $EMA_t = \alpha \cdot P_t + (1 - \alpha) \cdot EMA_{t-1}$ y $\alpha = \frac{2}{n + 1}$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACD&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDSignal&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDHist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">MACD</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Adj Close&quot;</span><span class="p">],</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACD&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDSignal&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDHist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">MACD</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
                                                           <span class="n">fastperiod</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
                                                           <span class="n">slowperiod</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
                                                           <span class="n">signalperiod</span> <span class="o">=</span> <span class="mi">9</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
 <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;MACD&quot;</span><span class="p">,</span> <span class="s2">&quot;MACDSignal&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;MACD&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDHist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;macd_hist&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x2732adbaf20&gt;
-</pre></div>
-</div>
-<img alt="_images/17ad4eae6a31ebe8b38c85b6409ac66eda0297a8064d164888fb4d86946cadfb.png" src="_images/17ad4eae6a31ebe8b38c85b6409ac66eda0297a8064d164888fb4d86946cadfb.png" />
-</div>
-</div>
-</section>
-<section id="libreria-ta">
-<h2>Librería TA<a class="headerlink" href="#libreria-ta" title="Link to this heading">#</a></h2>
-<p>Una versión más liviana es la librería <code class="docutils literal notranslate"><span class="pre">TA</span></code>, aunque tiene menos funcionalidades que <code class="docutils literal notranslate"><span class="pre">TA-Lib</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>ta
-<span class="kn">import</span><span class="w"> </span><span class="nn">ta</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span> <span class="c1"># Rotate x-axis labels by 45 degrees</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2022-12-31&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="n">df2</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">add_all_ta_features</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="nb">open</span> <span class="o">=</span> <span class="s2">&quot;Open&quot;</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="s2">&quot;High&quot;</span><span class="p">,</span> <span class="n">low</span> <span class="o">=</span> <span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="n">close</span> <span class="o">=</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="s2">&quot;Volume&quot;</span><span class="p">)</span>
-<span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Ignoring invalid distribution -yrsistent (c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages)
-WARNING: Ignoring invalid distribution -yrsistent (c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages)
-WARNING: Ignoring invalid distribution -yrsistent (c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages)
-WARNING: Ignoring invalid distribution -yrsistent (c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages)
-WARNING: Ignoring invalid distribution -yrsistent (c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages)
-WARNING: Ignoring invalid distribution -yrsistent (c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ta in c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages (0.11.0)
-Requirement already satisfied: numpy in c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages (from ta) (1.23.4)
-Requirement already satisfied: pandas in c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages (from ta) (1.5.3)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages (from pandas-&gt;ta) (2.8.2)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages (from pandas-&gt;ta) (2022.7)
-Requirement already satisfied: six&gt;=1.5 in c:\users\gabriel.valenzuela.o\appdata\local\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas-&gt;ta) (1.16.0)
-[*********************100%%**********************]  1 of 1 completed
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Open</th>
-      <th>High</th>
-      <th>Low</th>
-      <th>Close</th>
-      <th>Volume</th>
-      <th>volume_adi</th>
-      <th>volume_obv</th>
-      <th>volume_cmf</th>
-      <th>volume_fi</th>
-      <th>volume_em</th>
-      <th>...</th>
-      <th>momentum_ppo</th>
-      <th>momentum_ppo_signal</th>
-      <th>momentum_ppo_hist</th>
-      <th>momentum_pvo</th>
-      <th>momentum_pvo_signal</th>
-      <th>momentum_pvo_hist</th>
-      <th>momentum_kama</th>
-      <th>others_dr</th>
-      <th>others_dlr</th>
-      <th>others_cr</th>
-    </tr>
-    <tr>
-      <th>Date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2022-01-03</th>
-      <td>382.583344</td>
-      <td>400.356659</td>
-      <td>378.679993</td>
-      <td>399.926666</td>
-      <td>103931400</td>
-      <td>9.980810e+07</td>
-      <td>103931400</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>2022-01-04</th>
-      <td>396.516663</td>
-      <td>402.666656</td>
-      <td>374.350006</td>
-      <td>383.196655</td>
-      <td>100248300</td>
-      <td>6.219867e+07</td>
-      <td>3683100</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-28.528824</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-4.183270</td>
-      <td>-4.273288</td>
-      <td>-4.183270</td>
-    </tr>
-    <tr>
-      <th>2022-01-05</th>
-      <td>382.216675</td>
-      <td>390.113342</td>
-      <td>360.336670</td>
-      <td>362.706665</td>
-      <td>80119800</td>
-      <td>-5.167285e+06</td>
-      <td>-76436700</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-493.677246</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-5.347121</td>
-      <td>-5.495390</td>
-      <td>-9.306707</td>
-    </tr>
-    <tr>
-      <th>2022-01-06</th>
-      <td>359.000000</td>
-      <td>362.666656</td>
-      <td>340.166656</td>
-      <td>354.899994</td>
-      <td>90336600</td>
-      <td>2.280364e+07</td>
-      <td>-166773300</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-592.990954</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-2.152337</td>
-      <td>-2.175838</td>
-      <td>-11.258732</td>
-    </tr>
-    <tr>
-      <th>2022-01-07</th>
-      <td>360.123322</td>
-      <td>360.309998</td>
-      <td>336.666656</td>
-      <td>342.320007</td>
-      <td>84164700</td>
-      <td>-2.111188e+07</td>
-      <td>-250938000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-82.261913</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-3.544657</td>
-      <td>-3.609005</td>
-      <td>-14.404306</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 91 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">trend_macd</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MACD&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">trend_macd_signal</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MACD Signal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">trend_macd_diff</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MACD Difference&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;MACD, MACD Signal and MACD Difference&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fe52b94e98b0f4a6097951f182574e228b99db4c6f3fccf43140141427bbed18.png" src="_images/fe52b94e98b0f4a6097951f182574e228b99db4c6f3fccf43140141427bbed18.png" />
+<img alt="_images/7d2051bde461638a283e48b443d25c37a397273f8cd8a0d83fdda442bfc33199.png" src="_images/7d2051bde461638a283e48b443d25c37a397273f8cd8a0d83fdda442bfc33199.png" />
 </div>
 </div>
 </section>
@@ -782,6 +584,15 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\gabriel.valenzuela.o\appd
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="clase2-returns.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3. Series de retornos</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -798,8 +609,9 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\gabriel.valenzuela.o\appd
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-usando-la-libreria-ta-lib">AT usando la librería TA-Lib</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libreria-ta">Librería TA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sma-simple-moving-average">SMA (Simple Moving Average)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsi-relative-strength-index">RSI (Relative Strength Index)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macd-moving-average-convergence-divergence">MACD (Moving Average Convergence Divergence)</a></li>
 </ul>
   </nav></div>
 
@@ -821,13 +633,6 @@ By Claudio Aracena
   
   <div class="footer-item">
     
-
-  <p class="copyright">
-    
-      © Copyright 2023.
-      <br/>
-    
-  </p>
 
   </div>
   
