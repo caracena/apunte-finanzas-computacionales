@@ -10,3 +10,5 @@ chapters:
 - file: "clase2-returns.ipynb"
 - file: "clase2-technical_analysis.ipynb"
 - file: "clase2-asset_allocation.ipynb"
+- file: "clase3-portfolio_optimization.ipynb"
+- file: "clase3-capm.ipynb"
