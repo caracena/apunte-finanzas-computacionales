@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>0. Pandas &#8212; Apunte Finanzas Computacionales</title>
+    <title>6. Optimizando portafolios &#8212; Apunte Finanzas Computacionales</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'clase1-pandas';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clase3-portfolio_optimization';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Carga de datos finacieros" href="clase1-get_data.html" />
-    <link rel="prev" title="Apunte de Finanzas Computacionales" href="intro.html" />
+    <link rel="prev" title="5. Teoría Moderna de Portafolios" href="clase2-asset_allocation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,13 +179,13 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">0. Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-pandas.html">0. Pandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">2. Graficando series financieras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase2-returns.html">3. Series de retornos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase2-technical_analysis.html">4. Análisis técnico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase2-asset_allocation.html">5. Teoría Moderna de Portafolios</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clase3-portfolio_optimization.html">6. Optimizando portafolios</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Optimizando portafolios</a></li>
 </ul>
 
     </div>
@@ -241,7 +240,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase1-pandas.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase3-portfolio_optimization.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +288,7 @@
       
       
       
-      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase1-pandas.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase3-portfolio_optimization.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +318,7 @@
       
       
       
-      <li><a href="_sources/clase1-pandas.ipynb" target="_blank"
+      <li><a href="_sources/clase3-portfolio_optimization.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +402,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>0. Pandas</h1>
+    <h1>6. Optimizando portafolios</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,20 +412,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cargar-un-archivo-csv-como-df">Cargar un archivo csv como df</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#head">Head</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail">Tail</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conocer-el-tipo-de-cada-columna">Conocer el tipo de cada columna</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convertir-la-columna-date-en-datetime">Convertir la columna date en datetime</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe">Describe</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccionar-solo-columnas-coin-date-y-close">Seleccionar solo columnas <code class="docutils literal notranslate"><span class="pre">coin</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code> y <code class="docutils literal notranslate"><span class="pre">close</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuenta-la-cantidad-de-criptomonedas-del-dataframe">Cuenta la cantidad de criptomonedas del dataframe</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum">Crea un dataframe con precios de cierre y fecha de bitcoin, otro con xrp, y otro con ethereum</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre">En cada dataframe creado, cambie el nombre de la columna de <code class="docutils literal notranslate"><span class="pre">Close</span></code> al nombre de la criptomoneda asociada al df. Luego, solo deje Fecha y precio de cierre.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-los-tres-df-en-uno-solo">Una los tres df en uno solo.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos">Haga un <code class="docutils literal notranslate"><span class="pre">describe()</span></code> al df y explique las principales características de los datos.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usando-loc-e-iloc-para-seleccionar-filas-y-columnas">Usando loc e iloc para seleccionar filas y columnas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-exporte-df-merge-a-un-archivo-excel">Finalmente, exporte <code class="docutils literal notranslate"><span class="pre">df_merge</span></code> a un archivo Excel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizando-portfolios-con-riskfolio-lib">Optimizando portfolios con Riskfolio-Lib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimo-riesgo">Mínimo riesgo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharpe">Sharpe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cvar">CVar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-parity">Risk Parity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blacklitterman-bl">Black–Litterman (BL)</a></li>
 </ul>
             </nav>
         </div>
@@ -438,37 +429,365 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="pandas">
-<h1>0. Pandas<a class="headerlink" href="#pandas" title="Link to this heading">#</a></h1>
-<section id="cargar-un-archivo-csv-como-df">
-<h2>Cargar un archivo csv como df<a class="headerlink" href="#cargar-un-archivo-csv-como-df" title="Link to this heading">#</a></h2>
+  <section id="optimizando-portafolios">
+<h1>6. Optimizando portafolios<a class="headerlink" href="#optimizando-portafolios" title="Link to this heading">#</a></h1>
+<section id="optimizando-portfolios-con-riskfolio-lib">
+<h2>Optimizando portfolios con Riskfolio-Lib<a class="headerlink" href="#optimizando-portfolios-con-riskfolio-lib" title="Link to this heading">#</a></h2>
+<p>Una librería bastante popular para realizar optimizaciones de portfolio es <code class="docutils literal notranslate"><span class="pre">Riskfolio-lib</span></code>. Además de realizar una típica optimización por media-varianza, también permite utilizar otras métricas de riesgo, como CVar.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pybind11</span> <span class="n">cvxpy</span> <span class="n">riskfolio</span><span class="o">-</span><span class="n">lib</span> <span class="o">--</span><span class="n">quiet</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/caracena/apunte-finanzas-computacionales/refs/heads/main/consolidated_coin_data.csv&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">activos</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;IBM&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;NVDA&quot;</span><span class="p">,</span> <span class="s2">&quot;INTC&quot;</span><span class="p">]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">activos</span><span class="p">)</span>
+
+<span class="n">precios</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">activos</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2024-12-31&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">multi_level_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">retornos</span> <span class="o">=</span> <span class="n">precios</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">retornos</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  5 of 5 completed
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-3decfe43-8ecb-49ff-8f71-833eff2dcda7" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Ticker</th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-01-03</th>
+      <td>-0.007488</td>
+      <td>-0.008669</td>
+      <td>-0.015690</td>
+      <td>-0.012436</td>
+      <td>-0.040134</td>
+    </tr>
+    <tr>
+      <th>2024-01-04</th>
+      <td>-0.012700</td>
+      <td>0.004747</td>
+      <td>-0.003826</td>
+      <td>0.009019</td>
+      <td>-0.002181</td>
+    </tr>
+    <tr>
+      <th>2024-01-05</th>
+      <td>-0.004013</td>
+      <td>-0.010568</td>
+      <td>0.000427</td>
+      <td>0.022897</td>
+      <td>-0.001849</td>
+    </tr>
+    <tr>
+      <th>2024-01-08</th>
+      <td>0.024175</td>
+      <td>0.012440</td>
+      <td>0.033269</td>
+      <td>0.064281</td>
+      <td>0.012464</td>
+    </tr>
+    <tr>
+      <th>2024-01-09</th>
+      <td>-0.002263</td>
+      <td>-0.006578</td>
+      <td>-0.008256</td>
+      <td>0.016975</td>
+      <td>-0.022832</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-3decfe43-8ecb-49ff-8f71-833eff2dcda7')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-3decfe43-8ecb-49ff-8f71-833eff2dcda7 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-3decfe43-8ecb-49ff-8f71-833eff2dcda7');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-e325f35f-9af5-43ff-bcc6-a65fefe92db8">
+      <button class="colab-df-quickchart" onclick="quickchart('df-e325f35f-9af5-43ff-bcc6-a65fefe92db8')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-e325f35f-9af5-43ff-bcc6-a65fefe92db8 button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+    </div>
+  </div>
+</div></div>
 </div>
 </section>
-<section id="head">
-<h2>Head<a class="headerlink" href="#head" title="Link to this heading">#</a></h2>
-<p>El método <code class="docutils literal notranslate"><span class="pre">head()</span></code> permite llamar las primeras 10 filas del dataframe. El método <code class="docutils literal notranslate"><span class="pre">head(n)</span></code>, por su parte, permite llamar las primeras <em>n</em> filas.</p>
+<section id="minimo-riesgo">
+<h2>Mínimo riesgo<a class="headerlink" href="#minimo-riesgo" title="Link to this heading">#</a></h2>
+<p>Se usa como función objetivo la minimización del riesgo medido como varianza.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">riskfolio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rp</span>
+
+<span class="c1"># Construyendo el objeto portafolio</span>
+<span class="n">port</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">Portfolio</span><span class="p">(</span><span class="n">returns</span><span class="o">=</span><span class="n">retornos</span><span class="p">)</span>
+
+<span class="c1"># Calculando el portafolio óptimo</span>
+
+<span class="c1"># Seleccionar método y estimar parámetros de entrada:</span>
+
+<span class="n">method_mu</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span> <span class="c1"># Método para estimar los retornos esperados basado en datos históricos.</span>
+<span class="n">method_cov</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span> <span class="c1"># Método para estimar la matriz de covarianza basado en datos históricos.</span>
+
+<span class="n">port</span><span class="o">.</span><span class="n">assets_stats</span><span class="p">(</span><span class="n">method_mu</span><span class="o">=</span><span class="n">method_mu</span><span class="p">,</span> <span class="n">method_cov</span><span class="o">=</span><span class="n">method_cov</span><span class="p">)</span>
+
+<span class="c1"># Estimar portafolio óptimo:</span>
+
+<span class="n">model</span><span class="o">=</span><span class="s1">&#39;Classic&#39;</span> <span class="c1"># Puede ser Classic (histórico), BL (Black Litterman) o FM (Factor Model)</span>
+<span class="n">rm</span> <span class="o">=</span> <span class="s1">&#39;MV&#39;</span> <span class="c1"># Medida de riesgo utilizada, esta vez será la varianza</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;MinRisk&#39;</span> <span class="c1"># Función objetivo, puede ser MinRisk, MaxRet, Utility o Sharpe</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Usar escenarios históricos para medidas de riesgo que dependen de escenarios</span>
+<span class="n">rf</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Tasa libre de riesgo</span>
+<span class="n">l</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Factor de aversión al riesgo, solo útil cuando obj es &#39;Utility&#39;</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">optimization</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-457fa4e0-3b0d-48b5-9b19-f3633a219a84" class="colab-df-container">
+  <div id="df-35ad45bf-8e2c-4cca-bde5-c4954498a2ce" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -487,59 +806,187 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>date</th>
-      <th>open</th>
-      <th>high</th>
-      <th>low</th>
-      <th>close</th>
-      <th>coin</th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>weights</th>
+      <td>0.498485</td>
+      <td>0.470274</td>
+      <td>0.004857</td>
+      <td>0.010011</td>
+      <td>0.016372</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-35ad45bf-8e2c-4cca-bde5-c4954498a2ce')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-35ad45bf-8e2c-4cca-bde5-c4954498a2ce button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-35ad45bf-8e2c-4cca-bde5-c4954498a2ce');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Número de puntos de la frontera</span>
+
+<span class="n">frontier</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">efficient_frontier</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">frontier</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-0994fa13-569e-484f-aff8-35717ab9c082" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2024-10-16</td>
-      <td>2629.41</td>
-      <td>2677.39</td>
-      <td>2543.48</td>
-      <td>2602.08</td>
-      <td>ethereum</td>
+      <td>0.498485</td>
+      <td>0.470274</td>
+      <td>4.856650e-03</td>
+      <td>0.010011</td>
+      <td>0.016372</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2024-10-20</td>
-      <td>2607.62</td>
-      <td>2671.32</td>
-      <td>2580.10</td>
-      <td>2649.98</td>
-      <td>ethereum</td>
+      <td>0.409604</td>
+      <td>0.449823</td>
+      <td>1.732864e-09</td>
+      <td>0.104563</td>
+      <td>0.036010</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2024-10-24</td>
-      <td>2648.36</td>
-      <td>2762.43</td>
-      <td>2466.25</td>
-      <td>2524.10</td>
-      <td>ethereum</td>
+      <td>0.371054</td>
+      <td>0.440124</td>
+      <td>6.011482e-09</td>
+      <td>0.144731</td>
+      <td>0.044091</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2024-10-28</td>
-      <td>2521.73</td>
-      <td>2559.30</td>
-      <td>2398.74</td>
-      <td>2505.50</td>
-      <td>ethereum</td>
+      <td>0.340693</td>
+      <td>0.432433</td>
+      <td>8.880148e-09</td>
+      <td>0.176508</td>
+      <td>0.050366</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2024-11-01</td>
-      <td>2505.89</td>
-      <td>2719.88</td>
-      <td>2471.44</td>
-      <td>2514.75</td>
-      <td>ethereum</td>
+      <td>0.314301</td>
+      <td>0.425798</td>
+      <td>6.209867e-09</td>
+      <td>0.204004</td>
+      <td>0.055897</td>
     </tr>
   </tbody>
 </table>
@@ -547,7 +994,7 @@ document.write(`
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-457fa4e0-3b0d-48b5-9b19-f3633a219a84')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-0994fa13-569e-484f-aff8-35717ab9c082')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -599,12 +1046,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-457fa4e0-3b0d-48b5-9b19-f3633a219a84 button.colab-df-convert');
+        document.querySelector('#df-0994fa13-569e-484f-aff8-35717ab9c082 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-457fa4e0-3b0d-48b5-9b19-f3633a219a84');
+        const element = document.querySelector('#df-0994fa13-569e-484f-aff8-35717ab9c082');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -624,8 +1071,8 @@ document.write(`
   </div>
 
 
-    <div id="df-915b3bdb-fc49-43b2-8698-d8962a79a42f">
-      <button class="colab-df-quickchart" onclick="quickchart('df-915b3bdb-fc49-43b2-8698-d8962a79a42f')"
+    <div id="df-8b92c2f9-704b-440e-a904-23fa888b4afd">
+      <button class="colab-df-quickchart" onclick="quickchart('df-8b92c2f9-704b-440e-a904-23fa888b4afd')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -744,7 +1191,7 @@ document.write(`
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-915b3bdb-fc49-43b2-8698-d8962a79a42f button');
+            document.querySelector('#df-8b92c2f9-704b-440e-a904-23fa888b4afd button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -755,19 +1202,74 @@ document.write(`
   </div>
 </div></div>
 </div>
-</section>
-<section id="tail">
-<h2>Tail<a class="headerlink" href="#tail" title="Link to this heading">#</a></h2>
-<p>El método <code class="docutils literal notranslate"><span class="pre">tail()</span></code> permite llamar las últimas 10 filas del dataframe. El método <code class="docutils literal notranslate"><span class="pre">tail(n)</span></code>, por su parte, permite llamar las últimas <em>n</em> filas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graficando la frontera eficiente</span>
+
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Portafolio de mínimo riesgo&#39;</span> <span class="c1"># Título del punto</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">mu</span> <span class="c1"># Retornos esperados</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">cov</span> <span class="c1"># Matriz de covarianza</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">returns</span> <span class="c1"># Retornos de los activos</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_frontier</span><span class="p">(</span><span class="n">w_frontier</span><span class="o">=</span><span class="n">frontier</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="n">returns</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span>
+                      <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                      <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/80c976dbb21e717bd5787c594b09ae737e6f819cfbd40b860914e01a9e408614.png" src="_images/80c976dbb21e717bd5787c594b09ae737e6f819cfbd40b860914e01a9e408614.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_pie</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Portafolio de mínimo riesgo&#39;</span><span class="p">,</span> <span class="n">others</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
+                 <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6cf03fe714e35956883c64314fb4cbc448cbe495616913bde621367cafa76d01.png" src="_images/6cf03fe714e35956883c64314fb4cbc448cbe495616913bde621367cafa76d01.png" />
+</div>
+</div>
+</section>
+<section id="sharpe">
+<h2>Sharpe<a class="headerlink" href="#sharpe" title="Link to this heading">#</a></h2>
+<p>Se cambia la función objetivo para maximizar el ratio de Sharpe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">riskfolio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rp</span>
+
+<span class="c1"># Construyendo el objeto portafolio</span>
+<span class="n">port</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">Portfolio</span><span class="p">(</span><span class="n">returns</span><span class="o">=</span><span class="n">retornos</span><span class="p">)</span>
+
+<span class="c1"># Calculando el portafolio óptimo</span>
+
+<span class="c1"># Seleccionar método y estimar parámetros de entrada:</span>
+
+<span class="n">method_mu</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span> <span class="c1"># Método para estimar los retornos esperados basado en datos históricos.</span>
+<span class="n">method_cov</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span> <span class="c1"># Método para estimar la matriz de covarianza basado en datos históricos.</span>
+
+<span class="n">port</span><span class="o">.</span><span class="n">assets_stats</span><span class="p">(</span><span class="n">method_mu</span><span class="o">=</span><span class="n">method_mu</span><span class="p">,</span> <span class="n">method_cov</span><span class="o">=</span><span class="n">method_cov</span><span class="p">)</span>
+
+<span class="c1"># Estimar portafolio óptimo:</span>
+
+<span class="n">model</span><span class="o">=</span><span class="s1">&#39;Classic&#39;</span> <span class="c1"># Puede ser Classic (histórico), BL (Black Litterman) o FM (Factor Model)</span>
+<span class="n">rm</span> <span class="o">=</span> <span class="s1">&#39;MV&#39;</span> <span class="c1"># Medida de riesgo utilizada, esta vez será la varianza</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;Sharpe&#39;</span> <span class="c1"># Función objetivo, puede ser MinRisk, MaxRet, Utility o Sharpe</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Usar escenarios históricos para medidas de riesgo que dependen de escenarios</span>
+<span class="n">rf</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Tasa libre de riesgo</span>
+<span class="n">l</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Factor de aversión al riesgo, solo útil cuando obj es &#39;Utility&#39;</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">optimization</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-d481f6e3-0657-4235-a9f2-1e5a08289b5d" class="colab-df-container">
+  <div id="df-800e70a3-3089-4995-a1ad-dae68f69aff0" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -786,59 +1288,21 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>date</th>
-      <th>open</th>
-      <th>high</th>
-      <th>low</th>
-      <th>close</th>
-      <th>coin</th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>731</th>
-      <td>2025-09-29</td>
-      <td>113317.0</td>
-      <td>113492.0</td>
-      <td>108776.0</td>
-      <td>112143.0</td>
-      <td>bitcoin</td>
-    </tr>
-    <tr>
-      <th>732</th>
-      <td>2025-10-03</td>
-      <td>112179.0</td>
-      <td>121044.0</td>
-      <td>111599.0</td>
-      <td>120612.0</td>
-      <td>bitcoin</td>
-    </tr>
-    <tr>
-      <th>733</th>
-      <td>2025-10-07</td>
-      <td>120515.0</td>
-      <td>126080.0</td>
-      <td>119514.0</td>
-      <td>124774.0</td>
-      <td>bitcoin</td>
-    </tr>
-    <tr>
-      <th>734</th>
-      <td>2025-10-11</td>
-      <td>124740.0</td>
-      <td>125108.0</td>
-      <td>105896.0</td>
-      <td>113202.0</td>
-      <td>bitcoin</td>
-    </tr>
-    <tr>
-      <th>735</th>
-      <td>2025-10-15</td>
-      <td>113044.0</td>
-      <td>115934.0</td>
-      <td>109862.0</td>
-      <td>113157.0</td>
-      <td>bitcoin</td>
+      <th>weights</th>
+      <td>0.257684</td>
+      <td>0.411533</td>
+      <td>9.662053e-11</td>
+      <td>0.263019</td>
+      <td>0.067764</td>
     </tr>
   </tbody>
 </table>
@@ -846,7 +1310,7 @@ document.write(`
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-d481f6e3-0657-4235-a9f2-1e5a08289b5d')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-800e70a3-3089-4995-a1ad-dae68f69aff0')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -898,12 +1362,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-d481f6e3-0657-4235-a9f2-1e5a08289b5d button.colab-df-convert');
+        document.querySelector('#df-800e70a3-3089-4995-a1ad-dae68f69aff0 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-d481f6e3-0657-4235-a9f2-1e5a08289b5d');
+        const element = document.querySelector('#df-800e70a3-3089-4995-a1ad-dae68f69aff0');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -923,240 +1387,61 @@ document.write(`
   </div>
 
 
-    <div id="df-d811b33f-229f-43c8-b1c6-f312c299638e">
-      <button class="colab-df-quickchart" onclick="quickchart('df-d811b33f-229f-43c8-b1c6-f312c299638e')"
-                title="Suggest charts"
-                style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-     width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-    </g>
-</svg>
-      </button>
-
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-
-      <script>
-        async function quickchart(key) {
-          const quickchartButtonEl =
-            document.querySelector('#' + key + ' button');
-          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-          quickchartButtonEl.classList.add('colab-df-spinner');
-          try {
-            const charts = await google.colab.kernel.invokeFunction(
-                'suggestCharts', [key], {});
-          } catch (error) {
-            console.error('Error during call to suggestCharts:', error);
-          }
-          quickchartButtonEl.classList.remove('colab-df-spinner');
-          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-        }
-        (() => {
-          let quickchartButtonEl =
-            document.querySelector('#df-d811b33f-229f-43c8-b1c6-f312c299638e button');
-          quickchartButtonEl.style.display =
-            google.colab.kernel.accessAllowed ? 'block' : 'none';
-        })();
-      </script>
-    </div>
-
     </div>
   </div>
 </div></div>
 </div>
-</section>
-<section id="conocer-el-tipo-de-cada-columna">
-<h2>Conocer el tipo de cada columna<a class="headerlink" href="#conocer-el-tipo-de-cada-columna" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Número de puntos de la frontera</span>
+
+<span class="n">frontier</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">efficient_frontier</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="c1"># Graficando la frontera eficiente</span>
+
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Portafolio con máximo retorno ajustado al riesgo&#39;</span> <span class="c1"># Título del punto</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">mu</span> <span class="c1"># Retornos esperados</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">cov</span> <span class="c1"># Matriz de covarianza</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">returns</span> <span class="c1"># Retornos de los activos</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_frontier</span><span class="p">(</span><span class="n">w_frontier</span><span class="o">=</span><span class="n">frontier</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="n">returns</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span>
+                      <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                      <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>date</th>
-      <td>object</td>
-    </tr>
-    <tr>
-      <th>open</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>high</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>low</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>close</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>coin</th>
-      <td>object</td>
-    </tr>
-  </tbody>
-</table>
-</div><br><label><b>dtype:</b> object</label></div></div>
+<img alt="_images/d314e6bf63bd134ae9760e4ca36ec85fe9ea84a0d542a31194919cb4e3131d2f.png" src="_images/d314e6bf63bd134ae9760e4ca36ec85fe9ea84a0d542a31194919cb4e3131d2f.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_pie</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Portafolio con máximo retorno ajustado al riesgo&#39;</span><span class="p">,</span> <span class="n">others</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
+                 <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 736 entries, 0 to 735
-Data columns (total 6 columns):
- #   Column  Non-Null Count  Dtype  
----  ------  --------------  -----  
- 0   date    736 non-null    object 
- 1   open    736 non-null    float64
- 2   high    736 non-null    float64
- 3   low     736 non-null    float64
- 4   close   736 non-null    float64
- 5   coin    736 non-null    object 
-dtypes: float64(4), object(2)
-memory usage: 34.6+ KB
-</pre></div>
-</div>
+<img alt="_images/e9913905489320fd95a07d745fba990a87ac6a9d8f1a062bdbeae3966648f180.png" src="_images/e9913905489320fd95a07d745fba990a87ac6a9d8f1a062bdbeae3966648f180.png" />
 </div>
 </div>
 </section>
-<section id="convertir-la-columna-date-en-datetime">
-<h2>Convertir la columna date en datetime<a class="headerlink" href="#convertir-la-columna-date-en-datetime" title="Link to this heading">#</a></h2>
+<section id="cvar">
+<h2>CVar<a class="headerlink" href="#cvar" title="Link to this heading">#</a></h2>
+<p>Se cambia la medida de riesgo a Conditional Value at Risk (CVaR).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">=</span> <span class="s1">&#39;CVaR&#39;</span> <span class="c1"># Medida de riesgo</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">optimization</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-a1feda7c-468e-4f79-8f17-846a2427b773" class="colab-df-container">
+  <div id="df-4574d297-7759-46ce-98b9-fde57bb78af1" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1175,59 +1460,187 @@ memory usage: 34.6+ KB
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>date</th>
-      <th>open</th>
-      <th>high</th>
-      <th>low</th>
-      <th>close</th>
-      <th>coin</th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>weights</th>
+      <td>0.100628</td>
+      <td>0.478503</td>
+      <td>2.745833e-11</td>
+      <td>0.40248</td>
+      <td>0.018388</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4574d297-7759-46ce-98b9-fde57bb78af1')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-4574d297-7759-46ce-98b9-fde57bb78af1 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4574d297-7759-46ce-98b9-fde57bb78af1');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Número de puntos de la frontera</span>
+
+<span class="n">frontier</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">efficient_frontier</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">frontier</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-9bc5c905-69ac-4922-beb2-255527d1de8f" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2024-10-16</td>
-      <td>2629.41</td>
-      <td>2677.39</td>
-      <td>2543.48</td>
-      <td>2602.08</td>
-      <td>ethereum</td>
+      <td>0.409696</td>
+      <td>0.490586</td>
+      <td>2.146939e-11</td>
+      <td>0.034936</td>
+      <td>0.064782</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2024-10-20</td>
-      <td>2607.62</td>
-      <td>2671.32</td>
-      <td>2580.10</td>
-      <td>2649.98</td>
-      <td>ethereum</td>
+      <td>0.373086</td>
+      <td>0.452795</td>
+      <td>5.089398e-12</td>
+      <td>0.132678</td>
+      <td>0.041441</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2024-10-24</td>
-      <td>2648.36</td>
-      <td>2762.43</td>
-      <td>2466.25</td>
-      <td>2524.10</td>
-      <td>ethereum</td>
+      <td>0.384791</td>
+      <td>0.405722</td>
+      <td>1.083809e-11</td>
+      <td>0.186805</td>
+      <td>0.022682</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2024-10-28</td>
-      <td>2521.73</td>
-      <td>2559.30</td>
-      <td>2398.74</td>
-      <td>2505.50</td>
-      <td>ethereum</td>
+      <td>0.312782</td>
+      <td>0.438461</td>
+      <td>3.537803e-13</td>
+      <td>0.219171</td>
+      <td>0.029586</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2024-11-01</td>
-      <td>2505.89</td>
-      <td>2719.88</td>
-      <td>2471.44</td>
-      <td>2514.75</td>
-      <td>ethereum</td>
+      <td>0.240773</td>
+      <td>0.471200</td>
+      <td>3.718974e-12</td>
+      <td>0.251537</td>
+      <td>0.036489</td>
     </tr>
   </tbody>
 </table>
@@ -1235,7 +1648,7 @@ memory usage: 34.6+ KB
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-a1feda7c-468e-4f79-8f17-846a2427b773')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-9bc5c905-69ac-4922-beb2-255527d1de8f')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1287,12 +1700,12 @@ memory usage: 34.6+ KB
 
     <script>
       const buttonEl =
-        document.querySelector('#df-a1feda7c-468e-4f79-8f17-846a2427b773 button.colab-df-convert');
+        document.querySelector('#df-9bc5c905-69ac-4922-beb2-255527d1de8f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-a1feda7c-468e-4f79-8f17-846a2427b773');
+        const element = document.querySelector('#df-9bc5c905-69ac-4922-beb2-255527d1de8f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1312,8 +1725,8 @@ memory usage: 34.6+ KB
   </div>
 
 
-    <div id="df-59218d33-23ff-4b0c-8466-718c0b6116bf">
-      <button class="colab-df-quickchart" onclick="quickchart('df-59218d33-23ff-4b0c-8466-718c0b6116bf')"
+    <div id="df-bbe8c012-fdbc-4a69-abe7-61e3c81ad54e">
+      <button class="colab-df-quickchart" onclick="quickchart('df-bbe8c012-fdbc-4a69-abe7-61e3c81ad54e')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -1432,7 +1845,7 @@ memory usage: 34.6+ KB
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-59218d33-23ff-4b0c-8466-718c0b6116bf button');
+            document.querySelector('#df-bbe8c012-fdbc-4a69-abe7-61e3c81ad54e button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -1445,74 +1858,59 @@ memory usage: 34.6+ KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Portafolio con máximo retorno ajustado al riesgo&#39;</span> <span class="c1"># Título del punto</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_frontier</span><span class="p">(</span><span class="n">w_frontier</span><span class="o">=</span><span class="n">frontier</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="n">returns</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span>
+                      <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                      <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>date</th>
-      <td>datetime64[ns]</td>
-    </tr>
-    <tr>
-      <th>open</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>high</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>low</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>close</th>
-      <td>float64</td>
-    </tr>
-    <tr>
-      <th>coin</th>
-      <td>object</td>
-    </tr>
-  </tbody>
-</table>
-</div><br><label><b>dtype:</b> object</label></div></div>
+<img alt="_images/163ab2ce7b1d4967352c0561df30cf2db0b970abc637cfa4de0ea8de34611a3f.png" src="_images/163ab2ce7b1d4967352c0561df30cf2db0b970abc637cfa4de0ea8de34611a3f.png" />
 </div>
-</section>
-<section id="describe">
-<h2>Describe<a class="headerlink" href="#describe" title="Link to this heading">#</a></h2>
-<p>El método <code class="docutils literal notranslate"><span class="pre">describe()</span></code> entrega estadística descriptiva de cada columna. Si, además, se incluye el parámetro <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">=</span> <span class="pre">&quot;all&quot;</span></code>, entrega estadística descriptiva detallada.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_pie</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Portafolio con máximo retorno ajustado al riesgo&#39;</span><span class="p">,</span> <span class="n">others</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
+                 <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0f9a53bf36abf513933b6a18e1ea0eb28660a895bc992bba8bec137e080533b5.png" src="_images/0f9a53bf36abf513933b6a18e1ea0eb28660a895bc992bba8bec137e080533b5.png" />
+</div>
+</div>
+</section>
+<section id="risk-parity">
+<h2>Risk Parity<a class="headerlink" href="#risk-parity" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plotting the risk composition of the portfolio</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_risk_con</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">port</span><span class="o">.</span><span class="n">cov</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="n">port</span><span class="o">.</span><span class="n">returns</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cd91657c56591ebdfc57bdbd1c2ddac7a63ca001f402ee3f11249fd64c6cd0da.png" src="_images/cd91657c56591ebdfc57bdbd1c2ddac7a63ca001f402ee3f11249fd64c6cd0da.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Risk contribution constraints vector</span>
+<span class="n">rm</span> <span class="o">=</span> <span class="s1">&#39;MV&#39;</span> <span class="c1"># Medida de riesgo utilizada, esta vez será la varianza</span>
+
+<span class="n">w_rp</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">rp_optimization</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">w_rp</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-34c737fb-bd54-40c5-9931-837e6905e3ba" class="colab-df-container">
+  <div id="df-9568801d-9ee9-489d-b4e5-ca48970b0867" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1531,77 +1929,21 @@ memory usage: 34.6+ KB
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>date</th>
-      <th>open</th>
-      <th>high</th>
-      <th>low</th>
-      <th>close</th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>736</td>
-      <td>736.000000</td>
-      <td>736.000000</td>
-      <td>736.000000</td>
-      <td>736.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>2025-04-16 00:00:00</td>
-      <td>12873.150480</td>
-      <td>13314.271174</td>
-      <td>12476.210943</td>
-      <td>12941.376901</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>2024-10-16 00:00:00</td>
-      <td>0.116646</td>
-      <td>0.118756</td>
-      <td>0.110975</td>
-      <td>0.117150</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>2025-01-15 00:00:00</td>
-      <td>0.385902</td>
-      <td>0.434285</td>
-      <td>0.356852</td>
-      <td>0.391782</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>2025-04-16 00:00:00</td>
-      <td>61.300000</td>
-      <td>62.245000</td>
-      <td>50.030000</td>
-      <td>61.255000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2025-07-16 00:00:00</td>
-      <td>1314.232500</td>
-      <td>1440.287500</td>
-      <td>1164.072500</td>
-      <td>1312.790000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>2025-10-15 00:00:00</td>
-      <td>124740.000000</td>
-      <td>126080.000000</td>
-      <td>119514.000000</td>
-      <td>124774.000000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>NaN</td>
-      <td>33005.047573</td>
-      <td>34064.096551</td>
-      <td>32031.862871</td>
-      <td>33155.726209</td>
+      <th>weights</th>
+      <td>0.299789</td>
+      <td>0.336993</td>
+      <td>0.124699</td>
+      <td>0.126728</td>
+      <td>0.111791</td>
     </tr>
   </tbody>
 </table>
@@ -1609,7 +1951,7 @@ memory usage: 34.6+ KB
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-34c737fb-bd54-40c5-9931-837e6905e3ba')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-9568801d-9ee9-489d-b4e5-ca48970b0867')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1661,12 +2003,12 @@ memory usage: 34.6+ KB
 
     <script>
       const buttonEl =
-        document.querySelector('#df-34c737fb-bd54-40c5-9931-837e6905e3ba button.colab-df-convert');
+        document.querySelector('#df-9568801d-9ee9-489d-b4e5-ca48970b0867 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-34c737fb-bd54-40c5-9931-837e6905e3ba');
+        const element = document.querySelector('#df-9568801d-9ee9-489d-b4e5-ca48970b0867');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1686,150 +2028,65 @@ memory usage: 34.6+ KB
   </div>
 
 
-    <div id="df-57db8673-803c-4134-8525-05ec67751fdb">
-      <button class="colab-df-quickchart" onclick="quickchart('df-57db8673-803c-4134-8525-05ec67751fdb')"
-                title="Suggest charts"
-                style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-     width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-    </g>
-</svg>
-      </button>
-
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-
-      <script>
-        async function quickchart(key) {
-          const quickchartButtonEl =
-            document.querySelector('#' + key + ' button');
-          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-          quickchartButtonEl.classList.add('colab-df-spinner');
-          try {
-            const charts = await google.colab.kernel.invokeFunction(
-                'suggestCharts', [key], {});
-          } catch (error) {
-            console.error('Error during call to suggestCharts:', error);
-          }
-          quickchartButtonEl.classList.remove('colab-df-spinner');
-          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-        }
-        (() => {
-          let quickchartButtonEl =
-            document.querySelector('#df-57db8673-803c-4134-8525-05ec67751fdb button');
-          quickchartButtonEl.style.display =
-            google.colab.kernel.accessAllowed ? 'block' : 'none';
-        })();
-      </script>
-    </div>
-
     </div>
   </div>
 </div></div>
 </div>
-</section>
-<section id="seleccionar-solo-columnas-coin-date-y-close">
-<h2>Seleccionar solo columnas <code class="docutils literal notranslate"><span class="pre">coin</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code> y <code class="docutils literal notranslate"><span class="pre">close</span></code><a class="headerlink" href="#seleccionar-solo-columnas-coin-date-y-close" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;coin&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;close&quot;</span><span class="p">]]</span>
-<span class="n">df_2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_pie</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w_rp</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Risk Parity Variance&#39;</span><span class="p">,</span> <span class="n">others</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
+                 <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4027c0c0c90a6a8aea67840f81adb1967e8d02025e80954685f40311fc7c2b44.png" src="_images/4027c0c0c90a6a8aea67840f81adb1967e8d02025e80954685f40311fc7c2b44.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_risk_con</span><span class="p">(</span><span class="n">w_rp</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">port</span><span class="o">.</span><span class="n">cov</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="n">port</span><span class="o">.</span><span class="n">returns</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/51cd6663b4bc9734450b1c69a7e129ea770ad64039d2b19d6a75440a8a7b92f8.png" src="_images/51cd6663b4bc9734450b1c69a7e129ea770ad64039d2b19d6a75440a8a7b92f8.png" />
+</div>
+</div>
+</section>
+<section id="blacklitterman-bl">
+<h2>Black–Litterman (BL)<a class="headerlink" href="#blacklitterman-bl" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asset_classes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Assets&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;TSLA&quot;</span><span class="p">,</span> <span class="s2">&quot;IBM&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;NVDA&quot;</span><span class="p">,</span> <span class="s2">&quot;INTC&quot;</span><span class="p">],</span>
+                 <span class="s1">&#39;Industry&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Automovil&#39;</span><span class="p">,</span><span class="s1">&#39;Tecnologia&#39;</span><span class="p">,</span><span class="s1">&#39;Tecnologia&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Procesadores&#39;</span><span class="p">,</span> <span class="s1">&#39;Procesadores&#39;</span><span class="p">]}</span>
+
+<span class="n">asset_classes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">asset_classes</span><span class="p">)</span>
+<span class="n">asset_classes</span> <span class="o">=</span> <span class="n">asset_classes</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Assets&#39;</span><span class="p">])</span>
+
+<span class="n">views</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Disabled&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+         <span class="s1">&#39;Type&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Classes&#39;</span><span class="p">,</span> <span class="s1">&#39;Classes&#39;</span><span class="p">],</span>
+         <span class="s1">&#39;Set&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Industry&#39;</span><span class="p">,</span> <span class="s1">&#39;Industry&#39;</span><span class="p">],</span>
+         <span class="s1">&#39;Position&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Automovil&#39;</span><span class="p">,</span> <span class="s1">&#39;Procesadores&#39;</span><span class="p">],</span>
+         <span class="s1">&#39;Sign&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">],</span>
+         <span class="s1">&#39;Weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span> <span class="c1"># Annual terms</span>
+         <span class="s1">&#39;Type Relative&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Classes&#39;</span><span class="p">,</span> <span class="s1">&#39;Classes&#39;</span><span class="p">],</span>
+         <span class="s1">&#39;Relative Set&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Industry&#39;</span><span class="p">,</span> <span class="s1">&#39;Industry&#39;</span><span class="p">],</span>
+         <span class="s1">&#39;Relative&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Tecnologia&#39;</span><span class="p">,</span> <span class="s1">&#39;Tecnologia&#39;</span><span class="p">]}</span>
+
+<span class="n">views</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">views</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">views</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">asset_classes</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-298017c9-55b9-4f63-837a-9dd86350ffb3" class="colab-df-container">
+  <div id="df-047976aa-0c7c-4bef-92db-29233e4c3429" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1848,86 +2105,49 @@ memory usage: 34.6+ KB
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>coin</th>
-      <th>date</th>
-      <th>close</th>
+      <th>Disabled</th>
+      <th>Type</th>
+      <th>Set</th>
+      <th>Position</th>
+      <th>Sign</th>
+      <th>Weight</th>
+      <th>Type Relative</th>
+      <th>Relative Set</th>
+      <th>Relative</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>ethereum</td>
-      <td>2024-10-16</td>
-      <td>2602.08</td>
+      <td>False</td>
+      <td>Classes</td>
+      <td>Industry</td>
+      <td>Automovil</td>
+      <td>&gt;=</td>
+      <td>0.6</td>
+      <td>Classes</td>
+      <td>Industry</td>
+      <td>Tecnologia</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>ethereum</td>
-      <td>2024-10-20</td>
-      <td>2649.98</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>ethereum</td>
-      <td>2024-10-24</td>
-      <td>2524.10</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>ethereum</td>
-      <td>2024-10-28</td>
-      <td>2505.50</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>ethereum</td>
-      <td>2024-11-01</td>
-      <td>2514.75</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>731</th>
-      <td>bitcoin</td>
-      <td>2025-09-29</td>
-      <td>112143.00</td>
-    </tr>
-    <tr>
-      <th>732</th>
-      <td>bitcoin</td>
-      <td>2025-10-03</td>
-      <td>120612.00</td>
-    </tr>
-    <tr>
-      <th>733</th>
-      <td>bitcoin</td>
-      <td>2025-10-07</td>
-      <td>124774.00</td>
-    </tr>
-    <tr>
-      <th>734</th>
-      <td>bitcoin</td>
-      <td>2025-10-11</td>
-      <td>113202.00</td>
-    </tr>
-    <tr>
-      <th>735</th>
-      <td>bitcoin</td>
-      <td>2025-10-15</td>
-      <td>113157.00</td>
+      <td>False</td>
+      <td>Classes</td>
+      <td>Industry</td>
+      <td>Procesadores</td>
+      <td>&gt;=</td>
+      <td>0.6</td>
+      <td>Classes</td>
+      <td>Industry</td>
+      <td>Tecnologia</td>
     </tr>
   </tbody>
 </table>
-<p>736 rows × 3 columns</p>
 </div>
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-298017c9-55b9-4f63-837a-9dd86350ffb3')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-047976aa-0c7c-4bef-92db-29233e4c3429')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1979,12 +2199,12 @@ memory usage: 34.6+ KB
 
     <script>
       const buttonEl =
-        document.querySelector('#df-298017c9-55b9-4f63-837a-9dd86350ffb3 button.colab-df-convert');
+        document.querySelector('#df-047976aa-0c7c-4bef-92db-29233e4c3429 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-298017c9-55b9-4f63-837a-9dd86350ffb3');
+        const element = document.querySelector('#df-047976aa-0c7c-4bef-92db-29233e4c3429');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -2004,8 +2224,8 @@ memory usage: 34.6+ KB
   </div>
 
 
-    <div id="df-f54450b1-c11c-4f56-8be9-4e35f9e0199c">
-      <button class="colab-df-quickchart" onclick="quickchart('df-f54450b1-c11c-4f56-8be9-4e35f9e0199c')"
+    <div id="df-f5a575e9-7035-4f4f-a95a-bfd13eaeea43">
+      <button class="colab-df-quickchart" onclick="quickchart('df-f5a575e9-7035-4f4f-a95a-bfd13eaeea43')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -2124,14 +2344,14 @@ memory usage: 34.6+ KB
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-f54450b1-c11c-4f56-8be9-4e35f9e0199c button');
+            document.querySelector('#df-f5a575e9-7035-4f4f-a95a-bfd13eaeea43 button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
       </script>
     </div>
 
-  <div id="id_92eb1d92-e2dc-44d4-bf2d-506576d33be5">
+  <div id="id_c9d3a810-e65a-43cf-a2de-53b809df5869">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -2163,7 +2383,7 @@ memory usage: 34.6+ KB
         fill: #FFFFFF;
       }
     </style>
-    <button class="colab-df-generate" onclick="generateWithVariable('df_2')"
+    <button class="colab-df-generate" onclick="generateWithVariable('views')"
             title="Generate code using this dataframe."
             style="display:none;">
 
@@ -2175,12 +2395,12 @@ memory usage: 34.6+ KB
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_92eb1d92-e2dc-44d4-bf2d-506576d33be5 button.colab-df-generate');
+        document.querySelector('#id_c9d3a810-e65a-43cf-a2de-53b809df5869 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('df_2');
+        google.colab.notebook.generateWithVariable('views');
       }
       })();
     </script>
@@ -2188,101 +2408,8 @@ memory usage: 34.6+ KB
 
     </div>
   </div>
-</div></div>
-</div>
-</section>
-<section id="cuenta-la-cantidad-de-criptomonedas-del-dataframe">
-<h2>Cuenta la cantidad de criptomonedas del dataframe<a class="headerlink" href="#cuenta-la-cantidad-de-criptomonedas-del-dataframe" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_2</span><span class="p">[</span><span class="s2">&quot;coin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>count</th>
-    </tr>
-    <tr>
-      <th>coin</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>ethereum</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>ripple</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>binancecoin</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>solana</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>tron</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>dogecoin</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>cardano</th>
-      <td>92</td>
-    </tr>
-    <tr>
-      <th>bitcoin</th>
-      <td>92</td>
-    </tr>
-  </tbody>
-</table>
-</div><br><label><b>dtype:</b> int64</label></div></div>
-</div>
-</section>
-<section id="crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum">
-<h2>Crea un dataframe con precios de cierre y fecha de bitcoin, otro con xrp, y otro con ethereum<a class="headerlink" href="#crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_bitcoin</span> <span class="o">=</span> <span class="n">df_2</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;coin == &quot;bitcoin&quot;&#39;</span><span class="p">)</span>
-<span class="n">df_doge</span> <span class="o">=</span> <span class="n">df_2</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;coin == &quot;dogecoin&quot;&#39;</span><span class="p">)</span>
-<span class="n">df_ethereum</span> <span class="o">=</span> <span class="n">df_2</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;coin == &quot;ethereum&quot;&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ethereum</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-  <div id="df-ef435f18-d74f-4925-a349-a3ea1c23f937" class="colab-df-container">
+</div><div class="output text_html">
+  <div id="df-be456437-c320-4bed-ac25-34280618d4f8" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2301,934 +2428,43 @@ memory usage: 34.6+ KB
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>coin</th>
-      <th>date</th>
-      <th>close</th>
+      <th>Assets</th>
+      <th>Industry</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>ethereum</td>
-      <td>2024-10-16</td>
-      <td>2602.08</td>
+      <th>2</th>
+      <td>AAPL</td>
+      <td>Tecnologia</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>ethereum</td>
-      <td>2024-10-20</td>
-      <td>2649.98</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>ethereum</td>
-      <td>2024-10-24</td>
-      <td>2524.10</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>ethereum</td>
-      <td>2024-10-28</td>
-      <td>2505.50</td>
+      <td>IBM</td>
+      <td>Tecnologia</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>ethereum</td>
-      <td>2024-11-01</td>
-      <td>2514.75</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-ef435f18-d74f-4925-a349-a3ea1c23f937')"
-            title="Convert this dataframe to an interactive table."
-            style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
-  </svg>
-    </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-ef435f18-d74f-4925-a349-a3ea1c23f937 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-ef435f18-d74f-4925-a349-a3ea1c23f937');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-    <div id="df-081396e4-4635-4255-932f-f6a480abed30">
-      <button class="colab-df-quickchart" onclick="quickchart('df-081396e4-4635-4255-932f-f6a480abed30')"
-                title="Suggest charts"
-                style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-     width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-    </g>
-</svg>
-      </button>
-
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-
-      <script>
-        async function quickchart(key) {
-          const quickchartButtonEl =
-            document.querySelector('#' + key + ' button');
-          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-          quickchartButtonEl.classList.add('colab-df-spinner');
-          try {
-            const charts = await google.colab.kernel.invokeFunction(
-                'suggestCharts', [key], {});
-          } catch (error) {
-            console.error('Error during call to suggestCharts:', error);
-          }
-          quickchartButtonEl.classList.remove('colab-df-spinner');
-          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-        }
-        (() => {
-          let quickchartButtonEl =
-            document.querySelector('#df-081396e4-4635-4255-932f-f6a480abed30 button');
-          quickchartButtonEl.style.display =
-            google.colab.kernel.accessAllowed ? 'block' : 'none';
-        })();
-      </script>
-    </div>
-
-    </div>
-  </div>
-</div></div>
-</div>
-<p>También se puede filtrar directamente dentro del df:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_bitcoin_2</span> <span class="o">=</span> <span class="n">df_2</span><span class="p">[</span><span class="n">df_2</span><span class="p">[</span><span class="s2">&quot;coin&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;bitcoin&quot;</span><span class="p">]</span>
-<span class="n">df_bitcoin_2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-  <div id="df-5580d3c9-d58b-4057-a37d-3f2d14e1a040" class="colab-df-container">
-    <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>coin</th>
-      <th>date</th>
-      <th>close</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>644</th>
-      <td>bitcoin</td>
-      <td>2024-10-16</td>
-      <td>66962.0</td>
+      <td>INTC</td>
+      <td>Procesadores</td>
     </tr>
     <tr>
-      <th>645</th>
-      <td>bitcoin</td>
-      <td>2024-10-20</td>
-      <td>68389.0</td>
+      <th>3</th>
+      <td>NVDA</td>
+      <td>Procesadores</td>
     </tr>
-    <tr>
-      <th>646</th>
-      <td>bitcoin</td>
-      <td>2024-10-24</td>
-      <td>66684.0</td>
-    </tr>
-    <tr>
-      <th>647</th>
-      <td>bitcoin</td>
-      <td>2024-10-28</td>
-      <td>67939.0</td>
-    </tr>
-    <tr>
-      <th>648</th>
-      <td>bitcoin</td>
-      <td>2024-11-01</td>
-      <td>70265.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-5580d3c9-d58b-4057-a37d-3f2d14e1a040')"
-            title="Convert this dataframe to an interactive table."
-            style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
-  </svg>
-    </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-5580d3c9-d58b-4057-a37d-3f2d14e1a040 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-5580d3c9-d58b-4057-a37d-3f2d14e1a040');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-    <div id="df-f0372524-bf95-4786-a96d-4cfc42a0219f">
-      <button class="colab-df-quickchart" onclick="quickchart('df-f0372524-bf95-4786-a96d-4cfc42a0219f')"
-                title="Suggest charts"
-                style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-     width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-    </g>
-</svg>
-      </button>
-
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-
-      <script>
-        async function quickchart(key) {
-          const quickchartButtonEl =
-            document.querySelector('#' + key + ' button');
-          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-          quickchartButtonEl.classList.add('colab-df-spinner');
-          try {
-            const charts = await google.colab.kernel.invokeFunction(
-                'suggestCharts', [key], {});
-          } catch (error) {
-            console.error('Error during call to suggestCharts:', error);
-          }
-          quickchartButtonEl.classList.remove('colab-df-spinner');
-          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-        }
-        (() => {
-          let quickchartButtonEl =
-            document.querySelector('#df-f0372524-bf95-4786-a96d-4cfc42a0219f button');
-          quickchartButtonEl.style.display =
-            google.colab.kernel.accessAllowed ? 'block' : 'none';
-        })();
-      </script>
-    </div>
-
-    </div>
-  </div>
-</div></div>
-</div>
-</section>
-<section id="en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre">
-<h2>En cada dataframe creado, cambie el nombre de la columna de <code class="docutils literal notranslate"><span class="pre">Close</span></code> al nombre de la criptomoneda asociada al df. Luego, solo deje Fecha y precio de cierre.<a class="headerlink" href="#en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_bitcoin</span> <span class="o">=</span> <span class="n">df_bitcoin</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;close&quot;</span><span class="p">:</span><span class="s2">&quot;bitcoin&quot;</span><span class="p">})</span>
-<span class="n">df_bitcoin</span> <span class="o">=</span> <span class="n">df_bitcoin</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;coin&quot;</span><span class="p">])</span>
-
-<span class="n">df_doge</span> <span class="o">=</span> <span class="n">df_doge</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;close&quot;</span><span class="p">:</span><span class="s2">&quot;doge&quot;</span><span class="p">})</span>
-<span class="n">df_doge</span> <span class="o">=</span> <span class="n">df_doge</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;coin&quot;</span><span class="p">])</span>
-
-<span class="n">df_ethereum</span> <span class="o">=</span> <span class="n">df_ethereum</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;close&quot;</span><span class="p">:</span><span class="s2">&quot;ethereum&quot;</span><span class="p">})</span>
-<span class="n">df_ethereum</span> <span class="o">=</span> <span class="n">df_ethereum</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;coin&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_doge</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-  <div id="df-c174365b-8e44-4b38-8757-9869c5ff4d6d" class="colab-df-container">
-    <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>doge</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>460</th>
-      <td>2024-10-16</td>
-      <td>0.117150</td>
-    </tr>
-    <tr>
-      <th>461</th>
-      <td>2024-10-20</td>
-      <td>0.144817</td>
-    </tr>
-    <tr>
-      <th>462</th>
-      <td>2024-10-24</td>
-      <td>0.139900</td>
-    </tr>
-    <tr>
-      <th>463</th>
-      <td>2024-10-28</td>
-      <td>0.144264</td>
-    </tr>
-    <tr>
-      <th>464</th>
-      <td>2024-11-01</td>
-      <td>0.161612</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-c174365b-8e44-4b38-8757-9869c5ff4d6d')"
-            title="Convert this dataframe to an interactive table."
-            style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
-  </svg>
-    </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-c174365b-8e44-4b38-8757-9869c5ff4d6d button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-c174365b-8e44-4b38-8757-9869c5ff4d6d');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-    <div id="df-fa7bf68c-783e-4be1-bec4-579dc5d7fb74">
-      <button class="colab-df-quickchart" onclick="quickchart('df-fa7bf68c-783e-4be1-bec4-579dc5d7fb74')"
-                title="Suggest charts"
-                style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-     width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-    </g>
-</svg>
-      </button>
-
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-
-      <script>
-        async function quickchart(key) {
-          const quickchartButtonEl =
-            document.querySelector('#' + key + ' button');
-          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-          quickchartButtonEl.classList.add('colab-df-spinner');
-          try {
-            const charts = await google.colab.kernel.invokeFunction(
-                'suggestCharts', [key], {});
-          } catch (error) {
-            console.error('Error during call to suggestCharts:', error);
-          }
-          quickchartButtonEl.classList.remove('colab-df-spinner');
-          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-        }
-        (() => {
-          let quickchartButtonEl =
-            document.querySelector('#df-fa7bf68c-783e-4be1-bec4-579dc5d7fb74 button');
-          quickchartButtonEl.style.display =
-            google.colab.kernel.accessAllowed ? 'block' : 'none';
-        })();
-      </script>
-    </div>
-
-    </div>
-  </div>
-</div></div>
-</div>
-</section>
-<section id="una-los-tres-df-en-uno-solo">
-<h2>Una los tres df en uno solo.<a class="headerlink" href="#una-los-tres-df-en-uno-solo" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_bitcoin</span><span class="p">,</span> <span class="n">df_doge</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;date&quot;</span><span class="p">)</span>
-<span class="n">df_merge</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-  <div id="df-14a5150a-9890-4675-9769-e6cbf97e2419" class="colab-df-container">
-    <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>bitcoin</th>
-      <th>doge</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
       <th>0</th>
-      <td>2024-10-16</td>
-      <td>66962.0</td>
-      <td>0.117150</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2024-10-20</td>
-      <td>68389.0</td>
-      <td>0.144817</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2024-10-24</td>
-      <td>66684.0</td>
-      <td>0.139900</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2024-10-28</td>
-      <td>67939.0</td>
-      <td>0.144264</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2024-11-01</td>
-      <td>70265.0</td>
-      <td>0.161612</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>87</th>
-      <td>2025-09-29</td>
-      <td>112143.0</td>
-      <td>0.237358</td>
-    </tr>
-    <tr>
-      <th>88</th>
-      <td>2025-10-03</td>
-      <td>120612.0</td>
-      <td>0.261767</td>
-    </tr>
-    <tr>
-      <th>89</th>
-      <td>2025-10-07</td>
-      <td>124774.0</td>
-      <td>0.266306</td>
-    </tr>
-    <tr>
-      <th>90</th>
-      <td>2025-10-11</td>
-      <td>113202.0</td>
-      <td>0.193986</td>
-    </tr>
-    <tr>
-      <th>91</th>
-      <td>2025-10-15</td>
-      <td>113157.0</td>
-      <td>0.204681</td>
+      <td>TSLA</td>
+      <td>Automovil</td>
     </tr>
   </tbody>
 </table>
-<p>92 rows × 3 columns</p>
 </div>
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-14a5150a-9890-4675-9769-e6cbf97e2419')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-be456437-c320-4bed-ac25-34280618d4f8')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -3280,12 +2516,12 @@ memory usage: 34.6+ KB
 
     <script>
       const buttonEl =
-        document.querySelector('#df-14a5150a-9890-4675-9769-e6cbf97e2419 button.colab-df-convert');
+        document.querySelector('#df-be456437-c320-4bed-ac25-34280618d4f8 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-14a5150a-9890-4675-9769-e6cbf97e2419');
+        const element = document.querySelector('#df-be456437-c320-4bed-ac25-34280618d4f8');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -3305,8 +2541,8 @@ memory usage: 34.6+ KB
   </div>
 
 
-    <div id="df-591475a4-cf1f-49cd-96c8-99d8dd517d8c">
-      <button class="colab-df-quickchart" onclick="quickchart('df-591475a4-cf1f-49cd-96c8-99d8dd517d8c')"
+    <div id="df-395f1375-a4a7-4a65-9b6b-e93a2588360f">
+      <button class="colab-df-quickchart" onclick="quickchart('df-395f1375-a4a7-4a65-9b6b-e93a2588360f')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -3425,14 +2661,14 @@ memory usage: 34.6+ KB
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-591475a4-cf1f-49cd-96c8-99d8dd517d8c button');
+            document.querySelector('#df-395f1375-a4a7-4a65-9b6b-e93a2588360f button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
       </script>
     </div>
 
-  <div id="id_8ed01568-0abc-4a5d-9d62-6b44b0ce84c1">
+  <div id="id_8446e9e2-c928-4509-abaf-05dc773d57db">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -3464,7 +2700,7 @@ memory usage: 34.6+ KB
         fill: #FFFFFF;
       }
     </style>
-    <button class="colab-df-generate" onclick="generateWithVariable('df_merge')"
+    <button class="colab-df-generate" onclick="generateWithVariable('asset_classes')"
             title="Generate code using this dataframe."
             style="display:none;">
 
@@ -3476,12 +2712,12 @@ memory usage: 34.6+ KB
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_8ed01568-0abc-4a5d-9d62-6b44b0ce84c1 button.colab-df-generate');
+        document.querySelector('#id_8446e9e2-c928-4509-abaf-05dc773d57db button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('df_merge');
+        google.colab.notebook.generateWithVariable('asset_classes');
       }
       })();
     </script>
@@ -3493,14 +2729,16 @@ memory usage: 34.6+ KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_merge</span><span class="p">,</span> <span class="n">df_ethereum</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;date&quot;</span><span class="p">)</span>
-<span class="n">df_merge</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">assets_views</span><span class="p">(</span><span class="n">views</span><span class="p">,</span> <span class="n">asset_classes</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Q</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-cd26e9a7-81dd-4f00-958b-36b2bd2b8353" class="colab-df-container">
+  <div id="df-cb0e5fb2-cb59-414e-b313-60105feae87e" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3519,47 +2757,35 @@ memory usage: 34.6+ KB
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>date</th>
-      <th>bitcoin</th>
-      <th>doge</th>
-      <th>ethereum</th>
+      <th>0</th>
+      <th>1</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2024-10-16</td>
-      <td>66962.0</td>
-      <td>0.117150</td>
-      <td>2602.08</td>
+      <td>-0.5</td>
+      <td>-0.5</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2024-10-20</td>
-      <td>68389.0</td>
-      <td>0.144817</td>
-      <td>2649.98</td>
+      <td>-0.5</td>
+      <td>-0.5</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2024-10-24</td>
-      <td>66684.0</td>
-      <td>0.139900</td>
-      <td>2524.10</td>
+      <td>0.0</td>
+      <td>0.5</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2024-10-28</td>
-      <td>67939.0</td>
-      <td>0.144264</td>
-      <td>2505.50</td>
+      <td>0.0</td>
+      <td>0.5</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2024-11-01</td>
-      <td>70265.0</td>
-      <td>0.161612</td>
-      <td>2514.75</td>
+      <td>1.0</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
@@ -3567,7 +2793,7 @@ memory usage: 34.6+ KB
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-cd26e9a7-81dd-4f00-958b-36b2bd2b8353')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-cb0e5fb2-cb59-414e-b313-60105feae87e')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -3619,12 +2845,12 @@ memory usage: 34.6+ KB
 
     <script>
       const buttonEl =
-        document.querySelector('#df-cd26e9a7-81dd-4f00-958b-36b2bd2b8353 button.colab-df-convert');
+        document.querySelector('#df-cb0e5fb2-cb59-414e-b313-60105feae87e button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-cd26e9a7-81dd-4f00-958b-36b2bd2b8353');
+        const element = document.querySelector('#df-cb0e5fb2-cb59-414e-b313-60105feae87e');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -3644,8 +2870,8 @@ memory usage: 34.6+ KB
   </div>
 
 
-    <div id="df-b7f72bb3-f6a5-49fd-b52e-273496bb7507">
-      <button class="colab-df-quickchart" onclick="quickchart('df-b7f72bb3-f6a5-49fd-b52e-273496bb7507')"
+    <div id="df-297aad2f-12a3-45c3-9ce8-6aa6c11f7d80">
+      <button class="colab-df-quickchart" onclick="quickchart('df-297aad2f-12a3-45c3-9ce8-6aa6c11f7d80')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -3764,7 +2990,7 @@ memory usage: 34.6+ KB
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-b7f72bb3-f6a5-49fd-b52e-273496bb7507 button');
+            document.querySelector('#df-297aad2f-12a3-45c3-9ce8-6aa6c11f7d80 button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -3773,20 +2999,8 @@ memory usage: 34.6+ KB
 
     </div>
   </div>
-</div></div>
-</div>
-</section>
-<section id="haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos">
-<h2>Haga un <code class="docutils literal notranslate"><span class="pre">describe()</span></code> al df y explique las principales características de los datos.<a class="headerlink" href="#haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-  <div id="df-551b4c26-b96f-4dba-a923-744702537883" class="colab-df-container">
+</div><div class="output text_html">
+  <div id="df-8f551933-65eb-4b73-9111-f6cc7e3a3cd1" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3805,68 +3019,17 @@ memory usage: 34.6+ KB
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>date</th>
-      <th>bitcoin</th>
-      <th>doge</th>
-      <th>ethereum</th>
+      <th>0</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>92</td>
-      <td>92.000000</td>
-      <td>92.000000</td>
-      <td>92.000000</td>
+      <th>0</th>
+      <td>0.6</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>2025-04-16 00:00:00</td>
-      <td>99592.804348</td>
-      <td>0.240495</td>
-      <td>3045.479891</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>2024-10-16 00:00:00</td>
-      <td>66684.000000</td>
-      <td>0.117150</td>
-      <td>1577.450000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>2025-01-15 00:00:00</td>
-      <td>91199.250000</td>
-      <td>0.175426</td>
-      <td>2504.900000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>2025-04-16 00:00:00</td>
-      <td>100334.500000</td>
-      <td>0.219897</td>
-      <td>2954.705000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2025-07-16 00:00:00</td>
-      <td>110847.750000</td>
-      <td>0.269653</td>
-      <td>3668.502500</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>2025-10-15 00:00:00</td>
-      <td>124774.000000</td>
-      <td>0.435694</td>
-      <td>4773.880000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>NaN</td>
-      <td>13968.313467</td>
-      <td>0.079576</td>
-      <td>872.085200</td>
+      <th>1</th>
+      <td>0.6</td>
     </tr>
   </tbody>
 </table>
@@ -3874,7 +3037,7 @@ memory usage: 34.6+ KB
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-551b4c26-b96f-4dba-a923-744702537883')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-8f551933-65eb-4b73-9111-f6cc7e3a3cd1')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -3926,12 +3089,12 @@ memory usage: 34.6+ KB
 
     <script>
       const buttonEl =
-        document.querySelector('#df-551b4c26-b96f-4dba-a923-744702537883 button.colab-df-convert');
+        document.querySelector('#df-8f551933-65eb-4b73-9111-f6cc7e3a3cd1 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-551b4c26-b96f-4dba-a923-744702537883');
+        const element = document.querySelector('#df-8f551933-65eb-4b73-9111-f6cc7e3a3cd1');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -3951,8 +3114,8 @@ memory usage: 34.6+ KB
   </div>
 
 
-    <div id="df-bf0b1281-daf8-44dc-82f3-3ce3ca67820e">
-      <button class="colab-df-quickchart" onclick="quickchart('df-bf0b1281-daf8-44dc-82f3-3ce3ca67820e')"
+    <div id="df-800cbcd8-aec5-48d4-a472-dbcdb58ad5e0">
+      <button class="colab-df-quickchart" onclick="quickchart('df-800cbcd8-aec5-48d4-a472-dbcdb58ad5e0')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -4071,7 +3234,7 @@ memory usage: 34.6+ KB
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-bf0b1281-daf8-44dc-82f3-3ce3ca67820e button');
+            document.querySelector('#df-800cbcd8-aec5-48d4-a472-dbcdb58ad5e0 button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -4082,49 +3245,187 @@ memory usage: 34.6+ KB
   </div>
 </div></div>
 </div>
-</section>
-<section id="usando-loc-e-iloc-para-seleccionar-filas-y-columnas">
-<h2>Usando loc e iloc para seleccionar filas y columnas<a class="headerlink" href="#usando-loc-e-iloc-para-seleccionar-filas-y-columnas" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usando loc para seleccionar filas por etiquetas y columnas específicas</span>
-<span class="c1"># Seleccionamos las filas donde la fecha es &quot;2025-10-15&quot; y las columnas &quot;date&quot; y &quot;bitcoin&quot;</span>
-<span class="n">example_loc</span> <span class="o">=</span> <span class="n">df_merge</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_merge</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;2025-10-15&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;bitcoin&quot;</span><span class="p">]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ejemplo con loc:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">example_loc</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Estimar las entradas de Black Litterman:</span>
 
-<span class="c1"># Usando iloc para seleccionar filas y columnas por índices</span>
-<span class="c1"># Seleccionamos las primeras 5 filas y las primeras 2 columnas</span>
-<span class="n">example_iloc</span> <span class="o">=</span> <span class="n">df_merge</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ejemplo con iloc:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">example_iloc</span><span class="p">)</span>
+<span class="n">port</span><span class="o">.</span><span class="n">blacklitterman_stats</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="o">/</span><span class="mi">252</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Estimar portafolio óptimo:</span>
+
+<span class="n">model</span><span class="o">=</span><span class="s1">&#39;BL&#39;</span><span class="c1"># Black Litterman</span>
+<span class="n">rm</span> <span class="o">=</span> <span class="s1">&#39;MV&#39;</span> <span class="c1"># Medida de riesgo utilizada, esta vez será la varianza</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;Sharpe&#39;</span> <span class="c1"># Función objetivo, puede ser MinRisk, MaxRet, Utility o Sharpe</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Usar escenarios históricos para medidas de riesgo que dependen de escenarios</span>
+
+<span class="n">w_bl</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">optimization</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">w_bl</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ejemplo con loc:
-         date   bitcoin
-91 2025-10-15  113157.0
+<div class="output text_html">
+  <div id="df-7a3967be-d624-4414-827e-1f416e9c192c" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-Ejemplo con iloc:
-        date  bitcoin
-0 2024-10-16  66962.0
-1 2024-10-20  68389.0
-2 2024-10-24  66684.0
-3 2024-10-28  67939.0
-4 2024-11-01  70265.0
-</pre></div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL</th>
+      <th>IBM</th>
+      <th>INTC</th>
+      <th>NVDA</th>
+      <th>TSLA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>weights</th>
+      <td>0.075013</td>
+      <td>0.45076</td>
+      <td>3.831484e-10</td>
+      <td>0.393558</td>
+      <td>0.08067</td>
+    </tr>
+  </tbody>
+</table>
 </div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-7a3967be-d624-4414-827e-1f416e9c192c')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-7a3967be-d624-4414-827e-1f416e9c192c button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-7a3967be-d624-4414-827e-1f416e9c192c');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
 </div>
-</div>
-</section>
-<section id="finalmente-exporte-df-merge-a-un-archivo-excel">
-<h2>Finalmente, exporte <code class="docutils literal notranslate"><span class="pre">df_merge</span></code> a un archivo Excel<a class="headerlink" href="#finalmente-exporte-df-merge-a-un-archivo-excel" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merge</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&quot;df_merge.xlsx&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_pie</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w_bl</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Sharpe Black Litterman&#39;</span><span class="p">,</span> <span class="n">others</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                 <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;tab20&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b78dcc3265590f9fc2d8083e8848591d30f4b1d717ce698e87703b8aa5061985.png" src="_images/b78dcc3265590f9fc2d8083e8848591d30f4b1d717ce698e87703b8aa5061985.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Número de puntos de la frontera</span>
+
+<span class="n">frontier</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">efficient_frontier</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">hist</span><span class="o">=</span><span class="n">hist</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Graficando la frontera eficiente</span>
+
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Portafolio con máximo retorno ajustado al riesgo&#39;</span> <span class="c1"># Título del punto</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">mu_bl</span> <span class="c1"># Retornos esperados del modelo Black Litterman</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">cov_bl</span> <span class="c1"># Matriz de covarianza del modelo Black Litterman</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">returns</span> <span class="c1"># Retornos de los activos</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">plot_frontier</span><span class="p">(</span><span class="n">w_frontier</span><span class="o">=</span><span class="n">frontier</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="n">returns</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span>
+                      <span class="n">rf</span><span class="o">=</span><span class="n">rf</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_bl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                      <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a808358893277e3bab8e16b78f1f8d2b1d612466fea47f537e0adabf5afac155.png" src="_images/a808358893277e3bab8e16b78f1f8d2b1d612466fea47f537e0adabf5afac155.png" />
 </div>
 </div>
 </section>
@@ -4161,22 +3462,13 @@ Ejemplo con iloc:
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="clase2-asset_allocation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Apunte de <strong>Finanzas Computacionales</strong></p>
+        <p class="prev-next-title">5. Teoría Moderna de Portafolios</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="clase1-get_data.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1. Carga de datos finacieros</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -4194,20 +3486,12 @@ Ejemplo con iloc:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cargar-un-archivo-csv-como-df">Cargar un archivo csv como df</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#head">Head</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail">Tail</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conocer-el-tipo-de-cada-columna">Conocer el tipo de cada columna</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convertir-la-columna-date-en-datetime">Convertir la columna date en datetime</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#describe">Describe</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccionar-solo-columnas-coin-date-y-close">Seleccionar solo columnas <code class="docutils literal notranslate"><span class="pre">coin</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code> y <code class="docutils literal notranslate"><span class="pre">close</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuenta-la-cantidad-de-criptomonedas-del-dataframe">Cuenta la cantidad de criptomonedas del dataframe</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crea-un-dataframe-con-precios-de-cierre-y-fecha-de-bitcoin-otro-con-xrp-y-otro-con-ethereum">Crea un dataframe con precios de cierre y fecha de bitcoin, otro con xrp, y otro con ethereum</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-cada-dataframe-creado-cambie-el-nombre-de-la-columna-de-close-al-nombre-de-la-criptomoneda-asociada-al-df-luego-solo-deje-fecha-y-precio-de-cierre">En cada dataframe creado, cambie el nombre de la columna de <code class="docutils literal notranslate"><span class="pre">Close</span></code> al nombre de la criptomoneda asociada al df. Luego, solo deje Fecha y precio de cierre.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-los-tres-df-en-uno-solo">Una los tres df en uno solo.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#haga-un-describe-al-df-y-explique-las-principales-caracteristicas-de-los-datos">Haga un <code class="docutils literal notranslate"><span class="pre">describe()</span></code> al df y explique las principales características de los datos.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usando-loc-e-iloc-para-seleccionar-filas-y-columnas">Usando loc e iloc para seleccionar filas y columnas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-exporte-df-merge-a-un-archivo-excel">Finalmente, exporte <code class="docutils literal notranslate"><span class="pre">df_merge</span></code> a un archivo Excel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizando-portfolios-con-riskfolio-lib">Optimizando portfolios con Riskfolio-Lib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimo-riesgo">Mínimo riesgo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sharpe">Sharpe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cvar">CVar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-parity">Risk Parity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blacklitterman-bl">Black–Litterman (BL)</a></li>
 </ul>
   </nav></div>
 

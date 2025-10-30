@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -185,6 +185,8 @@
 <li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">2. Graficando series financieras</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Series de retornos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase2-technical_analysis.html">4. Análisis técnico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase2-asset_allocation.html">5. Teoría Moderna de Portafolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase3-portfolio_optimization.html">6. Optimizando portafolios</a></li>
 </ul>
 
     </div>
@@ -431,7 +433,11 @@ document.write(`
 <h2>Convirtiendo precios a retornos<a class="headerlink" href="#convirtiendo-precios-a-retornos" title="Link to this heading">#</a></h2>
 <p>Existen dos tipos de retornos:</p>
 <ul class="simple">
-<li><p><strong>Retornos simples:</strong> $$R_t = \frac{(P_t - P_{t-1})}{P_{t-1}} = \frac{P_t}{P_{t-1}}-1$$ En Pandas, se puede calcular usando el método <code class="docutils literal notranslate"><span class="pre">pct_change()</span></code>. Ejemplo:</p></li>
+<li><p><strong>Retornos simples:</strong>
+$$
+R_t = \frac{(P_t - P_{t-1})}{P_{t-1}} = \frac{P_t}{P_{t-1}}-1
+$$
+En Pandas, se puede calcular usando el método <code class="docutils literal notranslate"><span class="pre">pct_change()</span></code>. Ejemplo:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -988,7 +994,11 @@ document.write(`
 </div></div>
 </div>
 <ul class="simple">
-<li><p><strong>Retornos en logaritmos:</strong> $$r_i = \ln \left(\frac{P_t}{P_{t-1}}\right) = \ln(P_t) - \ln(P_{t-1})$$ Para calcular estos retornos deberemos usar Numpy</p></li>
+<li><p><strong>Retornos en logaritmos:</strong>
+$$
+r_i = \ln \left(\frac{P_t}{P_{t-1}}\right) = \ln(P_t) - \ln(P_{t-1})
+$$
+Para calcular estos retornos deberemos usar Numpy</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1301,7 +1311,10 @@ document.write(`
 <section id="ajuste-de-retornos-por-inflacion">
 <h2>Ajuste de retornos por inflación<a class="headerlink" href="#ajuste-de-retornos-por-inflacion" title="Link to this heading">#</a></h2>
 <p>El efecto Fisher permite convertir un retorno nominal pasado en un retorno real, es decir, ajustado por la pérdida de poder adquisitivo causada por la inflación</p>
-<p>$$ r^{real}_t = \frac{1 + i_t}{1 + \pi_t} - 1$$ Donde:</p>
+<p>$$
+r^{real}_t = \frac{1 + i_t}{1 + \pi_t} - 1
+$$
+Donde:</p>
 <ul class="simple">
 <li><p>$r^{real}_t$ es el retorno real.</p></li>
 <li><p>$i_t$ es el retorno nominal.</p></li>
@@ -3092,8 +3105,10 @@ memory usage: 2.7 KB
 <section id="deteccion-de-outliers">
 <h2>Detección de outliers<a class="headerlink" href="#deteccion-de-outliers" title="Link to this heading">#</a></h2>
 <p>Una opción para detectar <em>outliers</em> es a través del <strong>filtro de Hampel</strong>. Este usa la desviación media absoluta (MAD) y la técnica de rolling para deterctar outliers. En específico, la respuesta de este filtro viene dado por:</p>
-<p>$$y_k = \left{ \begin{array}{ccc} x_k &amp; si &amp; |x_k - m_k| \leq S_k \
-m_k &amp; si &amp; |x_k - m_k| &gt; S_k \end{array}\right.$$</p>
+<p>$$
+y_k = \left{ \begin{array}{ccc} x_k &amp; si &amp; |x_k - m_k| \leq S_k \
+m_k &amp; si &amp; |x_k - m_k| &gt; S_k \end{array}\right.
+$$</p>
 <p>donde $m_k$ es la mediana de la ventana tipo <em>rolling</em>, mientras que $S_k = 1.4826 \times MAD_t$.</p>
 <p>Ejemplo:</p>
 <div class="cell docutils container">
