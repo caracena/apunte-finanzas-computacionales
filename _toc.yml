@@ -12,3 +12,5 @@ chapters:
 - file: "clase2-asset_allocation.ipynb"
 - file: "clase3-portfolio_optimization.ipynb"
 - file: "clase3-capm.ipynb"
+- file: "clase4-factores.ipynb"
+- file: "clase4-backtesting.ipynb"
