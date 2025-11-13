@@ -14,3 +14,4 @@ chapters:
 - file: "clase3-capm.ipynb"
 - file: "clase4-factores.ipynb"
 - file: "clase4-backtesting.ipynb"
+- file: "clase5-backtesting_eventos.ipynb"
