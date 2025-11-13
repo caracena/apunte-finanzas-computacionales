@@ -1,0 +1,3021 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>10. Backtesting orientado a eventos &#8212; Apunte Finanzas Computacionales</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clase5-backtesting_eventos';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="Apunte Finanzas Computacionales - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="Apunte Finanzas Computacionales - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Apunte de Finanzas Computacionales
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clase1-pandas.html">0. Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-get_data.html">1. Carga de datos finacieros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase1-graph.html">2. Graficando series financieras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase2-returns.html">3. Series de retornos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase2-technical_analysis.html">4. Análisis técnico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase2-asset_allocation.html">5. Teoría Moderna de Portafolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase3-portfolio_optimization.html">6. Optimizando portafolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase3-capm.html">7. Modelo CAPM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase4-factores.html">8. Modelo CAPM y factores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase4-backtesting.html">9. Backtesting vectorizado</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase5-backtesting_eventos.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase5-backtesting_eventos.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/clase5-backtesting_eventos.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>10. Backtesting orientado a eventos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrategia-de-prueba">Estrategia de prueba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrategia-sma">Estrategia SMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agregando-comisiones">Agregando comisiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizando-estrategias">Optimizando estrategias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actividad">Actividad</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="backtesting-orientado-a-eventos">
+<h1>10. Backtesting orientado a eventos<a class="headerlink" href="#backtesting-orientado-a-eventos" title="Link to this heading">#</a></h1>
+<p>Para este tipo de casos, usaremos la librería <code class="docutils literal notranslate"><span class="pre">backtrader</span></code>, la que implica crear algunas funciones y clases antes de implementarla. En general, el código se construye de la siguiente forma:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">xStrategy</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">()</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">txt</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_trade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trade</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#Codigo</span>
+
+</pre></div>
+</div>
+<p>En cada bloque de funciones dentro de la clase se debe especificar:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__(self):</span></code> Se definen los objetos que se quiere seguir.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log(self,</span> <span class="pre">txt):</span></code> Se crea un registro (log) de lo que va ocurriendo en el backtesting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notify_order(self,</span> <span class="pre">order):</span></code> Reporta el <em>status</em> de la orden. En general, en el día $t$ el indicador sugiere si se abre o cierra una posición basado en el precio de cierre (o el último precio dependiendo de la frecuencia de las transacciones). Entonces, la orden será ejecutada al siguiente día (o siguiente precio).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notify_trade(self,</span> <span class="pre">trade):</span></code> Reporta los resultados de las transacciones después que la posición se cerró.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next(self):</span></code> Este método contiene la lógica de la estrategia de inversión.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start/stop(self):</span></code> Permiten reportar el valor del portfolio.</p></li>
+</ul>
+<p>Por ejemplo, hagamos el backtest de Apple usando SMA(20):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>backtrader<span class="w"> </span>quantstats<span class="w"> </span>--quiet
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">backtrader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">bt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">quantstats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/419.5 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺ <span class=" -Color -Color-Green">409.6/419.5 kB</span> <span class=" -Color -Color-Red">17.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">419.5/419.5 kB</span> <span class=" -Color -Color-Red">6.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/81.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">81.4/81.4 kB</span> <span class=" -Color -Color-Red">3.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aapl</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2024-12-31&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">multi_level_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">feeds</span><span class="o">.</span><span class="n">PandasData</span><span class="p">(</span><span class="n">dataname</span><span class="o">=</span><span class="n">aapl</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;backtrader.feeds.pandafeed.PandasData at 0x7d85d3235400&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="estrategia-de-prueba">
+<h2>Estrategia de prueba<a class="headerlink" href="#estrategia-de-prueba" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear una estrategia de prueba</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestStrategy</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; Función de registro para esta estrategia&#39;&#39;&#39;</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="n">txt</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Seguir el precio de cierre en la serie de datos data[0]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">close</span>
+
+        <span class="c1"># Para seguir órdenes pendientes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Submitted</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Accepted</span><span class="p">]:</span>
+            <span class="c1"># Orden de compra/venta enviada/aceptada por el broker - Nada que hacer</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Comprobar si una orden ha sido completada</span>
+        <span class="c1"># Atención: el broker podría rechazar la orden si no hay suficiente efectivo</span>
+        <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Completed</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">isbuy</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;COMPRA EJECUTADA, </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">price</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">order</span><span class="o">.</span><span class="n">issell</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;VENTA EJECUTADA, </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">price</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">bar_executed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Canceled</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Margin</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Rejected</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Orden Cancelada/Margen/Rechazada&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Registrar: no hay orden pendiente</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_trade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trade</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">trade</span><span class="o">.</span><span class="n">isclosed</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resultados de la operación - bruto: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">pnl</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Neto: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">pnlcomm</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Simplemente registrar el precio de cierre de la serie de referencia</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Cierre, </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Comprobar si hay una orden pendiente ... si sí, no podemos enviar una segunda</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Comprobar si estamos en el mercado</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">:</span>
+
+            <span class="c1"># podriamos comprar si</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="c1"># el cierre actual es menor que el cierre anterior</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
+                        <span class="c1"># el cierre anterior es menor que el cierre pre-anterior</span>
+
+                        <span class="c1"># compra</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;COMPRA CREADA, </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+                        <span class="c1"># Mantener un registro de la orden creada para evitar una segunda orden</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buy</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1"># Ya en el mercado ... podríamos vender</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bar_executed</span> <span class="o">+</span> <span class="mi">5</span><span class="p">):</span>
+                <span class="c1"># venta</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;VENTA CREADA, </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataclose</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+                <span class="c1"># Mantener un registro de la orden creada para evitar una segunda orden</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sell</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor inicial portfolio: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor final portfolio: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Inicializamos el backtest</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cerebro</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Cerebro</span><span class="p">(</span><span class="n">stdstats</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">cerebro</span><span class="o">.</span><span class="n">adddata</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">setcash</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addstrategy</span><span class="p">(</span><span class="n">TestStrategy</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addobserver</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">observers</span><span class="o">.</span><span class="n">Value</span><span class="p">)</span>
+<span class="c1">#cerebro.addsizer(bt.sizers.SizerFix, stake=10)</span>
+
+<span class="n">cerebro</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Valor inicial portfolio: 1000.00
+2024-01-02, Cierre, 183.90
+2024-01-02, COMPRA CREADA, 183.90
+2024-01-03, COMPRA EJECUTADA, 182.50
+2024-01-03, Cierre, 182.53
+2024-01-04, Cierre, 180.21
+2024-01-05, Cierre, 179.48
+2024-01-08, Cierre, 183.82
+2024-01-09, Cierre, 183.41
+2024-01-10, Cierre, 184.45
+2024-01-10, VENTA CREADA, 184.45
+2024-01-11, VENTA EJECUTADA, 184.79
+2024-01-11, Resultados de la operación - bruto: 2.30, Neto: 2.30
+2024-01-11, Cierre, 183.85
+2024-01-12, Cierre, 184.18
+2024-01-16, Cierre, 181.91
+2024-01-17, Cierre, 180.97
+2024-01-17, COMPRA CREADA, 180.97
+2024-01-18, COMPRA EJECUTADA, 184.35
+2024-01-18, Cierre, 186.87
+2024-01-19, Cierre, 189.77
+2024-01-22, Cierre, 192.08
+2024-01-23, Cierre, 193.35
+2024-01-24, Cierre, 192.68
+2024-01-25, Cierre, 192.35
+2024-01-25, VENTA CREADA, 192.35
+2024-01-26, VENTA EJECUTADA, 192.45
+2024-01-26, Resultados de la operación - bruto: 8.10, Neto: 8.10
+2024-01-26, Cierre, 190.62
+2024-01-26, COMPRA CREADA, 190.62
+2024-01-29, COMPRA EJECUTADA, 190.21
+2024-01-29, Cierre, 189.94
+2024-01-30, Cierre, 186.28
+2024-01-31, Cierre, 182.67
+2024-02-01, Cierre, 185.11
+2024-02-02, Cierre, 184.11
+2024-02-05, Cierre, 185.92
+2024-02-05, VENTA CREADA, 185.92
+2024-02-06, VENTA EJECUTADA, 185.11
+2024-02-06, Resultados de la operación - bruto: -5.10, Neto: -5.10
+2024-02-06, Cierre, 187.53
+2024-02-07, Cierre, 187.64
+2024-02-08, Cierre, 186.56
+2024-02-09, Cierre, 187.32
+2024-02-12, Cierre, 185.64
+2024-02-13, Cierre, 183.54
+2024-02-13, COMPRA CREADA, 183.54
+2024-02-14, COMPRA EJECUTADA, 183.82
+2024-02-14, Cierre, 182.66
+2024-02-15, Cierre, 182.37
+2024-02-16, Cierre, 180.83
+2024-02-20, Cierre, 180.09
+2024-02-21, Cierre, 180.84
+2024-02-22, Cierre, 182.88
+2024-02-22, VENTA CREADA, 182.88
+2024-02-23, VENTA EJECUTADA, 183.51
+2024-02-23, Resultados de la operación - bruto: -0.31, Neto: -0.31
+2024-02-23, Cierre, 181.04
+2024-02-26, Cierre, 179.69
+2024-02-26, COMPRA CREADA, 179.69
+2024-02-27, COMPRA EJECUTADA, 179.63
+2024-02-27, Cierre, 181.15
+2024-02-28, Cierre, 179.95
+2024-02-29, Cierre, 179.29
+2024-03-01, Cierre, 178.21
+2024-03-04, Cierre, 173.68
+2024-03-05, Cierre, 168.74
+2024-03-05, VENTA CREADA, 168.74
+2024-03-06, VENTA EJECUTADA, 169.68
+2024-03-06, Resultados de la operación - bruto: -9.96, Neto: -9.96
+2024-03-06, Cierre, 167.75
+2024-03-06, COMPRA CREADA, 167.75
+2024-03-07, COMPRA EJECUTADA, 167.78
+2024-03-07, Cierre, 167.63
+2024-03-08, Cierre, 169.35
+2024-03-11, Cierre, 171.35
+2024-03-12, Cierre, 171.83
+2024-03-13, Cierre, 169.75
+2024-03-14, Cierre, 171.60
+2024-03-14, VENTA CREADA, 171.60
+2024-03-15, VENTA EJECUTADA, 169.78
+2024-03-15, Resultados de la operación - bruto: 2.00, Neto: 2.00
+2024-03-15, Cierre, 171.22
+2024-03-18, Cierre, 172.31
+2024-03-19, Cierre, 174.66
+2024-03-20, Cierre, 177.22
+2024-03-21, Cierre, 169.98
+2024-03-22, Cierre, 170.89
+2024-03-25, Cierre, 169.47
+2024-03-26, Cierre, 168.34
+2024-03-26, COMPRA CREADA, 168.34
+2024-03-27, COMPRA EJECUTADA, 169.03
+2024-03-27, Cierre, 171.91
+2024-03-28, Cierre, 170.09
+2024-04-01, Cierre, 168.65
+2024-04-02, Cierre, 167.47
+2024-04-03, Cierre, 168.28
+2024-04-04, Cierre, 167.45
+2024-04-04, VENTA CREADA, 167.45
+2024-04-05, VENTA EJECUTADA, 168.22
+2024-04-05, Resultados de la operación - bruto: -0.81, Neto: -0.81
+2024-04-05, Cierre, 168.21
+2024-04-08, Cierre, 167.09
+2024-04-09, Cierre, 168.30
+2024-04-10, Cierre, 166.42
+2024-04-11, Cierre, 173.62
+2024-04-12, Cierre, 175.12
+2024-04-15, Cierre, 171.29
+2024-04-16, Cierre, 168.01
+2024-04-16, COMPRA CREADA, 168.01
+2024-04-17, COMPRA EJECUTADA, 168.24
+2024-04-17, Cierre, 166.64
+2024-04-18, Cierre, 165.69
+2024-04-19, Cierre, 163.66
+2024-04-22, Cierre, 164.50
+2024-04-23, Cierre, 165.55
+2024-04-24, Cierre, 167.65
+2024-04-24, VENTA CREADA, 167.65
+2024-04-25, VENTA EJECUTADA, 168.16
+2024-04-25, Resultados de la operación - bruto: -0.08, Neto: -0.08
+2024-04-25, Cierre, 168.52
+2024-04-26, Cierre, 167.93
+2024-04-29, Cierre, 172.10
+2024-04-30, Cierre, 168.95
+2024-05-01, Cierre, 167.93
+2024-05-01, COMPRA CREADA, 167.93
+2024-05-02, COMPRA EJECUTADA, 171.11
+2024-05-02, Cierre, 171.63
+2024-05-03, Cierre, 181.90
+2024-05-06, Cierre, 180.24
+2024-05-07, Cierre, 180.92
+2024-05-08, Cierre, 181.26
+2024-05-09, Cierre, 183.08
+2024-05-09, VENTA CREADA, 183.08
+2024-05-10, VENTA EJECUTADA, 183.65
+2024-05-10, Resultados de la operación - bruto: 12.54, Neto: 12.54
+2024-05-10, Cierre, 181.82
+2024-05-13, Cierre, 185.02
+2024-05-14, Cierre, 186.17
+2024-05-15, Cierre, 188.44
+2024-05-16, Cierre, 188.56
+2024-05-17, Cierre, 188.59
+2024-05-20, Cierre, 189.75
+2024-05-21, Cierre, 191.05
+2024-05-22, Cierre, 189.61
+2024-05-23, Cierre, 185.62
+2024-05-23, COMPRA CREADA, 185.62
+2024-05-24, COMPRA EJECUTADA, 187.55
+2024-05-24, Cierre, 188.70
+2024-05-28, Cierre, 188.71
+2024-05-29, Cierre, 189.01
+2024-05-30, Cierre, 190.00
+2024-05-31, Cierre, 190.95
+2024-06-03, Cierre, 192.72
+2024-06-03, VENTA CREADA, 192.72
+2024-06-04, VENTA EJECUTADA, 193.33
+2024-06-04, Resultados de la operación - bruto: 5.78, Neto: 5.78
+2024-06-04, Cierre, 193.04
+2024-06-05, Cierre, 194.55
+2024-06-06, Cierre, 193.17
+2024-06-07, Cierre, 195.56
+2024-06-10, Cierre, 191.82
+2024-06-11, Cierre, 205.75
+2024-06-12, Cierre, 211.63
+2024-06-13, Cierre, 212.79
+2024-06-14, Cierre, 211.06
+2024-06-17, Cierre, 215.21
+2024-06-18, Cierre, 212.84
+2024-06-20, Cierre, 208.27
+2024-06-20, COMPRA CREADA, 208.27
+2024-06-21, COMPRA EJECUTADA, 208.97
+2024-06-21, Cierre, 206.09
+2024-06-24, Cierre, 206.74
+2024-06-25, Cierre, 207.66
+2024-06-26, Cierre, 211.81
+2024-06-27, Cierre, 212.66
+2024-06-28, Cierre, 209.20
+2024-06-28, VENTA CREADA, 209.20
+2024-07-01, VENTA EJECUTADA, 210.66
+2024-07-01, Resultados de la operación - bruto: 1.69, Neto: 1.69
+2024-07-01, Cierre, 215.29
+2024-07-02, Cierre, 218.78
+2024-07-03, Cierre, 220.06
+2024-07-05, Cierre, 224.81
+2024-07-08, Cierre, 226.28
+2024-07-09, Cierre, 227.14
+2024-07-10, Cierre, 231.41
+2024-07-11, Cierre, 226.03
+2024-07-12, Cierre, 228.98
+2024-07-15, Cierre, 232.82
+2024-07-16, Cierre, 233.24
+2024-07-17, Cierre, 227.34
+2024-07-18, Cierre, 222.67
+2024-07-18, COMPRA CREADA, 222.67
+2024-07-19, COMPRA EJECUTADA, 223.30
+2024-07-19, Cierre, 222.80
+2024-07-22, Cierre, 222.45
+2024-07-23, Cierre, 223.49
+2024-07-24, Cierre, 217.07
+2024-07-25, Cierre, 216.02
+2024-07-26, Cierre, 216.49
+2024-07-26, VENTA CREADA, 216.49
+2024-07-29, VENTA EJECUTADA, 215.50
+2024-07-29, Resultados de la operación - bruto: -7.81, Neto: -7.81
+2024-07-29, Cierre, 216.77
+2024-07-30, Cierre, 217.32
+2024-07-31, Cierre, 220.58
+2024-08-01, Cierre, 216.89
+2024-08-02, Cierre, 218.38
+2024-08-05, Cierre, 207.86
+2024-08-06, Cierre, 205.83
+2024-08-06, COMPRA CREADA, 205.83
+2024-08-07, COMPRA EJECUTADA, 205.50
+2024-08-07, Cierre, 208.40
+2024-08-08, Cierre, 211.87
+2024-08-09, Cierre, 214.78
+2024-08-12, Cierre, 216.31
+2024-08-13, Cierre, 220.03
+2024-08-14, Cierre, 220.48
+2024-08-14, VENTA CREADA, 220.48
+2024-08-15, VENTA EJECUTADA, 223.34
+2024-08-15, Resultados de la operación - bruto: 17.84, Neto: 17.84
+2024-08-15, Cierre, 223.46
+2024-08-16, Cierre, 224.78
+2024-08-19, Cierre, 224.63
+2024-08-20, Cierre, 225.24
+2024-08-21, Cierre, 225.13
+2024-08-22, Cierre, 223.27
+2024-08-22, COMPRA CREADA, 223.27
+2024-08-23, COMPRA EJECUTADA, 224.40
+2024-08-23, Cierre, 225.57
+2024-08-26, Cierre, 225.91
+2024-08-27, Cierre, 226.75
+2024-08-28, Cierre, 225.22
+2024-08-29, Cierre, 228.50
+2024-08-30, Cierre, 227.72
+2024-08-30, VENTA CREADA, 227.72
+2024-09-03, VENTA EJECUTADA, 227.27
+2024-09-03, Resultados de la operación - bruto: 2.87, Neto: 2.87
+2024-09-03, Cierre, 221.52
+2024-09-03, COMPRA CREADA, 221.52
+2024-09-04, COMPRA EJECUTADA, 220.42
+2024-09-04, Cierre, 219.61
+2024-09-05, Cierre, 221.14
+2024-09-06, Cierre, 219.58
+2024-09-09, Cierre, 219.67
+2024-09-10, Cierre, 218.88
+2024-09-11, Cierre, 221.41
+2024-09-11, VENTA CREADA, 221.41
+2024-09-12, VENTA EJECUTADA, 221.25
+2024-09-12, Resultados de la operación - bruto: 0.84, Neto: 0.84
+2024-09-12, Cierre, 221.52
+2024-09-13, Cierre, 221.25
+2024-09-16, Cierre, 215.11
+2024-09-16, COMPRA CREADA, 215.11
+2024-09-17, COMPRA EJECUTADA, 214.54
+2024-09-17, Cierre, 215.58
+2024-09-18, Cierre, 219.45
+2024-09-19, Cierre, 227.59
+2024-09-20, Cierre, 226.92
+2024-09-23, Cierre, 225.20
+2024-09-24, Cierre, 226.10
+2024-09-24, VENTA CREADA, 226.10
+2024-09-25, VENTA EJECUTADA, 223.67
+2024-09-25, Resultados de la operación - bruto: 9.13, Neto: 9.13
+2024-09-25, Cierre, 225.10
+2024-09-26, Cierre, 226.25
+2024-09-27, Cierre, 226.52
+2024-09-30, Cierre, 231.70
+2024-10-01, Cierre, 224.94
+2024-10-02, Cierre, 225.51
+2024-10-03, Cierre, 224.41
+2024-10-04, Cierre, 225.53
+2024-10-07, Cierre, 220.45
+2024-10-08, Cierre, 224.51
+2024-10-09, Cierre, 228.26
+2024-10-10, Cierre, 227.76
+2024-10-11, Cierre, 226.28
+2024-10-11, COMPRA CREADA, 226.28
+2024-10-14, COMPRA EJECUTADA, 227.42
+2024-10-14, Cierre, 230.01
+2024-10-15, Cierre, 232.54
+2024-10-16, Cierre, 230.48
+2024-10-17, Cierre, 230.85
+2024-10-18, Cierre, 233.68
+2024-10-21, Cierre, 235.16
+2024-10-21, VENTA CREADA, 235.16
+2024-10-22, VENTA EJECUTADA, 232.58
+2024-10-22, Resultados de la operación - bruto: 5.16, Neto: 5.16
+2024-10-22, Cierre, 234.54
+2024-10-23, Cierre, 229.47
+2024-10-23, COMPRA CREADA, 229.47
+2024-10-24, COMPRA EJECUTADA, 228.69
+2024-10-24, Cierre, 229.28
+2024-10-25, Cierre, 230.11
+2024-10-28, Cierre, 232.09
+2024-10-29, Cierre, 232.36
+2024-10-30, Cierre, 228.81
+2024-10-31, Cierre, 224.65
+2024-10-31, VENTA CREADA, 224.65
+2024-11-01, VENTA EJECUTADA, 219.73
+2024-11-01, Resultados de la operación - bruto: -8.96, Neto: -8.96
+2024-11-01, Cierre, 221.66
+2024-11-01, COMPRA CREADA, 221.66
+2024-11-04, COMPRA EJECUTADA, 219.75
+2024-11-04, Cierre, 220.77
+2024-11-05, Cierre, 222.20
+2024-11-06, Cierre, 221.47
+2024-11-07, Cierre, 226.21
+2024-11-08, Cierre, 225.94
+2024-11-11, Cierre, 223.22
+2024-11-11, VENTA CREADA, 223.22
+2024-11-12, VENTA EJECUTADA, 223.54
+2024-11-12, Resultados de la operación - bruto: 3.79, Neto: 3.79
+2024-11-12, Cierre, 223.22
+2024-11-13, Cierre, 224.11
+2024-11-14, Cierre, 227.19
+2024-11-15, Cierre, 223.99
+2024-11-18, Cierre, 226.99
+2024-11-19, Cierre, 227.25
+2024-11-20, Cierre, 227.97
+2024-11-21, Cierre, 227.49
+2024-11-22, Cierre, 228.84
+2024-11-25, Cierre, 231.82
+2024-11-26, Cierre, 234.00
+2024-11-27, Cierre, 233.87
+2024-11-29, Cierre, 236.26
+2024-12-02, Cierre, 238.51
+2024-12-03, Cierre, 241.56
+2024-12-04, Cierre, 241.92
+2024-12-05, Cierre, 241.95
+2024-12-06, Cierre, 241.75
+2024-12-09, Cierre, 245.64
+2024-12-10, Cierre, 246.65
+2024-12-11, Cierre, 245.38
+2024-12-12, Cierre, 246.84
+2024-12-13, Cierre, 247.01
+2024-12-16, Cierre, 249.91
+2024-12-17, Cierre, 252.34
+2024-12-18, Cierre, 246.93
+2024-12-19, Cierre, 248.67
+2024-12-20, Cierre, 253.34
+2024-12-23, Cierre, 254.12
+2024-12-24, Cierre, 257.04
+2024-12-26, Cierre, 257.85
+2024-12-27, Cierre, 254.44
+2024-12-30, Cierre, 251.06
+2024-12-30, COMPRA CREADA, 251.06
+Valor final portfolio: 1039.01
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;__main__.TestStrategy at 0x7d85d32562a0&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cerebro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iplot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/javascript">/* Put everything inside the global mpl namespace */
+/* global mpl */
+window.mpl = {};
+
+mpl.get_websocket_type = function () {
+    if (typeof WebSocket !== 'undefined') {
+        return WebSocket;
+    } else if (typeof MozWebSocket !== 'undefined') {
+        return MozWebSocket;
+    } else {
+        alert(
+            'Your browser does not have WebSocket support. ' +
+                'Please try Chrome, Safari or Firefox ≥ 6. ' +
+                'Firefox 4 and 5 are also supported but you ' +
+                'have to enable WebSockets in about:config.'
+        );
+    }
+};
+
+mpl.figure = function (figure_id, websocket, ondownload, parent_element) {
+    this.id = figure_id;
+
+    this.ws = websocket;
+
+    this.supports_binary = this.ws.binaryType !== undefined;
+
+    if (!this.supports_binary) {
+        var warnings = document.getElementById('mpl-warnings');
+        if (warnings) {
+            warnings.style.display = 'block';
+            warnings.textContent =
+                'This browser does not support binary websocket messages. ' +
+                'Performance may be slow.';
+        }
+    }
+
+    this.imageObj = new Image();
+
+    this.context = undefined;
+    this.message = undefined;
+    this.canvas = undefined;
+    this.rubberband_canvas = undefined;
+    this.rubberband_context = undefined;
+    this.format_dropdown = undefined;
+
+    this.image_mode = 'full';
+
+    this.root = document.createElement('div');
+    this.root.setAttribute('style', 'display: inline-block');
+    this._root_extra_style(this.root);
+
+    parent_element.appendChild(this.root);
+
+    this._init_header(this);
+    this._init_canvas(this);
+    this._init_toolbar(this);
+
+    var fig = this;
+
+    this.waiting = false;
+
+    this.ws.onopen = function () {
+        fig.send_message('supports_binary', { value: fig.supports_binary });
+        fig.send_message('send_image_mode', {});
+        if (fig.ratio !== 1) {
+            fig.send_message('set_device_pixel_ratio', {
+                device_pixel_ratio: fig.ratio,
+            });
+        }
+        fig.send_message('refresh', {});
+    };
+
+    this.imageObj.onload = function () {
+        if (fig.image_mode === 'full') {
+            // Full images could contain transparency (where diff images
+            // almost always do), so we need to clear the canvas so that
+            // there is no ghosting.
+            fig.context.clearRect(0, 0, fig.canvas.width, fig.canvas.height);
+        }
+        fig.context.drawImage(fig.imageObj, 0, 0);
+    };
+
+    this.imageObj.onunload = function () {
+        fig.ws.close();
+    };
+
+    this.ws.onmessage = this._make_on_message_function(this);
+
+    this.ondownload = ondownload;
+};
+
+mpl.figure.prototype._init_header = function () {
+    var titlebar = document.createElement('div');
+    titlebar.classList =
+        'ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix';
+    var titletext = document.createElement('div');
+    titletext.classList = 'ui-dialog-title';
+    titletext.setAttribute(
+        'style',
+        'width: 100%; text-align: center; padding: 3px;'
+    );
+    titlebar.appendChild(titletext);
+    this.root.appendChild(titlebar);
+    this.header = titletext;
+};
+
+mpl.figure.prototype._canvas_extra_style = function (_canvas_div) {};
+
+mpl.figure.prototype._root_extra_style = function (_canvas_div) {};
+
+mpl.figure.prototype._init_canvas = function () {
+    var fig = this;
+
+    var canvas_div = (this.canvas_div = document.createElement('div'));
+    canvas_div.setAttribute('tabindex', '0');
+    canvas_div.setAttribute(
+        'style',
+        'border: 1px solid #ddd;' +
+            'box-sizing: content-box;' +
+            'clear: both;' +
+            'min-height: 1px;' +
+            'min-width: 1px;' +
+            'outline: 0;' +
+            'overflow: hidden;' +
+            'position: relative;' +
+            'resize: both;' +
+            'z-index: 2;'
+    );
+
+    function on_keyboard_event_closure(name) {
+        return function (event) {
+            return fig.key_event(event, name);
+        };
+    }
+
+    canvas_div.addEventListener(
+        'keydown',
+        on_keyboard_event_closure('key_press')
+    );
+    canvas_div.addEventListener(
+        'keyup',
+        on_keyboard_event_closure('key_release')
+    );
+
+    this._canvas_extra_style(canvas_div);
+    this.root.appendChild(canvas_div);
+
+    var canvas = (this.canvas = document.createElement('canvas'));
+    canvas.classList.add('mpl-canvas');
+    canvas.setAttribute(
+        'style',
+        'box-sizing: content-box;' +
+            'pointer-events: none;' +
+            'position: relative;' +
+            'z-index: 0;'
+    );
+
+    this.context = canvas.getContext('2d');
+
+    var backingStore =
+        this.context.backingStorePixelRatio ||
+        this.context.webkitBackingStorePixelRatio ||
+        this.context.mozBackingStorePixelRatio ||
+        this.context.msBackingStorePixelRatio ||
+        this.context.oBackingStorePixelRatio ||
+        this.context.backingStorePixelRatio ||
+        1;
+
+    this.ratio = (window.devicePixelRatio || 1) / backingStore;
+
+    var rubberband_canvas = (this.rubberband_canvas = document.createElement(
+        'canvas'
+    ));
+    rubberband_canvas.setAttribute(
+        'style',
+        'box-sizing: content-box;' +
+            'left: 0;' +
+            'pointer-events: none;' +
+            'position: absolute;' +
+            'top: 0;' +
+            'z-index: 1;'
+    );
+
+    // Apply a ponyfill if ResizeObserver is not implemented by browser.
+    if (this.ResizeObserver === undefined) {
+        if (window.ResizeObserver !== undefined) {
+            this.ResizeObserver = window.ResizeObserver;
+        } else {
+            var obs = _JSXTOOLS_RESIZE_OBSERVER({});
+            this.ResizeObserver = obs.ResizeObserver;
+        }
+    }
+
+    this.resizeObserverInstance = new this.ResizeObserver(function (entries) {
+        // There's no need to resize if the WebSocket is not connected:
+        // - If it is still connecting, then we will get an initial resize from
+        //   Python once it connects.
+        // - If it has disconnected, then resizing will clear the canvas and
+        //   never get anything back to refill it, so better to not resize and
+        //   keep something visible.
+        if (fig.ws.readyState != 1) {
+            return;
+        }
+        var nentries = entries.length;
+        for (var i = 0; i < nentries; i++) {
+            var entry = entries[i];
+            var width, height;
+            if (entry.contentBoxSize) {
+                if (entry.contentBoxSize instanceof Array) {
+                    // Chrome 84 implements new version of spec.
+                    width = entry.contentBoxSize[0].inlineSize;
+                    height = entry.contentBoxSize[0].blockSize;
+                } else {
+                    // Firefox implements old version of spec.
+                    width = entry.contentBoxSize.inlineSize;
+                    height = entry.contentBoxSize.blockSize;
+                }
+            } else {
+                // Chrome <84 implements even older version of spec.
+                width = entry.contentRect.width;
+                height = entry.contentRect.height;
+            }
+
+            // Keep the size of the canvas and rubber band canvas in sync with
+            // the canvas container.
+            if (entry.devicePixelContentBoxSize) {
+                // Chrome 84 implements new version of spec.
+                canvas.setAttribute(
+                    'width',
+                    entry.devicePixelContentBoxSize[0].inlineSize
+                );
+                canvas.setAttribute(
+                    'height',
+                    entry.devicePixelContentBoxSize[0].blockSize
+                );
+            } else {
+                canvas.setAttribute('width', width * fig.ratio);
+                canvas.setAttribute('height', height * fig.ratio);
+            }
+            /* This rescales the canvas back to display pixels, so that it
+             * appears correct on HiDPI screens. */
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+
+            rubberband_canvas.setAttribute('width', width);
+            rubberband_canvas.setAttribute('height', height);
+
+            // And update the size in Python. We ignore the initial 0/0 size
+            // that occurs as the element is placed into the DOM, which should
+            // otherwise not happen due to the minimum size styling.
+            if (width != 0 && height != 0) {
+                fig.request_resize(width, height);
+            }
+        }
+    });
+    this.resizeObserverInstance.observe(canvas_div);
+
+    function on_mouse_event_closure(name) {
+        /* User Agent sniffing is bad, but WebKit is busted:
+         * https://bugs.webkit.org/show_bug.cgi?id=144526
+         * https://bugs.webkit.org/show_bug.cgi?id=181818
+         * The worst that happens here is that they get an extra browser
+         * selection when dragging, if this check fails to catch them.
+         */
+        var UA = navigator.userAgent;
+        var isWebKit = /AppleWebKit/.test(UA) && !/Chrome/.test(UA);
+        if(isWebKit) {
+            return function (event) {
+                /* This prevents the web browser from automatically changing to
+                 * the text insertion cursor when the button is pressed. We
+                 * want to control all of the cursor setting manually through
+                 * the 'cursor' event from matplotlib */
+                event.preventDefault()
+                return fig.mouse_event(event, name);
+            };
+        } else {
+            return function (event) {
+                return fig.mouse_event(event, name);
+            };
+        }
+    }
+
+    canvas_div.addEventListener(
+        'mousedown',
+        on_mouse_event_closure('button_press')
+    );
+    canvas_div.addEventListener(
+        'mouseup',
+        on_mouse_event_closure('button_release')
+    );
+    canvas_div.addEventListener(
+        'dblclick',
+        on_mouse_event_closure('dblclick')
+    );
+    // Throttle sequential mouse events to 1 every 20ms.
+    canvas_div.addEventListener(
+        'mousemove',
+        on_mouse_event_closure('motion_notify')
+    );
+
+    canvas_div.addEventListener(
+        'mouseenter',
+        on_mouse_event_closure('figure_enter')
+    );
+    canvas_div.addEventListener(
+        'mouseleave',
+        on_mouse_event_closure('figure_leave')
+    );
+
+    canvas_div.addEventListener('wheel', function (event) {
+        if (event.deltaY < 0) {
+            event.step = 1;
+        } else {
+            event.step = -1;
+        }
+        on_mouse_event_closure('scroll')(event);
+    });
+
+    canvas_div.appendChild(canvas);
+    canvas_div.appendChild(rubberband_canvas);
+
+    this.rubberband_context = rubberband_canvas.getContext('2d');
+    this.rubberband_context.strokeStyle = '#000000';
+
+    this._resize_canvas = function (width, height, forward) {
+        if (forward) {
+            canvas_div.style.width = width + 'px';
+            canvas_div.style.height = height + 'px';
+        }
+    };
+
+    // Disable right mouse context menu.
+    canvas_div.addEventListener('contextmenu', function (_e) {
+        event.preventDefault();
+        return false;
+    });
+
+    function set_focus() {
+        canvas.focus();
+        canvas_div.focus();
+    }
+
+    window.setTimeout(set_focus, 100);
+};
+
+mpl.figure.prototype._init_toolbar = function () {
+    var fig = this;
+
+    var toolbar = document.createElement('div');
+    toolbar.classList = 'mpl-toolbar';
+    this.root.appendChild(toolbar);
+
+    function on_click_closure(name) {
+        return function (_event) {
+            return fig.toolbar_button_onclick(name);
+        };
+    }
+
+    function on_mouseover_closure(tooltip) {
+        return function (event) {
+            if (!event.currentTarget.disabled) {
+                return fig.toolbar_button_onmouseover(tooltip);
+            }
+        };
+    }
+
+    fig.buttons = {};
+    var buttonGroup = document.createElement('div');
+    buttonGroup.classList = 'mpl-button-group';
+    for (var toolbar_ind in mpl.toolbar_items) {
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) {
+            /* Instead of a spacer, we start a new button group. */
+            if (buttonGroup.hasChildNodes()) {
+                toolbar.appendChild(buttonGroup);
+            }
+            buttonGroup = document.createElement('div');
+            buttonGroup.classList = 'mpl-button-group';
+            continue;
+        }
+
+        var button = (fig.buttons[name] = document.createElement('button'));
+        button.classList = 'mpl-widget';
+        button.setAttribute('role', 'button');
+        button.setAttribute('aria-disabled', 'false');
+        button.addEventListener('click', on_click_closure(method_name));
+        button.addEventListener('mouseover', on_mouseover_closure(tooltip));
+
+        var icon_img = document.createElement('img');
+        icon_img.src = '_images/' + image + '.png';
+        icon_img.srcset = '_images/' + image + '_large.png 2x';
+        icon_img.alt = tooltip;
+        button.appendChild(icon_img);
+
+        buttonGroup.appendChild(button);
+    }
+
+    if (buttonGroup.hasChildNodes()) {
+        toolbar.appendChild(buttonGroup);
+    }
+
+    var fmt_picker = document.createElement('select');
+    fmt_picker.classList = 'mpl-widget';
+    toolbar.appendChild(fmt_picker);
+    this.format_dropdown = fmt_picker;
+
+    for (var ind in mpl.extensions) {
+        var fmt = mpl.extensions[ind];
+        var option = document.createElement('option');
+        option.selected = fmt === mpl.default_extension;
+        option.innerHTML = fmt;
+        fmt_picker.appendChild(option);
+    }
+
+    var status_bar = document.createElement('span');
+    status_bar.classList = 'mpl-message';
+    toolbar.appendChild(status_bar);
+    this.message = status_bar;
+};
+
+mpl.figure.prototype.request_resize = function (x_pixels, y_pixels) {
+    // Request matplotlib to resize the figure. Matplotlib will then trigger a resize in the client,
+    // which will in turn request a refresh of the image.
+    this.send_message('resize', { width: x_pixels, height: y_pixels });
+};
+
+mpl.figure.prototype.send_message = function (type, properties) {
+    properties['type'] = type;
+    properties['figure_id'] = this.id;
+    this.ws.send(JSON.stringify(properties));
+};
+
+mpl.figure.prototype.send_draw_message = function () {
+    if (!this.waiting) {
+        this.waiting = true;
+        this.ws.send(JSON.stringify({ type: 'draw', figure_id: this.id }));
+    }
+};
+
+mpl.figure.prototype.handle_save = function (fig, _msg) {
+    var format_dropdown = fig.format_dropdown;
+    var format = format_dropdown.options[format_dropdown.selectedIndex].value;
+    fig.ondownload(fig, format);
+};
+
+mpl.figure.prototype.handle_resize = function (fig, msg) {
+    var size = msg['size'];
+    if (size[0] !== fig.canvas.width || size[1] !== fig.canvas.height) {
+        fig._resize_canvas(size[0], size[1], msg['forward']);
+        fig.send_message('refresh', {});
+    }
+};
+
+mpl.figure.prototype.handle_rubberband = function (fig, msg) {
+    var x0 = msg['x0'] / fig.ratio;
+    var y0 = (fig.canvas.height - msg['y0']) / fig.ratio;
+    var x1 = msg['x1'] / fig.ratio;
+    var y1 = (fig.canvas.height - msg['y1']) / fig.ratio;
+    x0 = Math.floor(x0) + 0.5;
+    y0 = Math.floor(y0) + 0.5;
+    x1 = Math.floor(x1) + 0.5;
+    y1 = Math.floor(y1) + 0.5;
+    var min_x = Math.min(x0, x1);
+    var min_y = Math.min(y0, y1);
+    var width = Math.abs(x1 - x0);
+    var height = Math.abs(y1 - y0);
+
+    fig.rubberband_context.clearRect(
+        0,
+        0,
+        fig.canvas.width / fig.ratio,
+        fig.canvas.height / fig.ratio
+    );
+
+    fig.rubberband_context.strokeRect(min_x, min_y, width, height);
+};
+
+mpl.figure.prototype.handle_figure_label = function (fig, msg) {
+    // Updates the figure title.
+    fig.header.textContent = msg['label'];
+};
+
+mpl.figure.prototype.handle_cursor = function (fig, msg) {
+    fig.canvas_div.style.cursor = msg['cursor'];
+};
+
+mpl.figure.prototype.handle_message = function (fig, msg) {
+    fig.message.textContent = msg['message'];
+};
+
+mpl.figure.prototype.handle_draw = function (fig, _msg) {
+    // Request the server to send over a new figure.
+    fig.send_draw_message();
+};
+
+mpl.figure.prototype.handle_image_mode = function (fig, msg) {
+    fig.image_mode = msg['mode'];
+};
+
+mpl.figure.prototype.handle_history_buttons = function (fig, msg) {
+    for (var key in msg) {
+        if (!(key in fig.buttons)) {
+            continue;
+        }
+        fig.buttons[key].disabled = !msg[key];
+        fig.buttons[key].setAttribute('aria-disabled', !msg[key]);
+    }
+};
+
+mpl.figure.prototype.handle_navigate_mode = function (fig, msg) {
+    if (msg['mode'] === 'PAN') {
+        fig.buttons['Pan'].classList.add('active');
+        fig.buttons['Zoom'].classList.remove('active');
+    } else if (msg['mode'] === 'ZOOM') {
+        fig.buttons['Pan'].classList.remove('active');
+        fig.buttons['Zoom'].classList.add('active');
+    } else {
+        fig.buttons['Pan'].classList.remove('active');
+        fig.buttons['Zoom'].classList.remove('active');
+    }
+};
+
+mpl.figure.prototype.updated_canvas_event = function () {
+    // Called whenever the canvas gets updated.
+    this.send_message('ack', {});
+};
+
+// A function to construct a web socket function for onmessage handling.
+// Called in the figure constructor.
+mpl.figure.prototype._make_on_message_function = function (fig) {
+    return function socket_on_message(evt) {
+        if (evt.data instanceof Blob) {
+            var img = evt.data;
+            if (img.type !== 'image/png') {
+                /* FIXME: We get "Resource interpreted as Image but
+                 * transferred with MIME type text/plain:" errors on
+                 * Chrome.  But how to set the MIME type?  It doesn't seem
+                 * to be part of the websocket stream */
+                img.type = 'image/png';
+            }
+
+            /* Free the memory for the previous frames */
+            if (fig.imageObj.src) {
+                (window.URL || window.webkitURL).revokeObjectURL(
+                    fig.imageObj.src
+                );
+            }
+
+            fig.imageObj.src = (window.URL || window.webkitURL).createObjectURL(
+                img
+            );
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        } else if (
+            typeof evt.data === 'string' &&
+            evt.data.slice(0, 21) === 'data:image/png;base64'
+        ) {
+            fig.imageObj.src = evt.data;
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+
+        var msg = JSON.parse(evt.data);
+        var msg_type = msg['type'];
+
+        // Call the  "handle_{type}" callback, which takes
+        // the figure and JSON message as its only arguments.
+        try {
+            var callback = fig['handle_' + msg_type];
+        } catch (e) {
+            console.log(
+                "No handler for the '" + msg_type + "' message type: ",
+                msg
+            );
+            return;
+        }
+
+        if (callback) {
+            try {
+                // console.log("Handling '" + msg_type + "' message: ", msg);
+                callback(fig, msg);
+            } catch (e) {
+                console.log(
+                    "Exception inside the 'handler_" + msg_type + "' callback:",
+                    e,
+                    e.stack,
+                    msg
+                );
+            }
+        }
+    };
+};
+
+function getModifiers(event) {
+    var mods = [];
+    if (event.ctrlKey) {
+        mods.push('ctrl');
+    }
+    if (event.altKey) {
+        mods.push('alt');
+    }
+    if (event.shiftKey) {
+        mods.push('shift');
+    }
+    if (event.metaKey) {
+        mods.push('meta');
+    }
+    return mods;
+}
+
+/*
+ * return a copy of an object with only non-object keys
+ * we need this to avoid circular references
+ * https://stackoverflow.com/a/24161582/3208463
+ */
+function simpleKeys(original) {
+    return Object.keys(original).reduce(function (obj, key) {
+        if (typeof original[key] !== 'object') {
+            obj[key] = original[key];
+        }
+        return obj;
+    }, {});
+}
+
+mpl.figure.prototype.mouse_event = function (event, name) {
+    if (name === 'button_press') {
+        this.canvas.focus();
+        this.canvas_div.focus();
+    }
+
+    // from https://stackoverflow.com/q/1114465
+    var boundingRect = this.canvas.getBoundingClientRect();
+    var x = (event.clientX - boundingRect.left) * this.ratio;
+    var y = (event.clientY - boundingRect.top) * this.ratio;
+
+    this.send_message(name, {
+        x: x,
+        y: y,
+        button: event.button,
+        step: event.step,
+        buttons: event.buttons,
+        modifiers: getModifiers(event),
+        guiEvent: simpleKeys(event),
+    });
+
+    return false;
+};
+
+mpl.figure.prototype._key_event_extra = function (_event, _name) {
+    // Handle any extra behaviour associated with a key event
+};
+
+mpl.figure.prototype.key_event = function (event, name) {
+    // Prevent repeat events
+    if (name === 'key_press') {
+        if (event.key === this._key) {
+            return;
+        } else {
+            this._key = event.key;
+        }
+    }
+    if (name === 'key_release') {
+        this._key = null;
+    }
+
+    var value = '';
+    if (event.ctrlKey && event.key !== 'Control') {
+        value += 'ctrl+';
+    }
+    else if (event.altKey && event.key !== 'Alt') {
+        value += 'alt+';
+    }
+    else if (event.shiftKey && event.key !== 'Shift') {
+        value += 'shift+';
+    }
+
+    value += 'k' + event.key;
+
+    this._key_event_extra(event, name);
+
+    this.send_message(name, { key: value, guiEvent: simpleKeys(event) });
+    return false;
+};
+
+mpl.figure.prototype.toolbar_button_onclick = function (name) {
+    if (name === 'download') {
+        this.handle_save(this, null);
+    } else {
+        this.send_message('toolbar_button', { name: name });
+    }
+};
+
+mpl.figure.prototype.toolbar_button_onmouseover = function (tooltip) {
+    this.message.textContent = tooltip;
+};
+
+///////////////// REMAINING CONTENT GENERATED BY embed_js.py /////////////////
+// prettier-ignore
+var _JSXTOOLS_RESIZE_OBSERVER=function(A){var t,i=new WeakMap,n=new WeakMap,a=new WeakMap,r=new WeakMap,o=new Set;function s(e){if(!(this instanceof s))throw new TypeError("Constructor requires 'new' operator");i.set(this,e)}function h(){throw new TypeError("Function is not a constructor")}function c(e,t,i,n){e=0 in arguments?Number(arguments[0]):0,t=1 in arguments?Number(arguments[1]):0,i=2 in arguments?Number(arguments[2]):0,n=3 in arguments?Number(arguments[3]):0,this.right=(this.x=this.left=e)+(this.width=i),this.bottom=(this.y=this.top=t)+(this.height=n),Object.freeze(this)}function d(){t=requestAnimationFrame(d);var s=new WeakMap,p=new Set;o.forEach((function(t){r.get(t).forEach((function(i){var r=t instanceof window.SVGElement,o=a.get(t),d=r?0:parseFloat(o.paddingTop),f=r?0:parseFloat(o.paddingRight),l=r?0:parseFloat(o.paddingBottom),u=r?0:parseFloat(o.paddingLeft),g=r?0:parseFloat(o.borderTopWidth),m=r?0:parseFloat(o.borderRightWidth),w=r?0:parseFloat(o.borderBottomWidth),b=u+f,F=d+l,v=(r?0:parseFloat(o.borderLeftWidth))+m,W=g+w,y=r?0:t.offsetHeight-W-t.clientHeight,E=r?0:t.offsetWidth-v-t.clientWidth,R=b+v,z=F+W,M=r?t.width:parseFloat(o.width)-R-E,O=r?t.height:parseFloat(o.height)-z-y;if(n.has(t)){var k=n.get(t);if(k[0]===M&&k[1]===O)return}n.set(t,[M,O]);var S=Object.create(h.prototype);S.target=t,S.contentRect=new c(u,d,M,O),s.has(i)||(s.set(i,[]),p.add(i)),s.get(i).push(S)}))})),p.forEach((function(e){i.get(e).call(e,s.get(e),e)}))}return s.prototype.observe=function(i){if(i instanceof window.Element){r.has(i)||(r.set(i,new Set),o.add(i),a.set(i,window.getComputedStyle(i)));var n=r.get(i);n.has(this)||n.add(this),cancelAnimationFrame(t),t=requestAnimationFrame(d)}},s.prototype.unobserve=function(i){if(i instanceof window.Element&&r.has(i)){var n=r.get(i);n.has(this)&&(n.delete(this),n.size||(r.delete(i),o.delete(i))),n.size||r.delete(i),o.size||cancelAnimationFrame(t)}},A.DOMRectReadOnly=c,A.ResizeObserver=s,A.ResizeObserverEntry=h,A}; // eslint-disable-line
+mpl.toolbar_items = [["Home", "Reset original view", "fa fa-home", "home"], ["Back", "Back to previous view", "fa fa-arrow-left", "back"], ["Forward", "Forward to next view", "fa fa-arrow-right", "forward"], ["", "", "", ""], ["Pan", "Left button pans, Right button zooms\nx/y fixes axis, CTRL fixes aspect", "fa fa-arrows", "pan"], ["Zoom", "Zoom to rectangle\nx/y fixes axis", "fa fa-square-o", "zoom"], ["", "", "", ""], ["Download", "Download plot", "fa fa-floppy-o", "download"]];
+
+mpl.extensions = ["eps", "jpeg", "pgf", "pdf", "png", "ps", "raw", "svg", "tif", "webp"];
+
+mpl.default_extension = "png";/* global mpl */
+
+var comm_websocket_adapter = function (comm) {
+    // Create a "websocket"-like object which calls the given IPython comm
+    // object with the appropriate methods. Currently this is a non binary
+    // socket, so there is still some room for performance tuning.
+    var ws = {};
+
+    ws.binaryType = comm.kernel.ws.binaryType;
+    ws.readyState = comm.kernel.ws.readyState;
+    function updateReadyState(_event) {
+        if (comm.kernel.ws) {
+            ws.readyState = comm.kernel.ws.readyState;
+        } else {
+            ws.readyState = 3; // Closed state.
+        }
+    }
+    comm.kernel.ws.addEventListener('open', updateReadyState);
+    comm.kernel.ws.addEventListener('close', updateReadyState);
+    comm.kernel.ws.addEventListener('error', updateReadyState);
+
+    ws.close = function () {
+        comm.close();
+    };
+    ws.send = function (m) {
+        //console.log('sending', m);
+        comm.send(m);
+    };
+    // Register the callback with on_msg.
+    comm.on_msg(function (msg) {
+        //console.log('receiving', msg['content']['data'], msg);
+        var data = msg['content']['data'];
+        if (data['blob'] !== undefined) {
+            data = {
+                data: new Blob(msg['buffers'], { type: data['blob'] }),
+            };
+        }
+        // Pass the mpl event to the overridden (by mpl) onmessage function.
+        ws.onmessage(data);
+    });
+    return ws;
+};
+
+mpl.mpl_figure_comm = function (comm, msg) {
+    // This is the function which gets called when the mpl process
+    // starts-up an IPython Comm through the "matplotlib" channel.
+
+    var id = msg.content.data.id;
+    // Get hold of the div created by the display call when the Comm
+    // socket was opened in Python.
+    var element = document.getElementById(id);
+    var ws_proxy = comm_websocket_adapter(comm);
+
+    function ondownload(figure, _format) {
+        window.open(figure.canvas.toDataURL());
+    }
+
+    var fig = new mpl.figure(id, ws_proxy, ondownload, element);
+
+    // Call onopen now - mpl needs it, as it is assuming we've passed it a real
+    // web socket which is closed, not our websocket->open comm proxy.
+    ws_proxy.onopen();
+
+    fig.parent_element = element;
+    fig.cell_info = mpl.find_output_cell("<div id='" + id + "'></div>");
+    if (!fig.cell_info) {
+        console.error('Failed to find cell for figure', id, fig);
+        return;
+    }
+    fig.cell_info[0].output_area.element.on(
+        'cleared',
+        { fig: fig },
+        fig._remove_fig_handler
+    );
+};
+
+mpl.figure.prototype.handle_close = function (fig, msg) {
+    var width = fig.canvas.width / fig.ratio;
+    fig.cell_info[0].output_area.element.off(
+        'cleared',
+        fig._remove_fig_handler
+    );
+    fig.resizeObserverInstance.unobserve(fig.canvas_div);
+
+    // Update the output cell to use the data from the current canvas.
+    fig.push_to_output();
+    var dataURL = fig.canvas.toDataURL();
+    // Re-enable the keyboard manager in IPython - without this line, in FF,
+    // the notebook keyboard shortcuts fail.
+    IPython.keyboard_manager.enable();
+    fig.parent_element.innerHTML =
+        '<img src="' + dataURL + '" width="' + width + '">';
+    fig.close_ws(fig, msg);
+};
+
+mpl.figure.prototype.close_ws = function (fig, msg) {
+    fig.send_message('closing', msg);
+    // fig.ws.close()
+};
+
+mpl.figure.prototype.push_to_output = function (_remove_interactive) {
+    // Turn the data on the canvas into data in the output cell.
+    var width = this.canvas.width / this.ratio;
+    var dataURL = this.canvas.toDataURL();
+    this.cell_info[1]['text/html'] =
+        '<img src="' + dataURL + '" width="' + width + '">';
+};
+
+mpl.figure.prototype.updated_canvas_event = function () {
+    // Tell IPython that the notebook contents must change.
+    IPython.notebook.set_dirty(true);
+    this.send_message('ack', {});
+    var fig = this;
+    // Wait a second, then push the new image to the DOM so
+    // that it is saved nicely (might be nice to debounce this).
+    setTimeout(function () {
+        fig.push_to_output();
+    }, 1000);
+};
+
+mpl.figure.prototype._init_toolbar = function () {
+    var fig = this;
+
+    var toolbar = document.createElement('div');
+    toolbar.classList = 'btn-toolbar';
+    this.root.appendChild(toolbar);
+
+    function on_click_closure(name) {
+        return function (_event) {
+            return fig.toolbar_button_onclick(name);
+        };
+    }
+
+    function on_mouseover_closure(tooltip) {
+        return function (event) {
+            if (!event.currentTarget.disabled) {
+                return fig.toolbar_button_onmouseover(tooltip);
+            }
+        };
+    }
+
+    fig.buttons = {};
+    var buttonGroup = document.createElement('div');
+    buttonGroup.classList = 'btn-group';
+    var button;
+    for (var toolbar_ind in mpl.toolbar_items) {
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) {
+            /* Instead of a spacer, we start a new button group. */
+            if (buttonGroup.hasChildNodes()) {
+                toolbar.appendChild(buttonGroup);
+            }
+            buttonGroup = document.createElement('div');
+            buttonGroup.classList = 'btn-group';
+            continue;
+        }
+
+        button = fig.buttons[name] = document.createElement('button');
+        button.classList = 'btn btn-default';
+        button.href = '#';
+        button.title = name;
+        button.innerHTML = '<i class="fa ' + image + ' fa-lg"></i>';
+        button.addEventListener('click', on_click_closure(method_name));
+        button.addEventListener('mouseover', on_mouseover_closure(tooltip));
+        buttonGroup.appendChild(button);
+    }
+
+    if (buttonGroup.hasChildNodes()) {
+        toolbar.appendChild(buttonGroup);
+    }
+
+    // Add the status bar.
+    var status_bar = document.createElement('span');
+    status_bar.classList = 'mpl-message pull-right';
+    toolbar.appendChild(status_bar);
+    this.message = status_bar;
+
+    // Add the close button to the window.
+    var buttongrp = document.createElement('div');
+    buttongrp.classList = 'btn-group inline pull-right';
+    button = document.createElement('button');
+    button.classList = 'btn btn-mini btn-primary';
+    button.href = '#';
+    button.title = 'Stop Interaction';
+    button.innerHTML = '<i class="fa fa-power-off icon-remove icon-large"></i>';
+    button.addEventListener('click', function (_evt) {
+        fig.handle_close(fig, {});
+    });
+    button.addEventListener(
+        'mouseover',
+        on_mouseover_closure('Stop Interaction')
+    );
+    buttongrp.appendChild(button);
+    var titlebar = this.root.querySelector('.ui-dialog-titlebar');
+    titlebar.insertBefore(buttongrp, titlebar.firstChild);
+};
+
+mpl.figure.prototype._remove_fig_handler = function (event) {
+    var fig = event.data.fig;
+    if (event.target !== this) {
+        // Ignore bubbled events from children.
+        return;
+    }
+    fig.close_ws(fig, {});
+};
+
+mpl.figure.prototype._root_extra_style = function (el) {
+    el.style.boxSizing = 'content-box'; // override notebook setting of border-box.
+};
+
+mpl.figure.prototype._canvas_extra_style = function (el) {
+    // this is important to make the div 'focusable
+    el.setAttribute('tabindex', 0);
+    // reach out to IPython and tell the keyboard manager to turn it's self
+    // off when our div gets focus
+
+    // location in version 3
+    if (IPython.notebook.keyboard_manager) {
+        IPython.notebook.keyboard_manager.register_events(el);
+    } else {
+        // location in version 2
+        IPython.keyboard_manager.register_events(el);
+    }
+};
+
+mpl.figure.prototype._key_event_extra = function (event, _name) {
+    // Check for shift+enter
+    if (event.shiftKey && event.which === 13) {
+        this.canvas_div.blur();
+        // select the cell after this one
+        var index = IPython.notebook.find_cell_index(this.cell_info[0]);
+        IPython.notebook.select(index + 1);
+    }
+};
+
+mpl.figure.prototype.handle_save = function (fig, _msg) {
+    fig.ondownload(fig, null);
+};
+
+mpl.find_output_cell = function (html_output) {
+    // Return the cell and output element which can be found *uniquely* in the notebook.
+    // Note - this is a bit hacky, but it is done because the "notebook_saving.Notebook"
+    // IPython event is triggered only after the cells have been serialised, which for
+    // our purposes (turning an active figure into a static one), is too late.
+    var cells = IPython.notebook.get_cells();
+    var ncells = cells.length;
+    for (var i = 0; i < ncells; i++) {
+        var cell = cells[i];
+        if (cell.cell_type === 'code') {
+            for (var j = 0; j < cell.output_area.outputs.length; j++) {
+                var data = cell.output_area.outputs[j];
+                if (data.data) {
+                    // IPython >= 3 moved mimebundle to data attribute of output
+                    data = data.data;
+                }
+                if (data['text/html'] === html_output) {
+                    return [cell, data, j];
+                }
+            }
+        }
+    }
+};
+
+// Register the function which deals with the matplotlib target/channel.
+// The kernel may be null if the page has been refreshed.
+if (IPython.notebook.kernel !== null) {
+    IPython.notebook.kernel.comm_manager.register_target(
+        'matplotlib',
+        mpl.mpl_figure_comm
+    );
+}
+</script><div class="output text_html"><div id='2e997891-ad96-48be-9cf5-76d906624053'></div></div><img alt="_images/8fbf5cdbcd9040b8e7917b2fdbd601470b1eae3340f76555da3132e2211da858.png" src="_images/8fbf5cdbcd9040b8e7917b2fdbd601470b1eae3340f76555da3132e2211da858.png" />
+</div>
+</div>
+</section>
+<section id="estrategia-sma">
+<h2>Estrategia SMA<a class="headerlink" href="#estrategia-sma" title="Link to this heading">#</a></h2>
+<p>Algunas funciones adicionales para hacer el trabajo más fácil:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyBuySell</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">observers</span><span class="o">.</span><span class="n">BuySell</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom color definitions of the buy/sell indicators.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plotlines</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">buy</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">fillstyle</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">),</span>
+        <span class="n">sell</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">fillstyle</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_action_log_string</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">commission</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cash</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function for logging. Creates a string indicating a</span>
+<span class="sd">    created/executed buy/sell order.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dir (str): The direction of the position, can be a value in [&quot;b&quot;, &quot;s&quot;]</span>
+<span class="sd">        action (str): The action, can be a value in [&quot;e&quot;, &quot;c&quot;]</span>
+<span class="sd">        price (float): The price</span>
+<span class="sd">        size (float, optional): The size. Defaults to None.</span>
+<span class="sd">        asset (str): name of the asset</span>
+<span class="sd">        cost (float, optional): The cost. Defaults to None.</span>
+<span class="sd">        commission (float, optional): The comission. Defaults to None.</span>
+<span class="sd">        cash (float, optional): The cash amount. Defaults to None.</span>
+<span class="sd">        open (float, optional): The open price. Defaults to None.</span>
+<span class="sd">        close (float, optional): The close price. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The string used for logging</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dir_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;Compra&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="s2">&quot;Vende&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">action_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="s2">&quot;EXECUTED&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="s2">&quot;CREATED&quot;</span>
+    <span class="p">}</span>
+
+    <span class="nb">str</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dir_dict</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">action_dict</span><span class="p">[</span><span class="n">action</span><span class="p">]</span><span class="si">}</span><span class="s2"> - &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Price: </span><span class="si">{</span><span class="n">price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Size: </span><span class="si">{</span><span class="n">size</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">asset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, Asset: </span><span class="si">{</span><span class="n">asset</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+    <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;e&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, Costo: </span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">commission</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, Commisión: </span><span class="si">{</span><span class="n">commission</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cash</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, Efectivo: </span><span class="si">{</span><span class="n">cash</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="nb">open</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, Open: </span><span class="si">{</span><span class="nb">open</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">close</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, Close: </span><span class="si">{</span><span class="n">close</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+    <span class="k">return</span> <span class="nb">str</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_result_log_string</span><span class="p">(</span><span class="n">gross</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function for logging. Creates a string indicating the summary of</span>
+<span class="sd">    an operation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gross (float): the gross outcome</span>
+<span class="sd">        net (float): the net outcome</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The string used for logging</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Resultados de la operación - bruto: </span><span class="si">{</span><span class="n">gross</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Neto: </span><span class="si">{</span><span class="n">net</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SmaStrategy</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;ma_period&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">)</span> <span class="c1">#Media Móvil Simple (SMA) de 20 períodos</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Sigue al precio de cierre en la serie de datos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">close</span>
+
+        <span class="c1"># Sigue las órdenes pendientes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Agrega el indicador de media móvil simple (SMA)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sma</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">ind</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                              <span class="n">period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">ma_period</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">txt</span><span class="p">):</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">txt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Submitted</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Accepted</span><span class="p">]:</span>
+            <span class="c1"># Si la orden es enviada o aceptada, no hacer nada</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Reporta la ejecución de la orden</span>
+        <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Completed</span><span class="p">]:</span>
+
+            <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span> <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">isbuy</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;s&quot;</span>
+            <span class="n">log_str</span> <span class="o">=</span> <span class="n">get_action_log_string</span><span class="p">(</span>
+                    <span class="nb">dir</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span>
+                    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">,</span>
+                    <span class="n">price</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">price</span><span class="p">,</span>
+                    <span class="n">size</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                    <span class="n">cost</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="n">commission</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">comm</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">log_str</span><span class="p">)</span>
+
+        <span class="c1"># Reporta si la orden falló</span>
+        <span class="k">elif</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Canceled</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Margin</span><span class="p">,</span>
+                              <span class="n">order</span><span class="o">.</span><span class="n">Rejected</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Orden Fallida&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Reinicia la orden</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_trade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trade</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">trade</span><span class="o">.</span><span class="n">isclosed</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">get_result_log_string</span><span class="p">(</span><span class="n">gross</span><span class="o">=</span><span class="n">trade</span><span class="o">.</span><span class="n">pnl</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="n">trade</span><span class="o">.</span><span class="n">pnlcomm</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># No hacer nada si hay una orden pendiente</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Obtiene el efectivo actual y el precio</span>
+        <span class="n">cash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">getcash</span><span class="p">()</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Calcula el número máximo de acciones a comprar con el efectivo disponible</span>
+        <span class="c1"># Asegura que el precio no sea cero para evitar la división por cero</span>
+        <span class="k">if</span> <span class="n">price</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">size_to_buy</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">cash</span> <span class="o">/</span> <span class="n">price</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">size_to_buy</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Revisa si hay una posición abierta</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">:</span>
+            <span class="c1"># Condición de compra</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sma</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">size_to_buy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># Solo compra si se puede comprar al menos 1 acción</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">get_action_log_string</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">size_to_buy</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buy</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size_to_buy</span><span class="p">)</span> <span class="c1"># Pasa el tamaño calculado</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No hay suficiente efectivo para comprar a </span><span class="si">{</span><span class="n">price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Condición de venta (vende toda la posición)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sma</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">size_to_sell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">size</span> <span class="c1"># Vende toda la posición abierta</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">get_action_log_string</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">size_to_sell</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sell</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size_to_sell</span><span class="p">)</span> <span class="c1"># Pasa el tamaño de la posición</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor inicial portfolio: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor final portfolio: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Inicializamos el backtest</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cerebro</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Cerebro</span><span class="p">(</span><span class="n">stdstats</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">cerebro</span><span class="o">.</span><span class="n">adddata</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">setcash</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addstrategy</span><span class="p">(</span><span class="n">SmaStrategy</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addobserver</span><span class="p">(</span><span class="n">MyBuySell</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addobserver</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">observers</span><span class="o">.</span><span class="n">Value</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addanalyzer</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">analyzers</span><span class="o">.</span><span class="n">Returns</span><span class="p">,</span> <span class="n">_name</span><span class="o">=</span><span class="s2">&quot;returns&quot;</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">addanalyzer</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">analyzers</span><span class="o">.</span><span class="n">TimeReturn</span><span class="p">,</span> <span class="n">_name</span><span class="o">=</span><span class="s2">&quot;time_return&quot;</span><span class="p">)</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">cerebro</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Valor inicial portfolio: 1000.00
+2024-01-30: Compra CREATED - Price: 186.28, Size: 5.00
+2024-01-31: Compra EXECUTED - Price: 185.29, Size: 5.00, Costo: 926.45, Commisión: 0.00
+2024-01-31: Vende CREATED - Price: 182.67, Size: 5.00
+2024-02-01: Vende EXECUTED - Price: 182.27, Size: -5.00, Costo: 926.45, Commisión: 0.00
+2024-02-01: Resultados de la operación - bruto: -15.11, Neto: -15.11
+2024-02-06: Compra CREATED - Price: 187.53, Size: 5.00
+2024-02-07: Compra EXECUTED - Price: 188.86, Size: 5.00, Costo: 944.28, Commisión: 0.00
+2024-02-08: Vende CREATED - Price: 186.56, Size: 5.00
+2024-02-09: Vende EXECUTED - Price: 187.12, Size: -5.00, Costo: 944.28, Commisión: 0.00
+2024-02-09: Resultados de la operación - bruto: -8.66, Neto: -8.66
+2024-03-19: Compra CREATED - Price: 174.66, Size: 5.00
+2024-03-20: Compra EXECUTED - Price: 174.30, Size: 5.00, Costo: 871.49, Commisión: 0.00
+2024-03-21: Vende CREATED - Price: 169.98, Size: 5.00
+2024-03-22: Vende EXECUTED - Price: 170.37, Size: -5.00, Costo: 871.49, Commisión: 0.00
+2024-03-22: Resultados de la operación - bruto: -19.64, Neto: -19.64
+2024-03-27: Compra CREATED - Price: 171.91, Size: 5.00
+2024-03-28: Compra EXECUTED - Price: 170.36, Size: 5.00, Costo: 851.80, Commisión: 0.00
+2024-03-28: Vende CREATED - Price: 170.09, Size: 5.00
+2024-04-01: Vende EXECUTED - Price: 169.80, Size: -5.00, Costo: 851.80, Commisión: 0.00
+2024-04-01: Resultados de la operación - bruto: -2.78, Neto: -2.78
+2024-04-11: Compra CREATED - Price: 173.62, Size: 5.00
+2024-04-12: Compra EXECUTED - Price: 172.85, Size: 5.00, Costo: 864.25, Commisión: 0.00
+2024-04-16: Vende CREATED - Price: 168.01, Size: 5.00
+2024-04-17: Vende EXECUTED - Price: 168.24, Size: -5.00, Costo: 864.25, Commisión: 0.00
+2024-04-17: Resultados de la operación - bruto: -23.06, Neto: -23.06
+2024-04-25: Compra CREATED - Price: 168.52, Size: 5.00
+2024-04-26: Compra EXECUTED - Price: 168.51, Size: 5.00, Costo: 842.53, Commisión: 0.00
+2024-04-26: Vende CREATED - Price: 167.93, Size: 5.00
+2024-04-29: Vende EXECUTED - Price: 171.97, Size: -5.00, Costo: 842.53, Commisión: 0.00
+2024-04-29: Resultados de la operación - bruto: 17.31, Neto: 17.31
+2024-04-29: Compra CREATED - Price: 172.10, Size: 5.00
+2024-04-30: Compra EXECUTED - Price: 171.93, Size: 5.00, Costo: 859.64, Commisión: 0.00
+2024-05-01: Vende CREATED - Price: 167.93, Size: 5.00
+2024-05-02: Vende EXECUTED - Price: 171.11, Size: -5.00, Costo: 859.64, Commisión: 0.00
+2024-05-02: Resultados de la operación - bruto: -4.07, Neto: -4.07
+2024-05-02: Compra CREATED - Price: 171.63, Size: 5.00
+2024-05-03: Compra EXECUTED - Price: 185.14, Size: 5.00, Costo: 925.70, Commisión: 0.00
+2024-07-24: Vende CREATED - Price: 217.07, Size: 5.00
+2024-07-25: Vende EXECUTED - Price: 217.45, Size: -5.00, Costo: 925.70, Commisión: 0.00
+2024-07-25: Resultados de la operación - bruto: 161.57, Neto: 161.57
+2024-08-13: Compra CREATED - Price: 220.03, Size: 5.00
+2024-08-14: Compra EXECUTED - Price: 219.34, Size: 5.00, Costo: 1096.68, Commisión: 0.00
+2024-09-04: Vende CREATED - Price: 219.61, Size: 5.00
+2024-09-05: Vende EXECUTED - Price: 220.39, Size: -5.00, Costo: 1096.68, Commisión: 0.00
+2024-09-05: Resultados de la operación - bruto: 5.27, Neto: 5.27
+2024-09-19: Compra CREATED - Price: 227.59, Size: 4.00
+2024-09-20: Compra EXECUTED - Price: 228.68, Size: 4.00, Costo: 914.73, Commisión: 0.00
+2024-10-07: Vende CREATED - Price: 220.45, Size: 4.00
+2024-10-08: Vende EXECUTED - Price: 223.04, Size: -4.00, Costo: 914.73, Commisión: 0.00
+2024-10-08: Resultados de la operación - bruto: -22.55, Neto: -22.55
+2024-10-08: Compra CREATED - Price: 224.51, Size: 4.00
+2024-10-09: Compra EXECUTED - Price: 223.97, Size: 4.00, Costo: 895.88, Commisión: 0.00
+2024-10-30: Vende CREATED - Price: 228.81, Size: 4.00
+2024-10-31: Vende EXECUTED - Price: 228.06, Size: -4.00, Costo: 895.88, Commisión: 0.00
+2024-10-31: Resultados de la operación - bruto: 16.35, Neto: 16.35
+2024-11-18: Compra CREATED - Price: 226.99, Size: 4.00
+2024-11-19: Compra EXECUTED - Price: 225.96, Size: 4.00, Costo: 903.83, Commisión: 0.00
+Valor final portfolio: 1205.05
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cerebro</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iplot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8c8a57c1eb8324dbd78c566bad16bfe6c7c7baf5298167abdb0b1b195ce5675b.png" src="_images/8c8a57c1eb8324dbd78c566bad16bfe6c7c7baf5298167abdb0b1b195ce5675b.png" />
+</div>
+</div>
+<p>Here are the daily returns of the strategy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">returns_dict</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">analyzers</span><span class="o">.</span><span class="n">time_return</span><span class="o">.</span><span class="n">get_analysis</span><span class="p">()</span>
+<span class="n">returns_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">returns_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span>
+                 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;return&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">returns_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-4377c9b2-fbba-4dfb-a7d0-c629b77921a5" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>return</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-01-02</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2024-01-03</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2024-01-04</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2024-01-05</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2024-01-08</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2024-12-23</th>
+      <td>0.002558</td>
+    </tr>
+    <tr>
+      <th>2024-12-24</th>
+      <td>0.009585</td>
+    </tr>
+    <tr>
+      <th>2024-12-26</th>
+      <td>0.002657</td>
+    </tr>
+    <tr>
+      <th>2024-12-27</th>
+      <td>-0.011084</td>
+    </tr>
+    <tr>
+      <th>2024-12-30</th>
+      <td>-0.011078</td>
+    </tr>
+  </tbody>
+</table>
+<p>251 rows × 1 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4377c9b2-fbba-4dfb-a7d0-c629b77921a5')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-4377c9b2-fbba-4dfb-a7d0-c629b77921a5 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4377c9b2-fbba-4dfb-a7d0-c629b77921a5');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-4aba6387-a340-45b1-abd4-d6f87afbfeef">
+      <button class="colab-df-quickchart" onclick="quickchart('df-4aba6387-a340-45b1-abd4-d6f87afbfeef')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-4aba6387-a340-45b1-abd4-d6f87afbfeef button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+  <div id="id_91f5ad35-c4d9-420d-a252-9030ae903d7c">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('returns_df')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_91f5ad35-c4d9-420d-a252-9030ae903d7c button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('returns_df');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p>And finally, the quantitative strategy report:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span> <span class="o">=</span> <span class="mf">.04</span>
+<span class="n">qs</span><span class="o">.</span><span class="n">reports</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="n">returns_df</span><span class="p">[</span><span class="s2">&quot;return&quot;</span><span class="p">],</span> <span class="n">benchmark</span> <span class="o">=</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">rf</span> <span class="o">=</span> <span class="n">rf</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">prepare_returns</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Benchmark (AAPL)    Strategy
+-------------------------  ------------------  ----------
+Start Period               2024-01-02          2024-01-02
+End Period                 2024-12-30          2024-12-30
+Risk-Free Rate             4.0%                4.0%
+Time in Market             92.0%               60.0%
+
+Cumulative Return          34.78%              20.5%
+CAGR﹪                     34.94%              20.59%
+
+Sharpe                     1.31                1.02
+Prob. Sharpe Ratio         80.71%              74.12%
+Smart Sharpe               1.29                1.0
+Sortino                    2.02                1.56
+Smart Sortino              1.99                1.54
+Sortino/√2                 1.43                1.1
+Smart Sortino/√2           1.41                1.09
+Omega                      1.26                1.26
+
+Max Drawdown               -12.78%             -9.0%
+Max DD Date                2024-04-19          2024-10-07
+Max DD Period Start        2024-02-08          2024-07-17
+Max DD Period End          2024-05-14          2024-12-09
+Longest DD Days            97                  146
+Volatility (ann.)          21.72%              15.8%
+R^2                        0.54                0.54
+Information Ratio          -0.05               -0.05
+Calmar                     2.73                2.29
+Skew                       0.51                0.98
+Kurtosis                   4.48                11.04
+
+Expected Daily %           0.12%               0.07%
+Expected Monthly %         2.52%               1.57%
+Expected Yearly %          34.78%              20.5%
+Kelly Criterion            5.9%                15.9%
+Risk of Ruin               0.0%                0.0%
+Daily Value-at-Risk        -2.12%              -1.56%
+Expected Shortfall (cVaR)  -2.47%              -2.47%
+
+Max Consecutive Wins       8                   8
+Max Consecutive Losses     7                   3
+Gain/Pain Ratio            0.31                0.33
+Gain/Pain (1M)             2.66                1.92
+
+Payoff Ratio               0.78                0.82
+Profit Factor              1.31                1.33
+Common Sense Ratio         1.2                 1.2
+CPC Index                  0.6                 0.68
+Tail Ratio                 0.92                0.9
+Outlier Win Ratio          3.72                7.96
+Outlier Loss Ratio         2.5                 2.63
+
+MTD                        6.27%               5.17%
+3M                         10.84%              9.34%
+6M                         20.01%              13.23%
+YTD                        34.78%              20.5%
+1Y                         34.78%              20.5%
+3Y (ann.)                  34.94%              20.59%
+5Y (ann.)                  34.94%              20.59%
+10Y (ann.)                 34.94%              20.59%
+All-time (ann.)            34.94%              20.59%
+
+Best Day                   7.26%               7.13%
+Worst Day                  -4.82%              -3.65%
+Best Month                 13.02%              9.38%
+Worst Month                -5.13%              -2.31%
+Best Year                  34.78%              20.5%
+Worst Year                 34.78%              20.5%
+
+Avg. Drawdown              -3.63%              -3.59%
+Avg. Drawdown Days         19                  37
+Recovery Factor            2.52                2.21
+Ulcer Index                0.05                0.05
+Serenity Index             0.78                0.42
+
+Avg. Up Month              7.12%               5.04%
+Avg. Down Month            -2.53%              -1.7%
+Win Days %                 58.7%               62.0%
+Win Month %                58.33%              50.0%
+Win Quarter %              75.0%               75.0%
+Win Year %                 100.0%              100.0%
+
+Beta                       -                   0.53
+Alpha                      -                   0.03
+Correlation                -                   73.43%
+Treynor Ratio              -                   30.91%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="agregando-comisiones">
+<h2>Agregando comisiones<a class="headerlink" href="#agregando-comisiones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cerebro</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">setcommission</span><span class="p">(</span><span class="n">commission</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Valor inicial portfolio: 1000.00
+2024-01-30: Compra CREATED - Price: 186.28, Size: 5.00
+2024-01-31: Compra EXECUTED - Price: 185.29, Size: 5.00, Costo: 926.45, Commisión: 4.63
+2024-01-31: Vende CREATED - Price: 182.67, Size: 5.00
+2024-02-01: Vende EXECUTED - Price: 182.27, Size: -5.00, Costo: 926.45, Commisión: 4.56
+2024-02-01: Resultados de la operación - bruto: -15.11, Neto: -24.30
+2024-02-06: Compra CREATED - Price: 187.53, Size: 5.00
+2024-02-07: Compra EXECUTED - Price: 188.86, Size: 5.00, Costo: 944.28, Commisión: 4.72
+2024-02-08: Vende CREATED - Price: 186.56, Size: 5.00
+2024-02-09: Vende EXECUTED - Price: 187.12, Size: -5.00, Costo: 944.28, Commisión: 4.68
+2024-02-09: Resultados de la operación - bruto: -8.66, Neto: -18.06
+2024-03-19: Compra CREATED - Price: 174.66, Size: 5.00
+2024-03-20: Compra EXECUTED - Price: 174.30, Size: 5.00, Costo: 871.49, Commisión: 4.36
+2024-03-21: Vende CREATED - Price: 169.98, Size: 5.00
+2024-03-22: Vende EXECUTED - Price: 170.37, Size: -5.00, Costo: 871.49, Commisión: 4.26
+2024-03-22: Resultados de la operación - bruto: -19.64, Neto: -28.26
+2024-03-27: Compra CREATED - Price: 171.91, Size: 5.00
+2024-03-28: Compra EXECUTED - Price: 170.36, Size: 5.00, Costo: 851.80, Commisión: 4.26
+2024-03-28: Vende CREATED - Price: 170.09, Size: 5.00
+2024-04-01: Vende EXECUTED - Price: 169.80, Size: -5.00, Costo: 851.80, Commisión: 4.25
+2024-04-01: Resultados de la operación - bruto: -2.78, Neto: -11.28
+2024-04-11: Compra CREATED - Price: 173.62, Size: 5.00
+2024-04-12: Compra EXECUTED - Price: 172.85, Size: 5.00, Costo: 864.25, Commisión: 4.32
+2024-04-16: Vende CREATED - Price: 168.01, Size: 5.00
+2024-04-17: Vende EXECUTED - Price: 168.24, Size: -5.00, Costo: 864.25, Commisión: 4.21
+2024-04-17: Resultados de la operación - bruto: -23.06, Neto: -31.59
+2024-04-25: Compra CREATED - Price: 168.52, Size: 5.00
+2024-04-26: Compra EXECUTED - Price: 168.51, Size: 5.00, Costo: 842.53, Commisión: 4.21
+2024-04-26: Vende CREATED - Price: 167.93, Size: 5.00
+2024-04-29: Vende EXECUTED - Price: 171.97, Size: -5.00, Costo: 842.53, Commisión: 4.30
+2024-04-29: Resultados de la operación - bruto: 17.31, Neto: 8.80
+2024-04-29: Compra CREATED - Price: 172.10, Size: 5.00
+2024-04-30: Compra EXECUTED - Price: 171.93, Size: 5.00, Costo: 859.64, Commisión: 4.30
+2024-05-01: Vende CREATED - Price: 167.93, Size: 5.00
+2024-05-02: Vende EXECUTED - Price: 171.11, Size: -5.00, Costo: 859.64, Commisión: 4.28
+2024-05-02: Resultados de la operación - bruto: -4.07, Neto: -12.64
+2024-05-02: Compra CREATED - Price: 171.63, Size: 5.00
+2024-05-03: Orden Fallida
+2024-05-03: Compra CREATED - Price: 181.90, Size: 4.00
+2024-05-06: Compra EXECUTED - Price: 180.87, Size: 4.00, Costo: 723.50, Commisión: 3.62
+2024-07-24: Vende CREATED - Price: 217.07, Size: 4.00
+2024-07-25: Vende EXECUTED - Price: 217.45, Size: -4.00, Costo: 723.50, Commisión: 4.35
+2024-07-25: Resultados de la operación - bruto: 146.31, Neto: 138.35
+2024-08-13: Compra CREATED - Price: 220.03, Size: 4.00
+2024-08-14: Compra EXECUTED - Price: 219.34, Size: 4.00, Costo: 877.34, Commisión: 4.39
+2024-09-04: Vende CREATED - Price: 219.61, Size: 4.00
+2024-09-05: Vende EXECUTED - Price: 220.39, Size: -4.00, Costo: 877.34, Commisión: 4.41
+2024-09-05: Resultados de la operación - bruto: 4.22, Neto: -4.58
+2024-09-19: Compra CREATED - Price: 227.59, Size: 4.00
+2024-09-20: Compra EXECUTED - Price: 228.68, Size: 4.00, Costo: 914.73, Commisión: 4.57
+2024-10-07: Vende CREATED - Price: 220.45, Size: 4.00
+2024-10-08: Vende EXECUTED - Price: 223.04, Size: -4.00, Costo: 914.73, Commisión: 4.46
+2024-10-08: Resultados de la operación - bruto: -22.55, Neto: -31.59
+2024-10-08: Compra CREATED - Price: 224.51, Size: 4.00
+2024-10-09: Compra EXECUTED - Price: 223.97, Size: 4.00, Costo: 895.88, Commisión: 4.48
+2024-10-30: Vende CREATED - Price: 228.81, Size: 4.00
+2024-10-31: Vende EXECUTED - Price: 228.06, Size: -4.00, Costo: 895.88, Commisión: 4.56
+2024-10-31: Resultados de la operación - bruto: 16.35, Neto: 7.31
+2024-11-18: Compra CREATED - Price: 226.99, Size: 4.00
+2024-11-19: Compra EXECUTED - Price: 225.96, Size: 4.00, Costo: 903.83, Commisión: 4.52
+Valor final portfolio: 1088.06
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;__main__.SmaStrategy at 0x7d85d308cdd0&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="optimizando-estrategias">
+<h2>Optimizando estrategias<a class="headerlink" href="#optimizando-estrategias" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SmaStrategy</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;ma_period&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">)</span> <span class="c1">#Media Móvil Simple (SMA) de 20 períodos</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Sigue al precio de cierre en la serie de datos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">close</span>
+
+        <span class="c1"># Sigue las órdenes pendientes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Agrega el indicador de media móvil simple (SMA)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sma</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">ind</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                              <span class="n">period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">ma_period</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">do_print</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">do_print</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">txt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Submitted</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Accepted</span><span class="p">]:</span>
+            <span class="c1"># Si la orden es enviada o aceptada, no hacer nada</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Reporta la ejecución de la orden</span>
+        <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Completed</span><span class="p">]:</span>
+
+            <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span> <span class="k">if</span> <span class="n">order</span><span class="o">.</span><span class="n">isbuy</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;s&quot;</span>
+            <span class="n">log_str</span> <span class="o">=</span> <span class="n">get_action_log_string</span><span class="p">(</span>
+                    <span class="nb">dir</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span>
+                    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">,</span>
+                    <span class="n">price</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">price</span><span class="p">,</span>
+                    <span class="n">size</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                    <span class="n">cost</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="n">commission</span><span class="o">=</span><span class="n">order</span><span class="o">.</span><span class="n">executed</span><span class="o">.</span><span class="n">comm</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">log_str</span><span class="p">)</span>
+
+        <span class="c1"># Reporta si la orden falló</span>
+        <span class="k">elif</span> <span class="n">order</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">Canceled</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">Margin</span><span class="p">,</span>
+                              <span class="n">order</span><span class="o">.</span><span class="n">Rejected</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Orden Fallida&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Reinicia la orden</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">notify_trade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trade</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">trade</span><span class="o">.</span><span class="n">isclosed</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">get_result_log_string</span><span class="p">(</span><span class="n">gross</span><span class="o">=</span><span class="n">trade</span><span class="o">.</span><span class="n">pnl</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="n">trade</span><span class="o">.</span><span class="n">pnlcomm</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># No hacer nada si hay una orden pendiente</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Obtiene el efectivo actual y el precio</span>
+        <span class="n">cash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">getcash</span><span class="p">()</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Calcula el número máximo de acciones a comprar con el efectivo disponible</span>
+        <span class="c1"># Asegura que el precio no sea cero para evitar la división por cero</span>
+        <span class="k">if</span> <span class="n">price</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">size_to_buy</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">cash</span> <span class="o">/</span> <span class="n">price</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">size_to_buy</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Revisa si hay una posición abierta</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">:</span>
+            <span class="c1"># Condición de compra</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sma</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">size_to_buy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># Solo compra si se puede comprar al menos 1 acción</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">get_action_log_string</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">size_to_buy</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buy</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size_to_buy</span><span class="p">)</span> <span class="c1"># Pasa el tamaño calculado</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No hay suficiente efectivo para comprar a </span><span class="si">{</span><span class="n">price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Condición de venta (vende toda la posición)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sma</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">size_to_sell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">size</span> <span class="c1"># Vende toda la posición abierta</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">get_action_log_string</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_close</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">size_to_sell</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sell</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size_to_sell</span><span class="p">)</span> <span class="c1"># Pasa el tamaño de la posición</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor final portfolio con ma_perido </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">ma_period</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cerebro</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Cerebro</span><span class="p">()</span>
+
+<span class="n">cerebro</span><span class="o">.</span><span class="n">adddata</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cerebro</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">setcash</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">strats</span> <span class="o">=</span> <span class="n">cerebro</span><span class="o">.</span><span class="n">optstrategy</span><span class="p">(</span>
+        <span class="n">SmaStrategy</span><span class="p">,</span>
+        <span class="n">ma_period</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">cerebro</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Valor final portfolio con ma_perido 11: 1277.61Valor final portfolio con ma_perido 10: 1223.44
+
+Valor final portfolio con ma_perido 12: 1315.71
+Valor final portfolio con ma_perido 13: 1305.53
+Valor final portfolio con ma_perido 15: 1209.75
+Valor final portfolio con ma_perido 14: 1149.28
+Valor final portfolio con ma_perido 16: 1210.74
+Valor final portfolio con ma_perido 17: 1271.53
+Valor final portfolio con ma_perido 18: 1218.13
+Valor final portfolio con ma_perido 19: 1202.63
+Valor final portfolio con ma_perido 20: 1205.05
+Valor final portfolio con ma_perido 21: 1203.19
+Valor final portfolio con ma_perido 22: 1198.89
+Valor final portfolio con ma_perido 23: 1198.89
+Valor final portfolio con ma_perido 24: 1197.65
+Valor final portfolio con ma_perido 25: 1194.49
+Valor final portfolio con ma_perido 26: 1124.84
+Valor final portfolio con ma_perido 27: 1099.31
+Valor final portfolio con ma_perido 28: 1063.03
+Valor final portfolio con ma_perido 29: 1099.62
+Valor final portfolio con ma_perido 30: 1085.40
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="actividad">
+<h2>Actividad<a class="headerlink" href="#actividad" title="Link to this heading">#</a></h2>
+<p>En base a la estrategia presente en la siguiente página web https://www.backtrader.com/home/helloalgotrading/, realice una optimización de parámetros con la librería backtrader.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrategia-de-prueba">Estrategia de prueba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estrategia-sma">Estrategia SMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agregando-comisiones">Agregando comisiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizando-estrategias">Optimizando estrategias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actividad">Actividad</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Claudio Aracena
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
