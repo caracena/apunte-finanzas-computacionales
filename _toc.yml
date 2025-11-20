@@ -15,3 +15,5 @@ chapters:
 - file: "clase4-factores.ipynb"
 - file: "clase4-backtesting.ipynb"
 - file: "clase5-backtesting_eventos.ipynb"
+- file: "clase6-machine_learning.ipynb"
+- file: "clase6-machine_learning_default.ipynb"
