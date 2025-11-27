@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11. Machine Learning - Predicción de alza de activo &#8212; Apunte Finanzas Computacionales</title>
+    <title>13. Procesamiento de Lenguaje Natural - Predicción de alza de activo &#8212; Apunte Finanzas Computacionales</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'clase6-machine_learning';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clase7-nlp';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="12. Machine Learning - Predicción de default" href="clase6-machine_learning_default.html" />
-    <link rel="prev" title="10. Backtesting orientado a eventos" href="clase5-backtesting_eventos.html" />
+    <link rel="prev" title="12. Machine Learning - Predicción de default" href="clase6-machine_learning_default.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -191,9 +190,9 @@
 <li class="toctree-l1"><a class="reference internal" href="clase4-factores.html">8. Modelo CAPM y factores</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase4-backtesting.html">9. Backtesting vectorizado</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase5-backtesting_eventos.html">10. Backtesting orientado a eventos</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Machine Learning - Predicción de alza de activo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clase6-machine_learning.html">11. Machine Learning - Predicción de alza de activo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clase6-machine_learning_default.html">12. Machine Learning - Predicción de default</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clase7-nlp.html">13. Procesamiento de Lenguaje Natural - Predicción de alza de activo</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Procesamiento de Lenguaje Natural - Predicción de alza de activo</a></li>
 </ul>
 
     </div>
@@ -248,7 +247,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase6-machine_learning.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/caracena/apunte-finanzas-computacionales/blob/main/clase7-nlp.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -296,7 +295,7 @@
       
       
       
-      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase6-machine_learning.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/caracena/apunte-finanzas-computacionales/issues/new?title=Issue%20on%20page%20%2Fclase7-nlp.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -326,7 +325,7 @@
       
       
       
-      <li><a href="_sources/clase6-machine_learning.ipynb" target="_blank"
+      <li><a href="_sources/clase7-nlp.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -410,7 +409,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>11. Machine Learning - Predicción de alza de activo</h1>
+    <h1>13. Procesamiento de Lenguaje Natural - Predicción de alza de activo</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -420,8 +419,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparar-estrategia-vs-buy-and-hold">Comparar estrategia vs buy-and-hold</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">TF IDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-lenguaje-pre-entrenados">Modelos de lenguaje pre-entrenados</a></li>
 </ul>
             </nav>
         </div>
@@ -433,43 +432,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="machine-learning-prediccion-de-alza-de-activo">
-<h1>11. Machine Learning - Predicción de alza de activo<a class="headerlink" href="#machine-learning-prediccion-de-alza-de-activo" title="Link to this heading">#</a></h1>
+  <section id="procesamiento-de-lenguaje-natural-prediccion-de-alza-de-activo">
+<h1>13. Procesamiento de Lenguaje Natural - Predicción de alza de activo<a class="headerlink" href="#procesamiento-de-lenguaje-natural-prediccion-de-alza-de-activo" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">TA</span><span class="o">-</span><span class="n">Lib</span> <span class="n">backtrader</span> <span class="n">quantstats</span> <span class="o">--</span><span class="n">quiet</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xgb</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">talib</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2025-10-31&quot;</span><span class="p">,</span> <span class="n">auto_adjust</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">multi_level_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;NVDA_info.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
-</pre></div>
-</div>
 <div class="output text_html">
-  <div id="df-18b4f892-f647-4e51-adb3-a91e6f03b913" class="colab-df-container">
+  <div id="df-548504a0-d386-4e83-a465-81bab9a0c44c" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -488,61 +464,89 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Close</th>
-      <th>High</th>
-      <th>Low</th>
-      <th>Open</th>
-      <th>Volume</th>
-    </tr>
-    <tr>
-      <th>Date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>ticker</th>
+      <th>date</th>
+      <th>description</th>
+      <th>text</th>
+      <th>title</th>
+      <th>prev_day_price</th>
+      <th>curr_day_price</th>
+      <th>next_day_price</th>
+      <th>month</th>
+      <th>year</th>
+      <th>day</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>2021-01-04</th>
-      <td>125.974464</td>
-      <td>130.062961</td>
-      <td>123.394814</td>
-      <td>129.975354</td>
-      <td>143301900</td>
+      <th>0</th>
+      <td>NVDA</td>
+      <td>2023-01-03 16:12:00</td>
+      <td>New Ultimate Membership Offers Cloud Gaming at...</td>
+      <td>New Ultimate Membership Offers Cloud Gaming at...</td>
+      <td>NVIDIA Brings RTX 4080 to GeForce NOW</td>
+      <td>146.14000</td>
+      <td>143.14999</td>
+      <td>147.49001</td>
+      <td>1</td>
+      <td>2023</td>
+      <td>3</td>
     </tr>
     <tr>
-      <th>2021-01-05</th>
-      <td>127.531990</td>
-      <td>128.242621</td>
-      <td>125.020481</td>
-      <td>125.468276</td>
-      <td>97664900</td>
+      <th>1</th>
+      <td>NVDA</td>
+      <td>2023-01-05 19:00:00</td>
+      <td>LG Electronics (LG) is demonstrating its stron...</td>
+      <td>Company's Latest TVs Geared up With Luna, GeFo...</td>
+      <td>LG TVS UP THE ANTE BY PROVIDING EXPANDED SELEC...</td>
+      <td>147.49001</td>
+      <td>142.64999</td>
+      <td>148.59000</td>
+      <td>1</td>
+      <td>2023</td>
+      <td>5</td>
     </tr>
     <tr>
-      <th>2021-01-06</th>
-      <td>123.239075</td>
-      <td>127.570942</td>
-      <td>123.024914</td>
-      <td>124.329344</td>
-      <td>155088000</td>
+      <th>2</th>
+      <td>NVDA</td>
+      <td>2023-01-09 17:38:00</td>
+      <td>Monthly disclosure of the total number of voti...</td>
+      <td>Monthly disclosure of the total number\nof vot...</td>
+      <td>GTT: Monthly disclosure of the total number of...</td>
+      <td>148.59000</td>
+      <td>156.28000</td>
+      <td>159.09000</td>
+      <td>1</td>
+      <td>2023</td>
+      <td>9</td>
     </tr>
     <tr>
-      <th>2021-01-07</th>
-      <td>127.444405</td>
-      <td>128.135562</td>
-      <td>124.465642</td>
-      <td>124.952368</td>
-      <td>109578200</td>
+      <th>3</th>
+      <td>NVDA</td>
+      <td>2023-01-09 17:40:00</td>
+      <td>Element 25 Ltd (ASX:E25) managing director Jus...</td>
+      <td>Melbourne, Victoria --News Direct-- Element 25...</td>
+      <td>Element 25 inks pivotal manganese supply deal ...</td>
+      <td>148.59000</td>
+      <td>156.28000</td>
+      <td>159.09000</td>
+      <td>1</td>
+      <td>2023</td>
+      <td>9</td>
     </tr>
     <tr>
-      <th>2021-01-08</th>
-      <td>128.544357</td>
-      <td>129.108961</td>
-      <td>126.772667</td>
-      <td>128.914259</td>
-      <td>105158200</td>
+      <th>4</th>
+      <td>NVDA</td>
+      <td>2023-01-09 17:49:00</td>
+      <td>Trading resumes in:</td>
+      <td>VANCOUVER, BC, Jan. 9, 2023 /CNW/ - Trading re...</td>
+      <td>IIROC Trading Resumption - TEA</td>
+      <td>148.59000</td>
+      <td>156.28000</td>
+      <td>159.09000</td>
+      <td>1</td>
+      <td>2023</td>
+      <td>9</td>
     </tr>
   </tbody>
 </table>
@@ -550,7 +554,7 @@ document.write(`
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-18b4f892-f647-4e51-adb3-a91e6f03b913')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-548504a0-d386-4e83-a465-81bab9a0c44c')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -602,12 +606,12 @@ document.write(`
 
     <script>
       const buttonEl =
-        document.querySelector('#df-18b4f892-f647-4e51-adb3-a91e6f03b913 button.colab-df-convert');
+        document.querySelector('#df-548504a0-d386-4e83-a465-81bab9a0c44c button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-18b4f892-f647-4e51-adb3-a91e6f03b913');
+        const element = document.querySelector('#df-548504a0-d386-4e83-a465-81bab9a0c44c');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -627,8 +631,8 @@ document.write(`
   </div>
 
 
-    <div id="df-dc2de620-1af6-4f31-8208-c588f20e58a8">
-      <button class="colab-df-quickchart" onclick="quickchart('df-dc2de620-1af6-4f31-8208-c588f20e58a8')"
+    <div id="df-6e023e5e-1b9d-4b60-b824-61dc53e334fc">
+      <button class="colab-df-quickchart" onclick="quickchart('df-6e023e5e-1b9d-4b60-b824-61dc53e334fc')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -747,7 +751,7 @@ document.write(`
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-dc2de620-1af6-4f31-8208-c588f20e58a8 button');
+            document.querySelector('#df-6e023e5e-1b9d-4b60-b824-61dc53e334fc button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -760,137 +764,194 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1213, 5)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 786 entries, 0 to 785
+Data columns (total 11 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   ticker          786 non-null    object 
+ 1   date            786 non-null    object 
+ 2   description     786 non-null    object 
+ 3   text            786 non-null    object 
+ 4   title           786 non-null    object 
+ 5   prev_day_price  786 non-null    float64
+ 6   curr_day_price  786 non-null    float64
+ 7   next_day_price  786 non-null    float64
+ 8   month           786 non-null    int64  
+ 9   year            786 non-null    int64  
+ 10  day             786 non-null    int64  
+dtypes: float64(3), int64(3), object(5)
+memory usage: 67.7+ KB
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
 </pre></div>
 </div>
-<img alt="_images/3773ec29bd2c343615dfddfdbf5a38f06a82ac87a9effad2ec9ba5b9127b6e69.png" src="_images/3773ec29bd2c343615dfddfdbf5a38f06a82ac87a9effad2ec9ba5b9127b6e69.png" />
+<img alt="_images/50d43e38e5da4a05b220ad3ae4efd02a8869efd6b00a6548ef8ffd8a3875a043.png" src="_images/50d43e38e5da4a05b220ad3ae4efd02a8869efd6b00a6548ef8ffd8a3875a043.png" />
 </div>
 </div>
-<section id="feature-engineering">
-<h2>Feature engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h2>
+<p>Agrupamos por fechas las noticias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Features</span>
-
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;sma7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">timeperiod</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;sma21&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">timeperiod</span> <span class="o">=</span> <span class="mi">21</span><span class="p">)</span>
-
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;RSI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">])</span>
-
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACD&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDSignal&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;MACDHist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">MACD</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
-                                                          <span class="n">fastperiod</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
-                                                          <span class="n">slowperiod</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
-                                                          <span class="n">signalperiod</span> <span class="o">=</span> <span class="mi">9</span><span class="p">)</span>
-
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;ema12&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">EMA</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;ema26&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">EMA</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="mi">26</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ret&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Weekly_Change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Weekly_Change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">,</span><span class="s1">&#39;ret&#39;</span><span class="p">,</span> <span class="s1">&#39;Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;sma7&#39;</span><span class="p">,</span> <span class="s1">&#39;sma21&#39;</span><span class="p">,</span> <span class="s1">&#39;RSI&#39;</span><span class="p">,</span> <span class="s1">&#39;MACD&#39;</span><span class="p">,</span> <span class="s1">&#39;MACDSignal&#39;</span><span class="p">,</span> <span class="s1">&#39;MACDHist&#39;</span><span class="p">,</span> <span class="s1">&#39;ema12&#39;</span><span class="p">,</span> <span class="s1">&#39;ema26&#39;</span><span class="p">]</span>
-<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_agg</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+               <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+                <span class="s2">&quot;prev_day_price&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;curr_day_price&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;next_day_price&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Weekly_Change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;len_text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+<span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;len_title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+<span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;len_description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Generamos una variable objetivo</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;price_increase_1_percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;next_day_price&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;curr_day_price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.01</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;price_increase_1_percent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date&#39;&gt;
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>price_increase_1_percent</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>57</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div></div>
+</div>
+<section id="tf-idf">
+<h2>TF IDF<a class="headerlink" href="#tf-idf" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
 </pre></div>
 </div>
-<img alt="_images/ffb7c9fb9ec7ff5149793db72c83d943a687e79a40433a948bd031a10e48dd65.png" src="_images/ffb7c9fb9ec7ff5149793db72c83d943a687e79a40433a948bd031a10e48dd65.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">class_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Class distribution of the &#39;target&#39; variable:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">class_counts</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">class_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of Target Classes&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Occurrences&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0 (No &gt;1</span><span class="si">% i</span><span class="s1">ncrease)&#39;</span><span class="p">,</span> <span class="s1">&#39;1 (&gt;1</span><span class="si">% i</span><span class="s1">ncrease)&#39;</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">X_title_tfidf</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of TF-IDF features for &#39;title&#39; column:&quot;</span><span class="p">,</span> <span class="n">X_title_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class distribution of the &#39;target&#39; variable:
-target
-0    649
-1    531
-Name: count, dtype: int64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of TF-IDF features for &#39;title&#39; column: (152, 2313)
 </pre></div>
 </div>
-<img alt="_images/e4aa57398dc18705e63cc3c9ceda127dc4f1fbbed3c7c825a29574af23bff752.png" src="_images/e4aa57398dc18705e63cc3c9ceda127dc4f1fbbed3c7c825a29574af23bff752.png" />
 </div>
 </div>
-<p>Separar en entrenamiento y prueba</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">split_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
-
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">split_index</span><span class="p">]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">split_index</span><span class="p">]</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split_index</span><span class="p">:]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split_index</span><span class="p">:]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_title_tfidf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Compressed Sparse Row sparse matrix of dtype &#39;float64&#39;
+	with 7149 stored elements and shape (152, 2313)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">X_title_tfidf</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_agg</span><span class="p">[</span><span class="s1">&#39;price_increase_1_percent&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of X_train: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of X_test: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of y_test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of X_train: (944, 11)
-Shape of y_train: (944,)
-Shape of X_test: (236, 11)
-Shape of y_test: (236,)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of X_train: (121, 2313)
+Shape of X_test: (31, 2313)
+Shape of y_train: (121,)
+Shape of y_test: (31,)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Entrenar modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">XGBClassifier</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">svm_classifier</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">)</span>
+<span class="n">svm_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1310,203 +1371,285 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>XGBClassifier(base_score=None, booster=None, callbacks=None,
-              colsample_bylevel=None, colsample_bynode=None,
-              colsample_bytree=None, device=None, early_stopping_rounds=None,
-              enable_categorical=False, eval_metric=None, feature_types=None,
-              feature_weights=None, gamma=None, grow_policy=None,
-              importance_type=None, interaction_constraints=None,
-              learning_rate=None, max_bin=None, max_cat_threshold=None,
-              max_cat_to_onehot=None, max_delta_step=None, max_depth=None,
-              max_leaves=None, min_child_weight=None, missing=nan,
-              monotone_constraints=None, multi_strategy=None, n_estimators=None,
-              n_jobs=None, num_parallel_tree=None, ...)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>XGBClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://xgboost.readthedocs.io/en/release_3.1.0/python/python_api.html#xgboost.XGBClassifier">?<span>Documentation for XGBClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>XGBClassifier(base_score=None, booster=None, callbacks=None,
-              colsample_bylevel=None, colsample_bynode=None,
-              colsample_bytree=None, device=None, early_stopping_rounds=None,
-              enable_categorical=False, eval_metric=None, feature_types=None,
-              feature_weights=None, gamma=None, grow_policy=None,
-              importance_type=None, interaction_constraints=None,
-              learning_rate=None, max_bin=None, max_cat_threshold=None,
-              max_cat_to_onehot=None, max_delta_step=None, max_depth=None,
-              max_leaves=None, min_child_weight=None, missing=nan,
-              monotone_constraints=None, multi_strategy=None, n_estimators=None,
-              n_jobs=None, num_parallel_tree=None, ...)</pre></div> </div></div></div></div></div></div>
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>SVC()</pre></div> </div></div></div></div></div></div>
 </div>
-<p>Evaluar modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span>
-
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-
-<span class="n">classification_rep</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_rep</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">svm_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.7119
-Precision: 0.7333
-Recall: 0.6581
-F1-Score: 0.6937
-</pre></div>
-</div>
-</div>
-</div>
-<p>Feature importance</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feature_importances</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">feature_importances_sorted</span> <span class="o">=</span> <span class="n">feature_importances</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">feature_importances_sorted</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;XGBoost Feature Importance&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Importance&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+           0       0.61      1.00      0.76        19
+           1       0.00      0.00      0.00        12
+
+    accuracy                           0.61        31
+   macro avg       0.31      0.50      0.38        31
+weighted avg       0.38      0.61      0.47        31
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
+</pre></div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/563134ea5cd73054c2e796b6992c647221fc69f4a54c0b55f045ca97c01b8852.png" src="_images/563134ea5cd73054c2e796b6992c647221fc69f4a54c0b55f045ca97c01b8852.png" />
 </div>
 </div>
 </section>
-<section id="comparar-estrategia-vs-buy-and-hold">
-<h2>Comparar estrategia vs buy-and-hold<a class="headerlink" href="#comparar-estrategia-vs-buy-and-hold" title="Link to this heading">#</a></h2>
+<section id="modelos-de-lenguaje-pre-entrenados">
+<h2>Modelos de lenguaje pre-entrenados<a class="headerlink" href="#modelos-de-lenguaje-pre-entrenados" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">transformers</span> <span class="n">datasets</span> <span class="n">evaluate</span> <span class="n">accelerate</span> <span class="o">--</span><span class="n">quiet</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1,
-       0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-       1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,
-       1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-       0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
-       1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1,
-       1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-       1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
-       0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1,
-       0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/84.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">84.1/84.1 kB</span> <span class=" -Color -Color-Red">7.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;ret_est&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;pred&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;ret&quot;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quantstats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qs</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForSequenceClassification</span>
 
-<span class="n">rf</span> <span class="o">=</span> <span class="mf">.04</span>
-<span class="n">qs</span><span class="o">.</span><span class="n">reports</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;ret_est&quot;</span><span class="p">],</span> <span class="n">benchmark</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;ret&#39;</span><span class="p">],</span> <span class="n">rf</span> <span class="o">=</span> <span class="n">rf</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;google-bert/bert-base-cased&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;google-bert/bert-base-cased&#39;</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Benchmark    Strategy
--------------------------  -----------  ----------
-Start Period               2024-11-21   2024-11-21
-End Period                 2025-10-30   2025-10-30
-Risk-Free Rate             4.0%         4.0%
-Time in Market             100.0%       44.0%
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_auth.py:94: UserWarning: 
+The secret `HF_TOKEN` does not exist in your Colab secrets.
+To authenticate with the Hugging Face Hub, create a token in your settings tab (https://huggingface.co/settings/tokens), set it as secret in your Google Colab and restart your session.
+You will be able to reuse this secret in all of your notebooks.
+Please note that authentication is recommended but still optional to access public models or datasets.
+  warnings.warn(
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "95c6ff79a12944f18d05078ef7661b2c"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "62845579f05949b08e868c5160475240"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "750ea07bcd244c00a5b144f1159eb95d"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e3983d4f9a254bcebb6aea5f3fe6b89f"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "507f2464e4534eb295a4f7781702aee1"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of BertForSequenceClassification were not initialized from the model checkpoint at google-bert/bert-base-cased and are newly initialized: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 
-Cumulative Return          19.19%       33.26%
-CAGR﹪                     20.71%       36.06%
+<span class="n">df_hf</span> <span class="o">=</span> <span class="n">df_agg</span><span class="p">[[</span><span class="s1">&#39;price_increase_1_percent&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;price_increase_1_percent&#39;</span><span class="p">:</span><span class="s1">&#39;label&#39;</span><span class="p">})</span>
+<span class="n">hf_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df_hf</span><span class="p">)</span>
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hf_dataset</span> <span class="o">=</span> <span class="n">hf_dataset</span><span class="o">.</span><span class="n">remove_columns</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">split_dataset</span> <span class="o">=</span> <span class="n">hf_dataset</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">split_dataset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatasetDict({
+    train: Dataset({
+        features: [&#39;label&#39;, &#39;text&#39;],
+        num_rows: 121
+    })
+    test: Dataset({
+        features: [&#39;label&#39;, &#39;text&#39;],
+        num_rows: 31
+    })
+})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">tokenize_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;max_length&quot;</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">split_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">tokenize_dataset</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "28258a27d4d543fd84746f8e912eda5a"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "ead0e7a7101948f2a9a79919d6a63a80"}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatasetDict({
+    train: Dataset({
+        features: [&#39;label&#39;, &#39;text&#39;, &#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;attention_mask&#39;],
+        num_rows: 121
+    })
+    test: Dataset({
+        features: [&#39;label&#39;, &#39;text&#39;, &#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;attention_mask&#39;],
+        num_rows: 31
+    })
+})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_recall_fscore_support</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-Sharpe                     0.61         1.5
-Prob. Sharpe Ratio         53.61%       82.81%
-Smart Sharpe               0.58         1.43
-Sortino                    0.92         2.18
-Smart Sortino              0.88         2.09
-Sortino/√2                 0.65         1.54
-Smart Sortino/√2           0.62         1.48
-Omega                      1.54         1.54
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_metrics</span><span class="p">(</span><span class="n">eval_pred</span><span class="p">):</span>
+  <span class="n">logits</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">eval_pred</span>
+  <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+  <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span> <span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">recall</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrainingArguments</span>
 
-Max Drawdown               -33.36%      -15.28%
-Max DD Date                2025-04-08   2025-04-21
-Max DD Period Start        2024-12-27   2025-04-03
-Max DD Period End          2025-10-17   2025-05-12
-Longest DD Days            295          49
-Volatility (ann.)          33.47%       19.19%
-R^2                        0.33         0.33
-Information Ratio          0.02         0.02
-Calmar                     0.62         2.36
-Skew                       1.04         -1.16
-Kurtosis                   13.12        19.81
+<span class="n">training_args</span> <span class="o">=</span> <span class="n">TrainingArguments</span><span class="p">(</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;BERT-nvda&quot;</span><span class="p">,</span>
+    <span class="n">eval_strategy</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span>
+    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">per_device_eval_batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">push_to_hub</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">report_to</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">save_strategy</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+    <span class="n">logging_strategy</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
 
-Expected Daily %           0.07%        0.12%
-Expected Monthly %         1.47%        2.42%
-Expected Yearly %          9.17%        15.44%
-Kelly Criterion            14.76%       23.66%
-Risk of Ruin               0.0%         0.0%
-Daily Value-at-Risk        -3.37%       -1.86%
-Expected Shortfall (cVaR)  -5.79%       -5.79%
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
 
-Max Consecutive Wins       8            7
-Max Consecutive Losses     8            3
-Gain/Pain Ratio            0.16         0.65
-Gain/Pain (1M)             1.09         3.53
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">],</span>
+    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">],</span>
+    <span class="n">compute_metrics</span><span class="o">=</span><span class="n">compute_metrics</span><span class="p">,</span>
+<span class="p">)</span>
 
-Payoff Ratio               1.09         1.09
-Profit Factor              1.16         1.65
-Common Sense Ratio         1.12         2.57
-CPC Index                  0.7          1.08
-Tail Ratio                 0.97         1.56
-Outlier Win Ratio          3.44         11.09
-Outlier Loss Ratio         2.99         3.67
-
-MTD                        6.59%        -1.31%
-3M                         28.61%       7.44%
-6M                         28.81%       17.23%
-YTD                        8.76%        21.07%
-1Y                         19.19%       33.26%
-3Y (ann.)                  20.71%       36.06%
-5Y (ann.)                  20.71%       36.06%
-10Y (ann.)                 20.71%       36.06%
-All-time (ann.)            20.71%       36.06%
-
-Best Day                   15.33%       6.31%
-Worst Day                  -9.25%       -9.25%
-Best Month                 11.96%       7.59%
-Worst Month                -8.15%       -6.06%
-Best Year                  9.58%        21.07%
-Worst Year                 8.76%        10.07%
-
-Avg. Drawdown              -6.3%        -2.73%
-Avg. Drawdown Days         50           20
-Recovery Factor            0.68         1.99
-Ulcer Index                0.15         0.04
-Serenity Index             0.14         0.45
-
-Avg. Up Month              5.8%         4.37%
-Avg. Down Month            -4.34%       -6.06%
-Win Days %                 55.56%       60.19%
-Win Month %                66.67%       75.0%
-Win Quarter %              60.0%        60.0%
-Win Year %                 100.0%       100.0%
-
-Beta                       -            0.33
-Alpha                      -            0.25
-Correlation                -            57.51%
-Treynor Ratio              -            88.72%
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">save_model</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+    <div>
+      
+      <progress value='24' max='24' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      [24/24 01:04, Epoch 3/3]
+    </div>
+    <table border="1" class="dataframe">
+  <thead>
+ <tr style="text-align: left;">
+      <th>Epoch</th>
+      <th>Training Loss</th>
+      <th>Validation Loss</th>
+      <th>Accuracy</th>
+      <th>F1</th>
+      <th>Precision</th>
+      <th>Recall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0.758500</td>
+      <td>0.627063</td>
+      <td>0.645161</td>
+      <td>0.556610</td>
+      <td>0.489433</td>
+      <td>0.645161</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.669100</td>
+      <td>0.626658</td>
+      <td>0.709677</td>
+      <td>0.589166</td>
+      <td>0.503642</td>
+      <td>0.709677</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.642500</td>
+      <td>0.643514</td>
+      <td>0.645161</td>
+      <td>0.556610</td>
+      <td>0.489433</td>
+      <td>0.645161</td>
+    </tr>
+  </tbody>
+</table><p></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+    <div>
+      
+      <progress value='2' max='2' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      [2/2 00:00]
+    </div>
+    </div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;eval_loss&#39;: 0.6435137987136841,
+ &#39;eval_accuracy&#39;: 0.6451612903225806,
+ &#39;eval_f1&#39;: 0.5566097406704617,
+ &#39;eval_precision&#39;: 0.489432703003337,
+ &#39;eval_recall&#39;: 0.6451612903225806,
+ &#39;eval_runtime&#39;: 1.0912,
+ &#39;eval_samples_per_second&#39;: 28.41,
+ &#39;eval_steps_per_second&#39;: 1.833,
+ &#39;epoch&#39;: 3.0}
 </pre></div>
 </div>
 </div>
@@ -1545,22 +1688,13 @@ Treynor Ratio              -            88.72%
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="clase5-backtesting_eventos.html"
+       href="clase6-machine_learning_default.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">10. Backtesting orientado a eventos</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="clase6-machine_learning_default.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">12. Machine Learning - Predicción de default</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -1578,8 +1712,8 @@ Treynor Ratio              -            88.72%
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature engineering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparar-estrategia-vs-buy-and-hold">Comparar estrategia vs buy-and-hold</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">TF IDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-lenguaje-pre-entrenados">Modelos de lenguaje pre-entrenados</a></li>
 </ul>
   </nav></div>
 
